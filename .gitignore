@@ -22,6 +22,40 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+# Temp Dateien
+*.h.orig
+*.cpp.orig
+*_BACKUP_*
+*_REMOTE_*
+*_LOCAL_*
+*_BASE_*
+
+# Qt-es
+
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*build-*
+
+# QtCreator
+
+*.autosave
+
+# QtCtreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
+
+# QtCtreator CMake
+CMakeLists.txt.user
+
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot

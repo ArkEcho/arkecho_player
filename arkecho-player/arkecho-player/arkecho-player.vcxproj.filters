@@ -47,9 +47,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ArkEchoPlayerView.cpp">
       <Filter>Generierte Dateien\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_ArkEchoPlayerView.cpp">
-      <Filter>Generierte Dateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ArkEchoPlayerView.h">
@@ -57,9 +54,6 @@
     </CustomBuild>
     <CustomBuild Include="ArkEchoPlayerView.ui">
       <Filter>Form Dateien</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ArkEchoPlayerView.qrc">
-      <Filter>Resource Dateien</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
