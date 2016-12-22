@@ -19,6 +19,8 @@ private:
     Ui::ArkEchoPlayerViewClass* ui_;
     ArkEchoPlayerModel* model_;
 
+    void initUi();
+
 private slots :
     void onUpdateView(const int &uve);
 };

@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+class WebSocketServer;
+
 enum UpdateViewEnum
 {
     TEST = 0
@@ -20,7 +22,7 @@ signals:
     void updateView(int);
 
 private:
-    
+    WebSocketServer* server_;
 };
 
 #endif // ARKECHOPLAYERMODEL_H
