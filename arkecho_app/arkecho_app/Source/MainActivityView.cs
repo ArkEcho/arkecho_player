@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace arkecho_app
 {
-    [Activity(Label = "ArkEcho", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "ArkEcho", MainLauncher = true, Icon = "@drawable/playerIcon")]
     public class MainActivityView : Activity
     {
         MainActivityModel model_;
@@ -21,11 +21,18 @@ namespace arkecho_app
             Websockets.Droid.WebsocketConnection.Link();
 
             model_ = new MainActivityModel();
+            model_.newMessageReceived += onNewMessageReceived;
+        }
+
+        private void onNewMessageReceived(string message)
+        {
+            FindViewById<TextView>(Resource.Id.lblHelloWorld).Text = message;
         }
 
         private void onPbClickMeClick(object sender, System.EventArgs e)
         {
             model_.connectWebSocket("ws://192.168.178.20:1000");
+            model_.sendMessage("Echo Test!");
         }
     }
 }

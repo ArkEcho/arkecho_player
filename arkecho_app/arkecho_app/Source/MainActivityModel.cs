@@ -31,11 +31,20 @@ namespace arkecho_app
         {
             if(webSocket_.IsOpen) webSocket_.Close();
         }
+        
+        public delegate void MainActivityModelDelegate(String message);
+        public event MainActivityModelDelegate newMessageReceived;
+
+        public void emitNewMessageReceived(String message)
+        {
+            // Prüft ob das Event überhaupt einen Abonnenten hat.
+            if (newMessageReceived != null) newMessageReceived(message);
+        }
 
         public async void connectWebSocket(String address)
         {
             failed_ = false;
-            startTimeOut();
+            timeOut();
 
             webSocket_.Open(address);
 
@@ -45,7 +54,13 @@ namespace arkecho_app
             }
         }
 
-        private async void startTimeOut()
+        public void sendMessage(String message)
+        {
+            if (!webSocket_.IsOpen) return;
+            webSocket_.Send(message);
+        }
+
+        private async void timeOut()
         {
             await Task.Delay(2000);
             failed_ = true;
@@ -55,11 +70,12 @@ namespace arkecho_app
         {
         }
 
-        private void onWebSocketMessage(string obj)
+        private void onWebSocketMessage(string message)
         {
+            emitNewMessageReceived(message);
         }
 
-        private void onWebSocketError(string obj)
+        private void onWebSocketError(string error)
         {
             failed_ = true;
         }

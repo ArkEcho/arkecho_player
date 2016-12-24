@@ -1,4 +1,5 @@
 #include "WebSocketServer.h"
+#include "MessageHandler.h"
 
 #include <QWebSocket>
 #include <QNetWorkInterface>
@@ -28,7 +29,11 @@ void WebSocketServer::onTextMessageReceived(const QString &message)
     data.message_ = message;
     data.socket_ = qobject_cast<QWebSocket*>(sender());
 
-	emit newTextMessageReceived(data); // Auslösen des Signals des WebSocketServer
+    // TODO: Echo Funktion ausbauen
+    data.socket_->sendTextMessage(MessageHandler::createMessage(MessageHandler::MESSAGETYPE::ECHO_TEST, data.message_));
+	//
+    
+    emit newTextMessageReceived(data); // Auslösen des Signals des WebSocketServer
 }
 
 void WebSocketServer::socketDisconnected()
@@ -39,7 +44,6 @@ void WebSocketServer::socketDisconnected()
 
 WebSocketServer::~WebSocketServer()
 {
-    webSocket_->close();
     delete webSocket_;
 }
 
