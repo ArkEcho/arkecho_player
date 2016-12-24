@@ -22,7 +22,7 @@ signals:
     void updateView(int);
 
 private:
-    WebSocketServer* server_;
+    WebSocketServer* webSocketServer_;
 };
 
 #endif // ARKECHOPLAYERMODEL_H

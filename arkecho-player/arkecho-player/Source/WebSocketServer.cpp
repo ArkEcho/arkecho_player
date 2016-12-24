@@ -39,6 +39,7 @@ void WebSocketServer::socketDisconnected()
 
 WebSocketServer::~WebSocketServer()
 {
+    webSocket_->close();
     delete webSocket_;
 }
 
