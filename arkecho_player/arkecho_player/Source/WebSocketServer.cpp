@@ -30,7 +30,7 @@ void WebSocketServer::onTextMessageReceived(const QString &message)
     data.socket_ = qobject_cast<QWebSocket*>(sender());
 
     // TODO: Echo Funktion ausbauen
-    data.socket_->sendTextMessage(MessageHandler::createMessage(MessageHandler::MESSAGETYPE::ECHO_TEST, data.message_));
+    data.socket_->sendTextMessage(data.message_);
 	//
     
     emit newTextMessageReceived(data); // Auslösen des Signals des WebSocketServer

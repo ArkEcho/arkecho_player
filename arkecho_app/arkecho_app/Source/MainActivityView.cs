@@ -2,6 +2,8 @@ using Android.App;
 using Android.Widget;
 using Android.OS;
 using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 namespace arkecho_app
 {
@@ -10,13 +12,21 @@ namespace arkecho_app
     {
         MainActivityModel model_;
 
+        List<string> items;
+        ArrayAdapter<string> adapter;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
 
-            FindViewById<Button>(Resource.Id.pbClickMe).Click += onPbClickMeClick;
+            FindViewById<Button>(Resource.Id.pbConnect).Click += onPbConnectClicked;
+            FindViewById<Button>(Resource.Id.pbSendMessage).Click += onPbSendMessageClicked;
+
+            items = new List<string>();
+            adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);
+            FindViewById<ListView>(Resource.Id.lvMessages).Adapter = adapter;
 
             Websockets.Droid.WebsocketConnection.Link();
 
@@ -24,15 +34,21 @@ namespace arkecho_app
             model_.newMessageReceived += onNewMessageReceived;
         }
 
-        private void onNewMessageReceived(string message)
+        private void onPbSendMessageClicked(object sender, EventArgs e)
         {
-            FindViewById<TextView>(Resource.Id.lblHelloWorld).Text = message;
+            string message = FindViewById<TextView>(Resource.Id.teMessage).Text;
+            model_.sendMessage(message);
         }
 
-        private void onPbClickMeClick(object sender, System.EventArgs e)
+        private void onNewMessageReceived(string message)
         {
-            model_.connectWebSocket("ws://192.168.178.20:1000");
-            model_.sendMessage("Echo Test!");
+            string msg = message;
+        }
+
+        private void onPbConnectClicked(object sender, System.EventArgs e)
+        {
+            String address = FindViewById<TextView>(Resource.Id.teAddress).Text;
+            model_.connectWebSocket("ws://" + address);
         }
     }
 }
