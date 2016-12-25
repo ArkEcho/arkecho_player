@@ -6,7 +6,9 @@ namespace arkecho_app
     {
         private Websockets.IWebSocketConnection webSocket_;
         private bool failed_;
-
+        public delegate void MainActivityModelDelegate(string message);
+        public event MainActivityModelDelegate newMessageReceived;
+        
         public MainActivityModel()
         {
             webSocket_ = Websockets.WebSocketFactory.Create();
@@ -21,9 +23,6 @@ namespace arkecho_app
             if(webSocket_.IsOpen) webSocket_.Close();
         }
         
-        public delegate void MainActivityModelDelegate(string message);
-        public event MainActivityModelDelegate newMessageReceived;
-
         public void emitNewMessageReceived(string message)
         {
             // Prüft ob das Event überhaupt einen Abonnenten hat.
@@ -46,7 +45,7 @@ namespace arkecho_app
         public void sendMessage(string message)
         {
             if (!webSocket_.IsOpen) return;
-            webSocket_.Send(message);
+            webSocket_.Send(MessageHandler.createMessage(1, message));
         }
 
         private async void timeOut()
@@ -61,6 +60,7 @@ namespace arkecho_app
 
         private void onWebSocketMessage(string message)
         {
+            int typ = MessageHandler.handleReceivedMessage(ref message);
             emitNewMessageReceived(message);
         }
 
