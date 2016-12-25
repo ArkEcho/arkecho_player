@@ -1,13 +1,14 @@
 using Android.App;
 using Android.Widget;
 using Android.OS;
+
 using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 
 namespace arkecho_app
 {
-    [Activity(Label = "ArkEcho", MainLauncher = true, Icon = "@drawable/playerIcon")]
+    [Activity(Label = "@string/ApplicationTitle", MainLauncher = true, Icon = "@drawable/playerIcon")]
     public class MainActivityView : Activity
     {
         MainActivityModel model_;
@@ -43,11 +44,12 @@ namespace arkecho_app
         private void onNewMessageReceived(string message)
         {
             string msg = message;
+            RunOnUiThread(() => adapter.Add(msg));
         }
 
         private void onPbConnectClicked(object sender, System.EventArgs e)
         {
-            String address = FindViewById<TextView>(Resource.Id.teAddress).Text;
+            string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
             model_.connectWebSocket("ws://" + address);
         }
     }

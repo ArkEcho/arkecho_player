@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using System.Threading.Tasks;
 
 namespace arkecho_app
@@ -32,16 +21,16 @@ namespace arkecho_app
             if(webSocket_.IsOpen) webSocket_.Close();
         }
         
-        public delegate void MainActivityModelDelegate(String message);
+        public delegate void MainActivityModelDelegate(string message);
         public event MainActivityModelDelegate newMessageReceived;
 
-        public void emitNewMessageReceived(String message)
+        public void emitNewMessageReceived(string message)
         {
             // Prüft ob das Event überhaupt einen Abonnenten hat.
             if (newMessageReceived != null) newMessageReceived(message);
         }
 
-        public async void connectWebSocket(String address)
+        public async void connectWebSocket(string address)
         {
             failed_ = false;
             timeOut();
@@ -54,7 +43,7 @@ namespace arkecho_app
             }
         }
 
-        public void sendMessage(String message)
+        public void sendMessage(string message)
         {
             if (!webSocket_.IsOpen) return;
             webSocket_.Send(message);
