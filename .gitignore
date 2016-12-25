@@ -84,3 +84,6 @@ Makefile*
 *.vsp
 *.vspx
 *.sap
+
+# NuGet Packages
+packages/
