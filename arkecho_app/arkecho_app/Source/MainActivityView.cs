@@ -22,15 +22,19 @@ namespace arkecho_app
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
 
+            // Connect Buttons
             FindViewById<Button>(Resource.Id.pbConnect).Click += onPbConnectClicked;
             FindViewById<Button>(Resource.Id.pbSendMessage).Click += onPbSendMessageClicked;
 
+            // Prepare ListView
             items = new List<string>();
             adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);
             FindViewById<ListView>(Resource.Id.lvMessages).Adapter = adapter;
 
+            // Prepare WebSockets Connection
             Websockets.Droid.WebsocketConnection.Link();
 
+            // Create Model and Connect
             model_ = new MainActivityModel();
             model_.newMessageReceived += onNewMessageReceived;
         }
@@ -52,6 +56,13 @@ namespace arkecho_app
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
             model_.connectWebSocket("ws://" + address);
         }
+
+        //ZXing.Mobile.MobileBarcodeScanner scanner = new ZXing.Mobile.MobileBarcodeScanner();
+        //scanner.FlashButtonText = "Flash";
+        //        scanner.TopText = "";
+        //        scanner.BottomText = "";
+        //        var result = await scanner.Scan();
+        //Debug.WriteLine(scanner.Text);
     }
 }
 

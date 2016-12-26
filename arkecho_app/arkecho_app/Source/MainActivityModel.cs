@@ -45,7 +45,7 @@ namespace arkecho_app
         public void sendMessage(string message)
         {
             if (!webSocket_.IsOpen) return;
-            webSocket_.Send(MessageHandler.createMessage(1, message));
+            webSocket_.Send(MessageHandler.createMessage((int)MessageHandler.MESSAGETYPE.ECHO_TEST, message));
         }
 
         private async void timeOut()

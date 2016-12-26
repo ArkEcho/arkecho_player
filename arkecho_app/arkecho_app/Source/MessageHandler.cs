@@ -7,6 +7,12 @@ namespace arkecho_app
         private const string JSON_TYP = "Typ";
         private const string JSON_MESSAGE = "Message";
 
+        public enum MESSAGETYPE
+        {
+            NOTDEFINED = 0,
+            ECHO_TEST
+        }
+
         public static string createMessage(int messageType, string message)
         {
             JObject obj = new JObject();
