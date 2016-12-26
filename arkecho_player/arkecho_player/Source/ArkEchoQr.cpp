@@ -15,8 +15,9 @@ ArkEchoQr::ArkEchoQr(QString qrCodeText, QWidget *parent)
 {
     ui_ = new Ui::ArkEchoQr();
     ui_->setupUi(this);
-    this->setMinimumSize(300, 300);
-    this->setMaximumSize(300, 300);
+    this->setStyleSheet("background-color: white;");
+    this->setMinimumSize(200, 200);
+    this->setMaximumSize(200, 200);
 
     createQrCode(3.5);
     ui_->lblQrCode->setPixmap(QPixmap::fromImage(*qrCode_));
@@ -37,8 +38,8 @@ void ArkEchoQr::createQrCode(int scaleSize)
 
     // Read the black & white pixels
     int color;
-    for (int x = 0; x < qr.size; x++) {
-        for (int y = 0; y < qr.size; y++) {
+    for (int x = 0; x < qr.size; ++x) {
+        for (int y = 0; y < qr.size; ++y) {
             color = qr.getModule(x, y);  // 0 for white, 1 for black
             if (color == 0)
             {

@@ -71,6 +71,9 @@
     <CustomBuild Include="Resources\qdarkstyle\style.qrc">
       <Filter>Resource Dateien\QDarkStyle</Filter>
     </CustomBuild>
+    <CustomBuild Include="Source\SecurityCode.h">
+      <Filter>Header Dateien</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_ArkEchoPlayerView.h">
@@ -155,6 +158,15 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_style.cpp">
       <Filter>Generierte Dateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SecurityCode.cpp">
+      <Filter>Generierte Dateien\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SecurityCode.cpp">
+      <Filter>Generierte Dateien\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SecurityCode.cpp">
+      <Filter>Source Dateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
