@@ -2,9 +2,10 @@ using Android.App;
 using Android.Widget;
 using Android.OS;
 
-using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+
+using ZXing.Mobile;
 
 namespace arkecho_app
 {
@@ -31,9 +32,6 @@ namespace arkecho_app
             adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);
             FindViewById<ListView>(Resource.Id.lvMessages).Adapter = adapter;
 
-            // Prepare WebSockets Connection
-            Websockets.Droid.WebsocketConnection.Link();
-
             // Create Model and Connect
             model_ = new MainActivityModel();
             model_.newMessageReceived += onNewMessageReceived;
@@ -53,16 +51,27 @@ namespace arkecho_app
 
         private void onPbConnectClicked(object sender, System.EventArgs e)
         {
-            string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-            model_.connectWebSocket("ws://" + address);
+            scanQrCode();
+            //string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
+            //model_.connectWebSocket("ws://" + address);
         }
-
-        //ZXing.Mobile.MobileBarcodeScanner scanner = new ZXing.Mobile.MobileBarcodeScanner();
-        //scanner.FlashButtonText = "Flash";
-        //        scanner.TopText = "";
-        //        scanner.BottomText = "";
-        //        var result = await scanner.Scan();
-        //Debug.WriteLine(scanner.Text);
+        private async void scanQrCode()
+        {
+            try
+            {
+                MobileBarcodeScanner.Initialize(Application);
+                MobileBarcodeScanner scanner = new MobileBarcodeScanner();
+                scanner.FlashButtonText = "Blitz";
+                scanner.TopText = "QR-Code Scanner";
+                scanner.BottomText = "Halten sie den Roten Strich über den QR-Code";
+                scanner.CancelButtonText = "Abbruch";
+                var result = await scanner.Scan();
+                string ergebnis = result.Text;
+            }
+            catch (Exception ex)
+            {
+            }
+        }
     }
 }
 

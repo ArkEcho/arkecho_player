@@ -11,6 +11,9 @@ namespace arkecho_app
         
         public MainActivityModel()
         {
+            // Prepare WebSockets Connection
+            Websockets.Droid.WebsocketConnection.Link();
+
             webSocket_ = Websockets.WebSocketFactory.Create();
             webSocket_.OnOpened += onWebSocketOpened;
             webSocket_.OnMessage += onWebSocketMessage;
