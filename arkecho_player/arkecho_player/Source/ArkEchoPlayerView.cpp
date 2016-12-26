@@ -1,5 +1,6 @@
 #include "ArkEchoPlayerView.h"
 #include "ArkEchoPlayerModel.h"
+#include "ArkEchoQr.h"
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
 
@@ -27,6 +28,15 @@ void ArkEchoPlayerView::initUi()
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)
+{    
+}
+
+void ArkEchoPlayerView::on_actionManuelle_Verbindung_triggered()
 {
-    
+}
+
+void ArkEchoPlayerView::on_actionQR_Code_Verbindung_triggered()
+{
+    ArkEchoQr* qrDialog = new ArkEchoQr("{ \"Address\": \"192.168.178.20:1000\", \"Security_Code\": 12345678 }");
+    qrDialog->show();
 }

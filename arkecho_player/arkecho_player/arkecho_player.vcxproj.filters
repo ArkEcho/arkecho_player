@@ -36,6 +36,15 @@
     <Filter Include="Test Seite">
       <UniqueIdentifier>{2bf3ad0b-24d7-489a-85bc-381db80fdb8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="QRCode Generator">
+      <UniqueIdentifier>{f1d13d89-8cc9-4c6c-9024-f0310d63a8bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Dateien\QDarkStyle">
+      <UniqueIdentifier>{cfedc8e4-ce04-4777-9822-cd20ca354e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Dateien\QDarkStyle\Pictures">
+      <UniqueIdentifier>{972fd2e9-140f-4416-b703-74f484f9c0ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Ui\ArkEchoPlayerView.ui">
@@ -53,6 +62,15 @@
     <CustomBuild Include="Source\WebSocketServer.h">
       <Filter>Header Dateien</Filter>
     </CustomBuild>
+    <CustomBuild Include="Source\ArkEchoQr.h">
+      <Filter>Header Dateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Ui\ArkEchoQr.ui">
+      <Filter>Form Dateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Resources\qdarkstyle\style.qrc">
+      <Filter>Resource Dateien\QDarkStyle</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_ArkEchoPlayerView.h">
@@ -60,6 +78,18 @@
     </ClInclude>
     <ClInclude Include="Source\MiniProfiler.h">
       <Filter>Header Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="QRCodeGenerator\BitBuffer.hpp">
+      <Filter>QRCode Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="QRCodeGenerator\QrCode.hpp">
+      <Filter>QRCode Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="QRCodeGenerator\QrSegment.hpp">
+      <Filter>QRCode Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ArkEchoQr.h">
+      <Filter>Generierte Dateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +135,27 @@
     <ClCompile Include="Source\WebSocketServer.cpp">
       <Filter>Source Dateien</Filter>
     </ClCompile>
+    <ClCompile Include="QRCodeGenerator\BitBuffer.cpp">
+      <Filter>QRCode Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="QRCodeGenerator\QrCode.cpp">
+      <Filter>QRCode Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="QRCodeGenerator\QrSegment.cpp">
+      <Filter>QRCode Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ArkEchoQr.cpp">
+      <Filter>Source Dateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ArkEchoQr.cpp">
+      <Filter>Generierte Dateien\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ArkEchoQr.cpp">
+      <Filter>Generierte Dateien\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_style.cpp">
+      <Filter>Generierte Dateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\arkecho_player.rc">
@@ -118,5 +169,127 @@
     <None Include="TestPage\socketserver.js">
       <Filter>Test Seite</Filter>
     </None>
+    <None Include="Resources\qdarkstyle\style.qss">
+      <Filter>Resource Dateien\QDarkStyle</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\qdarkstyle\rc\branch_closed.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\branch_closed-on.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\branch_open.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\branch_open-on.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_checked.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_checked_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_checked_focus.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_indeterminate.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_indeterminate_focus.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_unchecked.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_unchecked_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\checkbox_unchecked_focus.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\close.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\close-hover.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\close-pressed.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\down_arrow.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\down_arrow_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\Hmovetoolbar.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\Hsepartoolbar.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\left_arrow.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\left_arrow_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\radio_checked.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\radio_checked_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\radio_checked_focus.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\radio_unchecked.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\radio_unchecked_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\radio_unchecked_focus.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\right_arrow.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\right_arrow_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\sizegrip.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\stylesheet-branch-end.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\stylesheet-branch-more.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\stylesheet-vline.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\transparent.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\undock.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\up_arrow.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\up_arrow_disabled.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\Vmovetoolbar.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
+    <Image Include="Resources\qdarkstyle\rc\Vsepartoolbar.png">
+      <Filter>Resource Dateien\QDarkStyle\Pictures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

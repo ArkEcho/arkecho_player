@@ -23,6 +23,8 @@ private:
 
 private slots :
     void onUpdateView(const int &uve);
+    void on_actionManuelle_Verbindung_triggered();
+    void on_actionQR_Code_Verbindung_triggered();
 };
 
 #endif // ARKECHOPLAYERVIEW_H
