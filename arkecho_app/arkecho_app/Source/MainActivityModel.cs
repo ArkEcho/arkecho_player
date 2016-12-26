@@ -32,7 +32,7 @@ namespace arkecho_app
             if (newMessageReceived != null) newMessageReceived(message);
         }
 
-        public async void connectWebSocket(string address)
+        public async Task connectWebSocket(string address)
         {
             failed_ = false;
             timeOut();
@@ -45,10 +45,10 @@ namespace arkecho_app
             }
         }
 
-        public void sendMessage(string message)
+        public void sendMessage(int messageType, string message)
         {
             if (!webSocket_.IsOpen) return;
-            webSocket_.Send(MessageHandler.createMessage((int)MessageHandler.MESSAGETYPE.ECHO_TEST, message));
+            webSocket_.Send(MessageHandler.createMessage(messageType, message));
         }
 
         private async void timeOut()

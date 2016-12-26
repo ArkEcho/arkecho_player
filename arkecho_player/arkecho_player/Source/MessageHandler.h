@@ -11,7 +11,8 @@ public:
     enum MESSAGETYPE
     {
         NOTDEFINED = 0,
-        ECHO_TEST
+        ECHO_TEST,
+        HANDSHAKE_SEC_CODE
     };
 
     // Setzt die Nachricht und den Typ zum JSON zusammenzimmern

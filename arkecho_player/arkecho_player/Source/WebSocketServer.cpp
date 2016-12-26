@@ -1,5 +1,4 @@
 #include "WebSocketServer.h"
-#include "MessageHandler.h"
 
 #include <QWebSocket>
 #include <QNetWorkInterface>

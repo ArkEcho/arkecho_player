@@ -30,7 +30,7 @@ private:
     SecurityCode* securityCode_;
 
 private slots:
-    void onTextMessageReceived(const WsStringData& message);
+    void onTextMessageReceived(const WsStringData& data);
 };
 
 #endif // ARKECHOPLAYERMODEL_H

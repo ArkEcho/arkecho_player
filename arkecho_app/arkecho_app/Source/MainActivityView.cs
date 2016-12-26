@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 
 using ZXing.Mobile;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace arkecho_app
 {
@@ -13,8 +15,9 @@ namespace arkecho_app
     public class MainActivityView : Activity
     {
         MainActivityModel model_;
+        string qrCodeText_;
 
-        List<string> items;
+        List<string> items_;
         ArrayAdapter<string> adapter;
 
         protected override void OnCreate(Bundle bundle)
@@ -28,8 +31,8 @@ namespace arkecho_app
             FindViewById<Button>(Resource.Id.pbSendMessage).Click += onPbSendMessageClicked;
 
             // Prepare ListView
-            items = new List<string>();
-            adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);
+            items_ = new List<string>();
+            adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items_);
             FindViewById<ListView>(Resource.Id.lvMessages).Adapter = adapter;
 
             // Create Model and Connect
@@ -40,7 +43,7 @@ namespace arkecho_app
         private void onPbSendMessageClicked(object sender, EventArgs e)
         {
             string message = FindViewById<TextView>(Resource.Id.teMessage).Text;
-            model_.sendMessage(message);
+            model_.sendMessage((int)MessageHandler.MESSAGETYPE.ECHO_TEST, message);
         }
 
         private void onNewMessageReceived(string message)
@@ -49,13 +52,22 @@ namespace arkecho_app
             RunOnUiThread(() => adapter.Add(msg));
         }
 
-        private void onPbConnectClicked(object sender, System.EventArgs e)
+        private async void onPbConnectClicked(object sender, System.EventArgs e)
         {
-            scanQrCode();
+            Task scan  = scanQrCode();
+            await scan;
+
+            if (qrCodeText_ == "") return;
+            JObject obj = JObject.Parse(qrCodeText_);
+            int securityCode = obj["Security_Code"].ToObject<int>();
+            string address = obj["Address"].ToObject<string>();
+
             //string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-            //model_.connectWebSocket("ws://" + address);
+            Task connect = model_.connectWebSocket("ws://" + address);
+            await connect;
+            model_.sendMessage((int)MessageHandler.MESSAGETYPE.HANDSHAKE_SEC_CODE, securityCode.ToString());
         }
-        private async void scanQrCode()
+        private async Task scanQrCode()
         {
             try
             {
@@ -66,7 +78,8 @@ namespace arkecho_app
                 scanner.BottomText = "Halten sie den Roten Strich über den QR-Code";
                 scanner.CancelButtonText = "Abbruch";
                 var result = await scanner.Scan();
-                string ergebnis = result.Text;
+
+                qrCodeText_ = result.Text;
             }
             catch (Exception ex)
             {
