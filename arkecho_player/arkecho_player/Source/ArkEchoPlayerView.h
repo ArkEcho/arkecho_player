@@ -6,6 +6,7 @@
 #include "ui_ArkEchoPlayerView.h"
 
 class ArkEchoPlayerModel;
+class QLabel;
 
 class ArkEchoPlayerView : public QMainWindow
 {
@@ -18,8 +19,11 @@ public:
 private:
     Ui::ArkEchoPlayerViewClass* ui_;
     ArkEchoPlayerModel* model_;
+    QLabel* webSocketStatus_;
 
     void initUi();
+
+    void setWebSocketStatusLabel(bool connected);
 
 private slots :
     void onUpdateView(const int &uve);

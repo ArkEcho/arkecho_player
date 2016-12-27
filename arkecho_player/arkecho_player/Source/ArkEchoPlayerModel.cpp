@@ -6,6 +6,8 @@
 
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QMessageBox>
+#include <QWebSocket>
 
 const QString SERVER_NAME = "ArkEcho Server";
 const int SERVER_PORT = 1000;
@@ -22,8 +24,8 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     {
         //QString s = webSocketServer_->getWebSocketServerNetworkAdress();
         connect(webSocketServer_, SIGNAL(newTextMessageReceived(WsStringData)), this, SLOT(onTextMessageReceived(WsStringData)));
-        /*connect(webSocketServer_, SIGNAL(wsConnected()), this, SLOT(onWSConnected()));
-        connect(webSocketServer_, SIGNAL(wsDisconnected()), this, SLOT(onWSDisconnected()));*/
+        connect(webSocketServer_, SIGNAL(wsConnected()), this, SLOT(onWSConnected()));
+        connect(webSocketServer_, SIGNAL(wsDisconnected()), this, SLOT(onWSDisconnected()));
     }
 }
 
@@ -35,7 +37,7 @@ ArkEchoPlayerModel::~ArkEchoPlayerModel()
     delete securityCode_;
 }
 
-void ArkEchoPlayerModel::showQrDialog()
+void ArkEchoPlayerModel::showConnectQrDialog()
 {
     if (!webSocketServer_ || !securityCode_) return;
 
@@ -53,19 +55,43 @@ void ArkEchoPlayerModel::showQrDialog()
     qrDialog->show();
 }
 
+void ArkEchoPlayerModel::showConnectManualDialog()
+{
+    QString address = "Adresse:\t\t" + webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
+    QString secCode = "Sicherheitscode:\t" + QString::number(securityCode_->getSecurityCode());
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Verbindung Manuell herstellen");
+    msgBox.setText(address + "\n" + secCode);
+    msgBox.exec();
+}
+
+void ArkEchoPlayerModel::onWSConnected()
+{
+    emit updateView(UVE_WEBSOCKET_CONNECTED);
+}
+
+void ArkEchoPlayerModel::onWSDisconnected()
+{
+    emit updateView(UVE_WEBSOCKET_DISCONNECTED);
+}
+
 void ArkEchoPlayerModel::onTextMessageReceived(const WsStringData& data)
 {
     QString message = data.message_;
     int messageType = MessageHandler::handleReceivedMessage(message);
 
-    switch (messageType)
-    {
-        case MessageHandler::HANDSHAKE_SEC_CODE:
-            if (!securityCode_) return;
-            if (message.toInt() == securityCode_->getSecurityCode())
-            {
-                bool b = true;
-            }
-            break;
-    }
+    //if (wsSecCodeWasCorrect_)
+    //{
+    //    switch (messageType)
+    //    {
+    //        case MT_ECHO_TEST:
+    //            webSocketServer_->getWebSocket()->sendTextMessage(MessageHandler::createMessage(MT_ECHO_TEST, message));
+    //            break;
+    //    }
+    //}
+    //else
+    //{
+    //    if (messageType == MT_HANDSHAKE_SEC_CODE && message.toInt() == securityCode_->getSecurityCode()) wsSecCodeWasCorrect_ = true;
+    //    // TODO: Bei falschem Security Code Verbindung trennen
+    //}
 }

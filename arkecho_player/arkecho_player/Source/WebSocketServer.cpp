@@ -33,7 +33,7 @@ void WebSocketServer::onTextMessageReceived(const QString &message)
 
 void WebSocketServer::socketDisconnected()
 {
-    delete webSocket_;
+    webSocket_ = 0;
     emit wsDisconnected();
 }
 
@@ -42,9 +42,9 @@ WebSocketServer::~WebSocketServer()
     delete webSocket_;
 }
 
-QWebSocket* WebSocketServer::getWebSocket()
+QWebSocket * WebSocketServer::getWebSocket()
 {
-	return webSocket_;
+    return webSocket_;
 }
 
 QString WebSocketServer::getWebSocketServerNetworkAdress()

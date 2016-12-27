@@ -9,7 +9,9 @@ class SecurityCode;
 
 enum UpdateViewEnum
 {
-    TEST = 0
+    TEST = 0,
+    UVE_WEBSOCKET_CONNECTED,
+    UVE_WEBSOCKET_DISCONNECTED
 };
 
 class ArkEchoPlayerModel : public QObject
@@ -20,7 +22,8 @@ public:
     ArkEchoPlayerModel(QObject *parent = 0);
     ~ArkEchoPlayerModel();
 
-    void showQrDialog();
+    void showConnectQrDialog();
+    void showConnectManualDialog();
 
 signals:
     void updateView(int);
@@ -31,6 +34,8 @@ private:
 
 private slots:
     void onTextMessageReceived(const WsStringData& data);
+    void onWSConnected();
+    void onWSDisconnected();
 };
 
 #endif // ARKECHOPLAYERMODEL_H

@@ -3,17 +3,18 @@
 
 #include <QObject>
 
+enum MESSAGETYPE
+{
+    MT_NOTDEFINED = 0,
+    MT_ECHO_TEST,
+    MT_HANDSHAKE_SEC_CODE
+};
+
 class MessageHandler : public QObject
 {
     Q_OBJECT
 
 public:
-    enum MESSAGETYPE
-    {
-        NOTDEFINED = 0,
-        ECHO_TEST,
-        HANDSHAKE_SEC_CODE
-    };
 
     // Setzt die Nachricht und den Typ zum JSON zusammenzimmern
     static QString& createMessage(int typ, QString& message);

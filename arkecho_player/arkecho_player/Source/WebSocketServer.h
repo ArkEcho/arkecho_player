@@ -19,7 +19,7 @@ public:
 	WebSocketServer(const QString &name, QObject *parent = 0);
 	~WebSocketServer();
 
-	QWebSocket* getWebSocket();
+    QWebSocket* getWebSocket();
 
     QString getWebSocketServerNetworkAdress();
 
