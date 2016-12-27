@@ -3,7 +3,6 @@ using Android.Widget;
 using Android.OS;
 
 using System;
-using System.Collections.Generic;
 
 using ZXing.Mobile;
 using System.Threading.Tasks;
@@ -14,11 +13,8 @@ namespace arkecho_app
     [Activity(Label = "@string/ApplicationTitle", MainLauncher = true, Icon = "@drawable/playerIcon")]
     public class MainActivityView : Activity
     {
-        MainActivityModel model_;
+        private ArkEchoWebSocket webSocket_;
         string qrCodeText_;
-
-        List<string> items_;
-        ArrayAdapter<string> adapter;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -27,32 +23,28 @@ namespace arkecho_app
             SetContentView (Resource.Layout.Main);
 
             // Connect Buttons
-            FindViewById<Button>(Resource.Id.pbConnect).Click += onPbConnectClicked;
-            FindViewById<Button>(Resource.Id.pbSendMessage).Click += onPbSendMessageClicked;
+            FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
+            FindViewById<Button>(Resource.Id.pbConnectManually).Click += onPbConnectManuallyClicked;
 
-            // Prepare ListView
-            items_ = new List<string>();
-            adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items_);
-            FindViewById<ListView>(Resource.Id.lvMessages).Adapter = adapter;
+            // Prepare WebSockets Connection
+            Websockets.Droid.WebsocketConnection.Link();
 
             // Create Model and Connect
-            model_ = new MainActivityModel();
-            model_.newMessageReceived += onNewMessageReceived;
+            webSocket_ = new ArkEchoWebSocket();
         }
 
-        private void onPbSendMessageClicked(object sender, EventArgs e)
+        private async void onPbConnectManuallyClicked(object sender, EventArgs e)
         {
-            string message = FindViewById<TextView>(Resource.Id.teMessage).Text;
-            model_.sendMessage((int)MessageHandler.MESSAGETYPE.ECHO_TEST, message);
-        }
+            string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
+            string securityCode = FindViewById<TextView>(Resource.Id.teSecurityCode).Text;
 
-        private void onNewMessageReceived(string message)
-        {
-            string msg = message;
-            RunOnUiThread(() => adapter.Add(msg));
-        }
+            Task connect = webSocket_.connectWebSocket("ws://" + address);
+            await connect;
 
-        private async void onPbConnectClicked(object sender, System.EventArgs e)
+            webSocket_.sendMessage((int)MessageHandler.MESSAGETYPE.HANDSHAKE_SEC_CODE, securityCode);
+        }
+        
+        private async void onPbConnectWithQrClicked(object sender, System.EventArgs e)
         {
             Task scan  = scanQrCode();
             await scan;
@@ -61,24 +53,25 @@ namespace arkecho_app
             JObject obj = JObject.Parse(qrCodeText_);
             int securityCode = obj["Security_Code"].ToObject<int>();
             string address = obj["Address"].ToObject<string>();
-
-            //string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-            Task connect = model_.connectWebSocket("ws://" + address);
+            
+            Task connect = webSocket_.connectWebSocket("ws://" + address);
             await connect;
-            model_.sendMessage((int)MessageHandler.MESSAGETYPE.HANDSHAKE_SEC_CODE, securityCode.ToString());
+
+            webSocket_.sendMessage((int)MessageHandler.MESSAGETYPE.HANDSHAKE_SEC_CODE, securityCode.ToString());
         }
+
         private async Task scanQrCode()
         {
             try
             {
+
                 MobileBarcodeScanner.Initialize(Application);
                 MobileBarcodeScanner scanner = new MobileBarcodeScanner();
-                scanner.FlashButtonText = "Blitz";
+                scanner.UseCustomOverlay = true;
                 scanner.TopText = "QR-Code Scanner";
                 scanner.BottomText = "Halten sie den Roten Strich über den QR-Code";
-                scanner.CancelButtonText = "Abbruch";
-                var result = await scanner.Scan();
 
+                var result = await scanner.Scan();
                 qrCodeText_ = result.Text;
             }
             catch (Exception ex)

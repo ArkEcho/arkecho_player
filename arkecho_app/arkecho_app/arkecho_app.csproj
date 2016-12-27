@@ -82,8 +82,8 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\MainActivityView.cs" />
-    <Compile Include="Source\MainActivityModel.cs" />
     <Compile Include="Source\MessageHandler.cs" />
+    <Compile Include="Source\ArkEchoWebSocket.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

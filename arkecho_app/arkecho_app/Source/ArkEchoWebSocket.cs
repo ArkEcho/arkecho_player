@@ -2,30 +2,23 @@ using System.Threading.Tasks;
 
 namespace arkecho_app
 {
-    public class MainActivityModel
+    public class ArkEchoWebSocket
     {
-        private Websockets.IWebSocketConnection webSocket_;
+        private Websockets.IWebSocketConnection socket_;
         private bool failed_;
-        public delegate void MainActivityModelDelegate(string message);
-        public event MainActivityModelDelegate newMessageReceived;
-        
-        public MainActivityModel()
-        {
-            // Prepare WebSockets Connection
-            Websockets.Droid.WebsocketConnection.Link();
 
-            webSocket_ = Websockets.WebSocketFactory.Create();
-            webSocket_.OnOpened += onWebSocketOpened;
-            webSocket_.OnMessage += onWebSocketMessage;
-            webSocket_.OnError += onWebSocketError;
-            webSocket_.OnLog += onWebSocketLog;
+        public delegate void WebSocketDelegate(string message);
+        public event WebSocketDelegate newMessageReceived;
+
+        public ArkEchoWebSocket()
+        {
+            socket_ = Websockets.WebSocketFactory.Create();
+            socket_.OnOpened += onWebSocketOpened;
+            socket_.OnMessage += onWebSocketMessage;
+            socket_.OnError += onWebSocketError;
+            socket_.OnLog += onWebSocketLog;
         }
 
-        ~MainActivityModel()
-        {
-            if(webSocket_.IsOpen) webSocket_.Close();
-        }
-        
         public void emitNewMessageReceived(string message)
         {
             // Prüft ob das Event überhaupt einen Abonnenten hat.
@@ -37,9 +30,9 @@ namespace arkecho_app
             failed_ = false;
             timeOut();
 
-            webSocket_.Open(address);
+            socket_.Open(address);
 
-            while (!webSocket_.IsOpen && !failed_)
+            while (!socket_.IsOpen && !failed_)
             {
                 await Task.Delay(10);
             }
@@ -47,8 +40,13 @@ namespace arkecho_app
 
         public void sendMessage(int messageType, string message)
         {
-            if (!webSocket_.IsOpen) return;
-            webSocket_.Send(MessageHandler.createMessage(messageType, message));
+            if (!socket_.IsOpen) return;
+            socket_.Send(MessageHandler.createMessage(messageType, message));
+        }
+
+        public bool connectionIsOpen()
+        {
+            return socket_.IsOpen;
         }
 
         private async void timeOut()
@@ -63,7 +61,7 @@ namespace arkecho_app
 
         private void onWebSocketMessage(string message)
         {
-            int typ = MessageHandler.handleReceivedMessage(ref message);
+            //int typ = MessageHandler.handleReceivedMessage(ref message);
             emitNewMessageReceived(message);
         }
 

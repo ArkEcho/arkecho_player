@@ -5,30 +5,38 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px">
+    <Button
+        android:text="Qr-Code verbinden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbConnectWithQr" />
+    <TextView
+        android:text="Adresse:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/teAddress"
-        android:text="192.168.178.20:1000" />
-    <Button
-        android:text="Verbinden"
+        android:inputType="text"
+        android:digits="0123456789.:" />
+    <TextView
+        android:text="Sicherheitscode:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pbConnect" />
+        android:id="@+id/textView2" />
     <EditText
+        android:inputType="numberSigned"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/teMessage"
-        android:text="Hallo Welt!" />
+        android:id="@+id/teSecurityCode"
+        android:maxLength="4" />
     <Button
-        android:text="Nachricht Senden"
+        android:text="Manuell verbinden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pbSendMessage" />
-    <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lvMessages" />
+        android:id="@+id/pbConnectManually" />
 </LinearLayout>
