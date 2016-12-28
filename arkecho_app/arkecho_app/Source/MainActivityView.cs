@@ -36,12 +36,11 @@ namespace arkecho_app
         private async void onPbConnectManuallyClicked(object sender, EventArgs e)
         {
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-            string securityCode = FindViewById<TextView>(Resource.Id.teSecurityCode).Text;
 
             Task connect = webSocket_.connectWebSocket("ws://" + address);
             await connect;
 
-            webSocket_.sendMessage((int)MessageHandler.MESSAGETYPE.HANDSHAKE_SEC_CODE, securityCode);
+            checkConnectionAndOpenPlayer();
         }
         
         private async void onPbConnectWithQrClicked(object sender, System.EventArgs e)
@@ -51,20 +50,39 @@ namespace arkecho_app
 
             if (qrCodeText_ == "") return;
             JObject obj = JObject.Parse(qrCodeText_);
-            int securityCode = obj["Security_Code"].ToObject<int>();
             string address = obj["Address"].ToObject<string>();
             
             Task connect = webSocket_.connectWebSocket("ws://" + address);
             await connect;
 
-            webSocket_.sendMessage((int)MessageHandler.MESSAGETYPE.HANDSHAKE_SEC_CODE, securityCode.ToString());
+            checkConnectionAndOpenPlayer();
+        }
+
+        private void checkConnectionAndOpenPlayer()
+        {
+            if (webSocket_.connectionIsOpen())
+            {
+
+            }
+            else
+            {
+                showMessageBoxNoConnection();
+            }
+        }
+
+        private void showMessageBoxNoConnection()
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Fehler:");
+            alert.SetMessage("Keine Verbindung zum ArkEcho Player möglich!");
+            alert.SetPositiveButton("Ok", (senderAlert, args) => { });
+            alert.Show();
         }
 
         private async Task scanQrCode()
         {
             try
             {
-
                 MobileBarcodeScanner.Initialize(Application);
                 MobileBarcodeScanner scanner = new MobileBarcodeScanner();
                 scanner.UseCustomOverlay = true;

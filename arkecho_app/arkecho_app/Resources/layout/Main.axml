@@ -15,25 +15,13 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3" />
+        android:id="@+id/textAdresse" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/teAddress"
         android:inputType="text"
         android:digits="0123456789.:" />
-    <TextView
-        android:text="Sicherheitscode:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
-    <EditText
-        android:inputType="numberSigned"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/teSecurityCode"
-        android:maxLength="4" />
     <Button
         android:text="Manuell verbinden"
         android:layout_width="match_parent"
