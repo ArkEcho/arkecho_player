@@ -5,7 +5,6 @@
 
 struct WsStringData;
 class WebSocketServer;
-class SecurityCode;
 
 enum UpdateViewEnum
 {
@@ -30,7 +29,6 @@ signals:
 
 private:
     WebSocketServer* webSocketServer_;
-    SecurityCode* securityCode_;
 
 private slots:
     void onTextMessageReceived(const WsStringData& data);
