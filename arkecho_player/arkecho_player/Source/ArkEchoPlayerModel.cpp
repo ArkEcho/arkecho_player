@@ -38,15 +38,7 @@ void ArkEchoPlayerModel::showConnectQrDialog()
     if (!webSocketServer_) return;
 
     QString address = webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
-    QJsonObject obj;
-    obj[JSON_ADDRESS] = address;
-
-    QJsonDocument doc;
-    doc.setObject(obj);
-
-    QString qrCodeText = doc.toJson(QJsonDocument::Compact);
-
-    ArkEchoQr* qrDialog = new ArkEchoQr(qrCodeText);
+    ArkEchoQr* qrDialog = new ArkEchoQr(address);
     qrDialog->show();
 }
 

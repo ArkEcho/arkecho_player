@@ -37,6 +37,7 @@ namespace arkecho_app
         {
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
 
+            if (address == "") return;
             Task connect = webSocket_.connectWebSocket("ws://" + address);
             await connect;
 
@@ -49,8 +50,8 @@ namespace arkecho_app
             await scan;
 
             if (qrCodeText_ == "") return;
-            JObject obj = JObject.Parse(qrCodeText_);
-            string address = obj["Address"].ToObject<string>();
+
+            string address = qrCodeText_;
             
             Task connect = webSocket_.connectWebSocket("ws://" + address);
             await connect;

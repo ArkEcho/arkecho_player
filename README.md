@@ -21,11 +21,3 @@
 	"Typ": int
 }
 ```
-
-### JSON Qr-Code:
-```json
-{
-	"Address": string,
-	"Security_Code": int
-}
-```
