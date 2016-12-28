@@ -10,16 +10,14 @@ using ZXing.Mobile;
 namespace arkecho_app
 {
     [Activity(Label = "@string/ApplicationTitle", MainLauncher = true, Icon = "@drawable/playerIcon")]
-    public class MainActivityView : Activity
+    public class MainActivity : Activity
     {
-        private ArkEchoWebSocket webSocket_;
         string qrCodeText_;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            // Set our view from the "main" layout resource
-            SetContentView (Resource.Layout.Main);
+            SetContentView (Resource.Layout.MainActivity);
 
             // Connect Buttons
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
@@ -27,24 +25,36 @@ namespace arkecho_app
 
             // Prepare WebSockets Connection
             Websockets.Droid.WebsocketConnection.Link();
-
-            // Create Model and Connect
-            webSocket_ = new ArkEchoWebSocket();
         }
         
+        private void setElementsEnabled(bool enabled)
+        {
+            FindViewById<Button>(Resource.Id.pbConnectWithQr).Enabled = enabled;
+            FindViewById<Button>(Resource.Id.pbConnectManually).Enabled = enabled;
+            FindViewById<TextView>(Resource.Id.teAddress).Enabled = enabled;
+        }
+
         private async void onPbConnectManuallyClicked(object sender, EventArgs e)
         {
+            setElementsEnabled(false);
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-
-            if (address == "") return;
-            Task connect = webSocket_.connectWebSocket("ws://" + address);
+            // TODO: überprüfen ob Adresse richtig eingegeben
+            if (address == "")
+            {
+                showMessageBoxEmptyWrongAddressField();
+                setElementsEnabled(true);
+                return;
+            }
+            Task connect = ArkEchoWebSocket.connectWebSocket("ws://" + address);
             await connect;
 
+            setElementsEnabled(true);
             checkConnectionAndOpenPlayer();
         }
         
         private async void onPbConnectWithQrClicked(object sender, System.EventArgs e)
         {
+            setElementsEnabled(false);
             Task scan  = scanQrCode();
             await scan;
 
@@ -52,22 +62,32 @@ namespace arkecho_app
 
             string address = qrCodeText_;
             
-            Task connect = webSocket_.connectWebSocket("ws://" + address);
+            Task connect = ArkEchoWebSocket.connectWebSocket("ws://" + address);
             await connect;
 
+            setElementsEnabled(true);
             checkConnectionAndOpenPlayer();
         }
 
         private void checkConnectionAndOpenPlayer()
         {
-            if (webSocket_.connectionIsOpen())
+            if (ArkEchoWebSocket.connectionIsOpen())
             {
-
+                StartActivity(typeof(PlayerActivity));
             }
             else
             {
                 showMessageBoxNoConnection();
             }
+        }
+
+        private void showMessageBoxEmptyWrongAddressField()
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Achtung:");
+            alert.SetMessage("Bitte füllen sie das Feld Adresse aus!");
+            alert.SetPositiveButton("Ok", (senderAlert, args) => { });
+            alert.Show();
         }
 
         private void showMessageBoxNoConnection()

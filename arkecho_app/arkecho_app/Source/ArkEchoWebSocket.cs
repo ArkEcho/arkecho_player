@@ -2,18 +2,18 @@ using System.Threading.Tasks;
 
 namespace arkecho_app
 {
-    public class ArkEchoWebSocket
+    public static class ArkEchoWebSocket
     {
-        private Websockets.IWebSocketConnection socket_;
-        private bool failed_;
+        private static Websockets.IWebSocketConnection socket_;
+        private static bool failed_;
 
         public delegate void WebSocketDelegateMessage(string message);
-        public event WebSocketDelegateMessage newMessageReceived;
+        public static event WebSocketDelegateMessage newMessageReceived;
 
         public delegate void WebSocketDelegateClosed();
-        public event WebSocketDelegateClosed webSocketConnectionClosed;
+        public static event WebSocketDelegateClosed webSocketConnectionClosed;
 
-        public ArkEchoWebSocket()
+        static ArkEchoWebSocket()
         {
             socket_ = Websockets.WebSocketFactory.Create();
             socket_.OnMessage += onWebSocketMessage;
@@ -23,17 +23,17 @@ namespace arkecho_app
             //socket_.OnLog += onWebSocketLog;
         }
 
-        private void emitNewMessageReceived(string message)
+        private static void emitNewMessageReceived(string message)
         {
             if (newMessageReceived != null) newMessageReceived(message);
         }
 
-        private void emitWebSocketConnectionClosed()
+        private static void emitWebSocketConnectionClosed()
         {
             if (webSocketConnectionClosed != null) webSocketConnectionClosed();
         }
 
-        public async Task connectWebSocket(string address)
+        public static async Task connectWebSocket(string address)
         {
             failed_ = false;
             timeOut();
@@ -46,36 +46,42 @@ namespace arkecho_app
             }
         }
 
-        public void sendMessage(int messageType, string message)
+        public static void sendMessage(int messageType, string message)
         {
             if (!socket_.IsOpen) return;
             socket_.Send(MessageHandler.createMessage(messageType, message));
         }
 
-        public bool connectionIsOpen()
+        public static bool connectionIsOpen()
         {
             return socket_.IsOpen;
         }
 
-        private async void timeOut()
+        public static void disconnectWebSocket()
+        {
+            socket_.Close();
+        }
+
+        private static async void timeOut()
         {
             await Task.Delay(2000);
             failed_ = true;
         }
 
-        private void onWebSocketMessage(string message)
+        private static void onWebSocketMessage(string message)
         {
             //int typ = MessageHandler.handleReceivedMessage(ref message);
             emitNewMessageReceived(message);
         }
 
-        private void onWebSocketError(string error)
+        private static void onWebSocketError(string error)
         {
             failed_ = true;
         }
 
-        private void onWebSocketClosed()
+        private static void onWebSocketClosed()
         {
+            disconnectWebSocket();
             emitWebSocketConnectionClosed();
         }
     }
