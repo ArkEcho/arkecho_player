@@ -38,7 +38,7 @@ namespace arkecho_app
             failed_ = false;
             timeOut();
 
-            socket_.Open(address);
+            socket_.Open("ws://" + address);
 
             while (!socket_.IsOpen && !failed_)
             {

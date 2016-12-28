@@ -4,6 +4,7 @@ using Android.OS;
 
 using System;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 using ZXing.Mobile;
 
@@ -38,14 +39,15 @@ namespace arkecho_app
         {
             setElementsEnabled(false);
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-            // TODO: überprüfen ob Adresse richtig eingegeben
-            if (address == "")
+
+            if (!checkURIAddress(address))
             {
                 showMessageBoxEmptyWrongAddressField();
                 setElementsEnabled(true);
                 return;
             }
-            Task connect = ArkEchoWebSocket.connectWebSocket("ws://" + address);
+
+            Task connect = ArkEchoWebSocket.connectWebSocket(address);
             await connect;
 
             setElementsEnabled(true);
@@ -61,8 +63,15 @@ namespace arkecho_app
             if (qrCodeText_ == "") return;
 
             string address = qrCodeText_;
-            
-            Task connect = ArkEchoWebSocket.connectWebSocket("ws://" + address);
+
+            if (!checkURIAddress(address))
+            {
+                showMessageBoxEmptyWrongAddressField();
+                setElementsEnabled(true);
+                return;
+            }
+
+            Task connect = ArkEchoWebSocket.connectWebSocket(address);
             await connect;
 
             setElementsEnabled(true);
@@ -81,11 +90,18 @@ namespace arkecho_app
             }
         }
 
+        private bool checkURIAddress(string address)
+        {
+            if (address == "") return false;
+            var regex = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,2}\:[0-9]{4}";
+            return Regex.Match(address, regex).Success;
+        }
+
         private void showMessageBoxEmptyWrongAddressField()
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle("Achtung:");
-            alert.SetMessage("Bitte füllen sie das Feld Adresse aus!");
+            alert.SetMessage("Bitte geben sie die Adresse korrekt und vollständig ein!");
             alert.SetPositiveButton("Ok", (senderAlert, args) => { });
             alert.Show();
         }
