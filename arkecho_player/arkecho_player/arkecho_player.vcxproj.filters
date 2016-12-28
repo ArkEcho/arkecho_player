@@ -33,9 +33,6 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Test Seite">
-      <UniqueIdentifier>{2bf3ad0b-24d7-489a-85bc-381db80fdb8e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="QRCode Generator">
       <UniqueIdentifier>{f1d13d89-8cc9-4c6c-9024-f0310d63a8bb}</UniqueIdentifier>
     </Filter>
@@ -44,6 +41,9 @@
     </Filter>
     <Filter Include="Resource Dateien\QDarkStyle\Pictures">
       <UniqueIdentifier>{972fd2e9-140f-4416-b703-74f484f9c0ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Seite">
+      <UniqueIdentifier>{2bf3ad0b-24d7-489a-85bc-381db80fdb8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -7,22 +7,30 @@ namespace arkecho_app
         private Websockets.IWebSocketConnection socket_;
         private bool failed_;
 
-        public delegate void WebSocketDelegate(string message);
-        public event WebSocketDelegate newMessageReceived;
+        public delegate void WebSocketDelegateMessage(string message);
+        public event WebSocketDelegateMessage newMessageReceived;
+
+        public delegate void WebSocketDelegateClosed();
+        public event WebSocketDelegateClosed webSocketConnectionClosed;
 
         public ArkEchoWebSocket()
         {
             socket_ = Websockets.WebSocketFactory.Create();
-            socket_.OnOpened += onWebSocketOpened;
             socket_.OnMessage += onWebSocketMessage;
             socket_.OnError += onWebSocketError;
-            socket_.OnLog += onWebSocketLog;
+            socket_.OnClosed += onWebSocketClosed;
+            //socket_.OnOpened += onWebSocketOpened;
+            //socket_.OnLog += onWebSocketLog;
         }
 
-        public void emitNewMessageReceived(string message)
+        private void emitNewMessageReceived(string message)
         {
-            // Prüft ob das Event überhaupt einen Abonnenten hat.
             if (newMessageReceived != null) newMessageReceived(message);
+        }
+
+        private void emitWebSocketConnectionClosed()
+        {
+            if (webSocketConnectionClosed != null) webSocketConnectionClosed();
         }
 
         public async Task connectWebSocket(string address)
@@ -55,10 +63,6 @@ namespace arkecho_app
             failed_ = true;
         }
 
-        private void onWebSocketOpened()
-        {
-        }
-
         private void onWebSocketMessage(string message)
         {
             //int typ = MessageHandler.handleReceivedMessage(ref message);
@@ -70,8 +74,9 @@ namespace arkecho_app
             failed_ = true;
         }
 
-        private void onWebSocketLog(string obj)
+        private void onWebSocketClosed()
         {
+            emitWebSocketConnectionClosed();
         }
     }
 }

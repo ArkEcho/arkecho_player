@@ -3,10 +3,9 @@ using Android.Widget;
 using Android.OS;
 
 using System;
+using System.Threading.Tasks;
 
 using ZXing.Mobile;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace arkecho_app
 {
@@ -32,7 +31,7 @@ namespace arkecho_app
             // Create Model and Connect
             webSocket_ = new ArkEchoWebSocket();
         }
-
+        
         private async void onPbConnectManuallyClicked(object sender, EventArgs e)
         {
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
