@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 using ZXing.Mobile;
 
-namespace arkecho_app
+namespace arkecho_app.source
 {
     [Activity(Label = "@string/ApplicationTitle", MainLauncher = true, Icon = "@drawable/playerIcon")]
     public class MainActivity : Activity

@@ -4,5 +4,5 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
-	<application android:label="arkecho_app"></application>
+	<application android:label="ArkEcho"></application>
 </manifest>

@@ -2,7 +2,7 @@ using Android.App;
 using Android.OS;
 using System.Threading.Tasks;
 
-namespace arkecho_app
+namespace arkecho_app.source
 {
     [Activity(Label = "@string/ApplicationTitle")]
     public class PlayerActivity : Activity

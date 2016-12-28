@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("arkecho_app.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("arkecho_app.source.Resource", IsApplication=true)]
 
-namespace arkecho_app
+namespace arkecho_app.source
 {
 	
 	
@@ -26,9 +26,9 @@ namespace arkecho_app
 		
 		public static void UpdateIdValues()
 		{
-			global::ZXing.Mobile.Resource.Id.contentFrame = global::arkecho_app.Resource.Id.contentFrame;
-			global::ZXing.Mobile.Resource.Layout.zxingscanneractivitylayout = global::arkecho_app.Resource.Layout.zxingscanneractivitylayout;
-			global::ZXing.Mobile.Resource.Layout.zxingscannerfragmentlayout = global::arkecho_app.Resource.Layout.zxingscannerfragmentlayout;
+			global::ZXing.Mobile.Resource.Id.contentFrame = global::arkecho_app.source.Resource.Id.contentFrame;
+			global::ZXing.Mobile.Resource.Layout.zxingscanneractivitylayout = global::arkecho_app.source.Resource.Layout.zxingscanneractivitylayout;
+			global::ZXing.Mobile.Resource.Layout.zxingscannerfragmentlayout = global::arkecho_app.source.Resource.Layout.zxingscannerfragmentlayout;
 		}
 		
 		public partial class Attribute

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace arkecho_app
+namespace arkecho_app.source
 {
     public static class ArkEchoWebSocket
     {

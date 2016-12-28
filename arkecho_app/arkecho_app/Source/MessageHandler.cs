@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace arkecho_app
+namespace arkecho_app.source
 {
     class MessageHandler
     {
