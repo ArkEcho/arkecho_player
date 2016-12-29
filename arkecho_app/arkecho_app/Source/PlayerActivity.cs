@@ -23,8 +23,8 @@ namespace arkecho_app.source
             if (!backPressed)
             {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.SetTitle("Fehler:");
-                alert.SetMessage("Verbindung zum ArkEcho Player unterbrochen!");
+                alert.SetTitle(Resource.String.MsgBoxTitleError);
+                alert.SetMessage(Resource.String.MsgBoxTextConnectionEnded);
                 alert.SetPositiveButton("Ok", (senderAlert, args) => { Finish(); });
                 RunOnUiThread(() => alert.Show());
             }

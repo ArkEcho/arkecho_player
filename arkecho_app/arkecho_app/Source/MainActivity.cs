@@ -4,7 +4,6 @@ using Android.OS;
 
 using System;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 
 using ZXing.Mobile;
 
@@ -56,7 +55,7 @@ namespace arkecho_app.source
 
         private async void checkAddressConnectAndOpenPlayer(string address)
         {
-            if (!checkURIAddress(address))
+            if (!ArkEchoWebSocket.checkIfURIAddressIsCorrect(address))
             {
                 showMessageBoxEmptyWrongAddressField();
                 setElementsEnabled(true);
@@ -68,33 +67,20 @@ namespace arkecho_app.source
 
             setElementsEnabled(true);
 
-            if (ArkEchoWebSocket.connectionIsOpen()) StartActivity(typeof(PlayerActivity));
+            if (ArkEchoWebSocket.checkIfConnectionIsOpen()) StartActivity(typeof(PlayerActivity));
             else showMessageBoxNoConnection();
-        }
-
-        private bool checkURIAddress(string address)
-        {
-            if (address == "") return false;
-            var regex = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,2}\:[0-9]{4}";
-            return Regex.Match(address, regex).Success;
         }
 
         private void showMessageBoxEmptyWrongAddressField()
         {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("Achtung:");
-            alert.SetMessage("Bitte füllen sie das Feld Adresse korrekt und vollständig aus! Die Adresse hat das Muster XXX.XXX.XXX.XX:XXXX");
-            alert.SetPositiveButton("Ok", (senderAlert, args) => { });
-            alert.Show();
+            Toast mrToast = Toast.MakeText(this, Resource.String.ToastEmptyWrongAddress,ToastLength.Short);
+            mrToast.Show();
         }
 
         private void showMessageBoxNoConnection()
         {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("Fehler:");
-            alert.SetMessage("Keine Verbindung zum ArkEcho Player möglich!");
-            alert.SetPositiveButton("Ok", (senderAlert, args) => { });
-            alert.Show();
+            Toast mrToast = Toast.MakeText(this, Resource.String.ToastNoConnection, ToastLength.Short);
+            mrToast.Show();
         }
 
         private async Task scanQrCode()

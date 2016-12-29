@@ -2,11 +2,19 @@
 <resources>
   <string name="ApplicationName">arkecho_app</string>
   <string name="ApplicationTitle">ArkEcho</string>
-
-  <string name="ButtonConnectQr">Mit Qr-Code verbinden</string>
-  <string name="ButtonConnectManual">Manuell verbinden</string>
   
-  <string name="ButtonBackward">Zurück</string>
-  <string name="ButtonPlay_Pause">Play</string>
-  <string name="ButtonForward">Weiter</string>  
+  <string name="MainActivityTextViewHeader">Verbindung zum Player herstellen</string>
+  <string name="MainActivityTextViewAddress">Addresse:</string>
+  <string name="MainActivityPushButtonConnectQr">Mit Qr-Code verbinden</string>
+  <string name="MainActivityPushButtonConnectManual">Manuell verbinden</string>
+  
+  <string name="PlayerActivityButtonBackward">Zurück</string>
+  <string name="PlayerActivityButtonPlay_Pause">Play/Pause</string>
+  <string name="PlayerActivityButtonForward">Weiter</string>
+
+  <string name="MsgBoxTitleError">Fehler:</string>
+  <string name="MsgBoxTextConnectionEnded">Verbindung zum ArkEcho Player unterbrochen!</string>
+  
+  <string name="ToastNoConnection">Keine Verbindung zum ArkEcho Player möglich!</string>
+  <string name="ToastEmptyWrongAddress">Bitte füllen sie das Feld Adresse korrekt und vollständig aus!</string>
 </resources>

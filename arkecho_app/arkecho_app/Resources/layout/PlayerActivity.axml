@@ -6,11 +6,13 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
+        android:src="@drawable/defaultmusicicon"
         android:layout_width="200.0dp"
         android:layout_height="200.0dp"
         android:id="@+id/imageView1"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginBottom="20.0dp"
+        android:layout_marginTop="20.0dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -18,17 +20,17 @@
         android:id="@+id/ButtonLayout"
         android:gravity="center">
         <Button
-            android:text="@string/ButtonBackward"
+            android:text="@string/PlayerActivityButtonBackward"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/pbBackward" />
         <Button
-            android:text="@string/ButtonPlay_Pause"
+            android:text="@string/PlayerActivityButtonPlay_Pause"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/pbPlay_Pause" />
         <Button
-            android:text="@string/ButtonForward"
+            android:text="@string/PlayerActivityButtonForward"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/pbForward" />

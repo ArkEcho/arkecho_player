@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace arkecho_app.source
 {
@@ -19,8 +20,6 @@ namespace arkecho_app.source
             socket_.OnMessage += onWebSocketMessage;
             socket_.OnError += onWebSocketError;
             socket_.OnClosed += onWebSocketClosed;
-            //socket_.OnOpened += onWebSocketOpened;
-            //socket_.OnLog += onWebSocketLog;
         }
 
         private static void emitNewMessageReceived(string message)
@@ -52,9 +51,16 @@ namespace arkecho_app.source
             socket_.Send(MessageHandler.createMessage(messageType, message));
         }
 
-        public static bool connectionIsOpen()
+        public static bool checkIfConnectionIsOpen()
         {
             return socket_.IsOpen;
+        }
+        
+        public static bool checkIfURIAddressIsCorrect(string address)
+        {
+            if (address == "") return false;
+            var regex = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,2}\:[0-9]{4}";
+            return Regex.Match(address, regex).Success;
         }
 
         public static void disconnectWebSocket()
@@ -70,7 +76,6 @@ namespace arkecho_app.source
 
         private static void onWebSocketMessage(string message)
         {
-            //int typ = MessageHandler.handleReceivedMessage(ref message);
             emitNewMessageReceived(message);
         }
 
@@ -81,7 +86,6 @@ namespace arkecho_app.source
 
         private static void onWebSocketClosed()
         {
-            disconnectWebSocket();
             emitWebSocketConnectionClosed();
         }
     }
