@@ -4,21 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
-    android:minHeight="25px">
+    android:minHeight="25px"
+    android:gravity="center">
     <ImageView
         android:src="@drawable/defaultmusicicon"
         android:layout_width="200.0dp"
         android:layout_height="200.0dp"
         android:id="@+id/imageView1"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20.0dp"
-        android:layout_marginTop="20.0dp" />
+        android:layout_gravity="center" />
+    <TextView
+        android:text="@string/PlayerActivityTextViewTitleDefault"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTitle"
+        android:gravity="center"
+        android:layout_marginTop="10.0dp" />
+    <TextView
+        android:text="@string/PlayerActivityTextViewInterpretDefault"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvInterpret"
+        android:gravity="center"
+        android:layout_marginTop="10.0dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="51.0dp"
         android:id="@+id/ButtonLayout"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="10.0dp">
         <Button
             android:text="@string/PlayerActivityButtonBackward"
             android:layout_width="wrap_content"

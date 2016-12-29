@@ -4,10 +4,12 @@
   <string name="ApplicationTitle">ArkEcho</string>
   
   <string name="MainActivityTextViewHeader">Verbindung zum Player herstellen</string>
-  <string name="MainActivityTextViewAddress">Addresse:</string>
+  <string name="MainActivityTextViewAddress">Adresse:</string>
   <string name="MainActivityPushButtonConnectQr">Mit Qr-Code verbinden</string>
   <string name="MainActivityPushButtonConnectManual">Manuell verbinden</string>
-  
+
+  <string name="PlayerActivityTextViewTitleDefault">Titel</string>
+  <string name="PlayerActivityTextViewInterpretDefault">Interpret</string>
   <string name="PlayerActivityButtonBackward">Zurück</string>
   <string name="PlayerActivityButtonPlay_Pause">Play/Pause</string>
   <string name="PlayerActivityButtonForward">Weiter</string>
