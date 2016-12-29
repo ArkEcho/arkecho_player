@@ -6,7 +6,7 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <Button
-        android:text="Qr-Code verbinden"
+        android:text="@string/ButtonConnectQr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pbConnectWithQr" />
@@ -23,7 +23,7 @@
         android:inputType="text"
         android:digits="0123456789.:" />
     <Button
-        android:text="Manuell verbinden"
+        android:text="@string/ButtonConnectManual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pbConnectManually" />

@@ -64,7 +64,16 @@ namespace arkecho_app.source
 		{
 			
 			// aapt resource value: 0x7f050005
-			public const int contentFrame = 2131034117;
+			public const int ButtonLayout = 2131034117;
+			
+			// aapt resource value: 0x7f050009
+			public const int contentFrame = 2131034121;
+			
+			// aapt resource value: 0x7f050004
+			public const int imageView1 = 2131034116;
+			
+			// aapt resource value: 0x7f050006
+			public const int pbBackward = 2131034118;
 			
 			// aapt resource value: 0x7f050003
 			public const int pbConnectManually = 2131034115;
@@ -72,14 +81,17 @@ namespace arkecho_app.source
 			// aapt resource value: 0x7f050000
 			public const int pbConnectWithQr = 2131034112;
 			
+			// aapt resource value: 0x7f050008
+			public const int pbForward = 2131034120;
+			
+			// aapt resource value: 0x7f050007
+			public const int pbPlay_Pause = 2131034119;
+			
 			// aapt resource value: 0x7f050002
 			public const int teAddress = 2131034114;
 			
 			// aapt resource value: 0x7f050001
 			public const int textAdresse = 2131034113;
-			
-			// aapt resource value: 0x7f050004
-			public const int textView1 = 2131034116;
 			
 			static Id()
 			{
@@ -124,6 +136,21 @@ namespace arkecho_app.source
 			
 			// aapt resource value: 0x7f040001
 			public const int ApplicationTitle = 2130968577;
+			
+			// aapt resource value: 0x7f040004
+			public const int ButtonBackward = 2130968580;
+			
+			// aapt resource value: 0x7f040003
+			public const int ButtonConnectManual = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int ButtonConnectQr = 2130968578;
+			
+			// aapt resource value: 0x7f040006
+			public const int ButtonForward = 2130968582;
+			
+			// aapt resource value: 0x7f040005
+			public const int ButtonPlay_Pause = 2130968581;
 			
 			static String()
 			{
