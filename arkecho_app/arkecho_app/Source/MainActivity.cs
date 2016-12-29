@@ -35,23 +35,12 @@ namespace arkecho_app.source
             FindViewById<TextView>(Resource.Id.teAddress).Enabled = enabled;
         }
 
-        private async void onPbConnectManuallyClicked(object sender, EventArgs e)
+        private void onPbConnectManuallyClicked(object sender, EventArgs e)
         {
             setElementsEnabled(false);
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-
-            if (!checkURIAddress(address))
-            {
-                showMessageBoxEmptyWrongAddressField();
-                setElementsEnabled(true);
-                return;
-            }
-
-            Task connect = ArkEchoWebSocket.connectWebSocket(address);
-            await connect;
-
-            setElementsEnabled(true);
-            checkConnectionAndOpenPlayer();
+            
+            checkAddressConnectAndOpenPlayer(address);
         }
         
         private async void onPbConnectWithQrClicked(object sender, System.EventArgs e)
@@ -59,11 +48,14 @@ namespace arkecho_app.source
             setElementsEnabled(false);
             Task scan  = scanQrCode();
             await scan;
-
-            if (qrCodeText_ == "") return;
-
+            
             string address = qrCodeText_;
 
+            checkAddressConnectAndOpenPlayer(address);
+        }
+
+        private async void checkAddressConnectAndOpenPlayer(string address)
+        {
             if (!checkURIAddress(address))
             {
                 showMessageBoxEmptyWrongAddressField();
@@ -75,19 +67,9 @@ namespace arkecho_app.source
             await connect;
 
             setElementsEnabled(true);
-            checkConnectionAndOpenPlayer();
-        }
 
-        private void checkConnectionAndOpenPlayer()
-        {
-            if (ArkEchoWebSocket.connectionIsOpen())
-            {
-                StartActivity(typeof(PlayerActivity));
-            }
-            else
-            {
-                showMessageBoxNoConnection();
-            }
+            if (ArkEchoWebSocket.connectionIsOpen()) StartActivity(typeof(PlayerActivity));
+            else showMessageBoxNoConnection();
         }
 
         private bool checkURIAddress(string address)
@@ -101,7 +83,7 @@ namespace arkecho_app.source
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle("Achtung:");
-            alert.SetMessage("Bitte geben sie die Adresse korrekt und vollständig ein!");
+            alert.SetMessage("Bitte füllen sie das Feld Adresse korrekt und vollständig aus! Die Adresse hat das Muster XXX.XXX.XXX.XX:XXXX");
             alert.SetPositiveButton("Ok", (senderAlert, args) => { });
             alert.Show();
         }
@@ -130,6 +112,7 @@ namespace arkecho_app.source
             }
             catch (Exception ex)
             {
+                ex.ToString();
             }
         }
     }
