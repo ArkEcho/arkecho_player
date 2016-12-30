@@ -2,20 +2,19 @@
 #include "ArkEchoQr.h"
 #include "WebSocketServer.h"
 #include "MessageHandler.h"
+//#include "MusicSong.h"
 
-#include <QJsonObject>
-#include <QJsonDocument>
 #include <QMessageBox>
 #include <QWebSocket>
 
 const QString SERVER_NAME = "ArkEcho Server";
 const int SERVER_PORT = 1000;
-const QString JSON_ADDRESS = "Address";
-const QString JSON_SECURITY_CODE = "Security_Code";
 
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     : QObject(parent)
 {
+    /*QString path = "C:/Users/steph/Music/Breaking Bad Soundtrack/TV On The Radio - DLZ.mp3";
+    MusicSong* s = new MusicSong(QUrl::fromLocalFile(path));*/
     webSocketServer_ = new WebSocketServer(SERVER_NAME);
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen
     {
@@ -37,18 +36,22 @@ void ArkEchoPlayerModel::showConnectQrDialog()
 {
     if (!webSocketServer_) return;
 
-    QString address = webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
-    ArkEchoQr* qrDialog = new ArkEchoQr(address);
+    ArkEchoQr* qrDialog = new ArkEchoQr(getWebServerAddress());
     qrDialog->show();
 }
 
 void ArkEchoPlayerModel::showConnectManualDialog()
 {
-    QString address = "Adresse:\t\t" + webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
+    QString address = "Adresse:\t" + getWebServerAddress() +"\t";
     QMessageBox msgBox;
     msgBox.setWindowTitle("Verbindung Manuell herstellen");
     msgBox.setText("\n" + address + "\n");
     msgBox.exec();
+}
+
+QString ArkEchoPlayerModel::getWebServerAddress()
+{
+    return webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
 }
 
 void ArkEchoPlayerModel::onWSConnected()

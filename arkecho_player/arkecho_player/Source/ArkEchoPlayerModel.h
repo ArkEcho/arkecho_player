@@ -30,6 +30,8 @@ signals:
 private:
     WebSocketServer* webSocketServer_;
 
+    QString getWebServerAddress();
+
 private slots:
     void onTextMessageReceived(const WsStringData& data);
     void onWSConnected();
