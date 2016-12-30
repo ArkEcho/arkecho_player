@@ -19,6 +19,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
 
 ArkEchoPlayerView::~ArkEchoPlayerView()
 {
+    delete webSocketStatus_;
     delete model_;
     delete ui_;
 }

@@ -3,12 +3,15 @@
 #include <QMediaMetaData>
 
 MusicSong::MusicSong(QUrl url, QObject* parent)
-    : url_(url)
-    , songTitle_("")
-    , songInterpret_("")
-    , songAlbumTitle_("")
-    , songAlbumInterpret_("")
-    , loaded_(false)
+    :url_(url)
+    ,songTitle_("")
+    ,songInterpret_("")
+    ,songDuration_(0)
+    ,albumSongNumber_(0)
+    ,albumSongCount_(0)
+    ,albumTitle_("")
+    ,albumInterpret_("")
+    ,loaded_(false)
 {
     mp_ = new QMediaPlayer();
     mp_->setMedia(url_);
@@ -42,14 +45,29 @@ QString MusicSong::getSongInterpret()
     return songInterpret_;
 }
 
-QString MusicSong::getSongAlbumTitle()
+qint64 MusicSong::getSongDuration()
 {
-    return songAlbumTitle_;
+    return songDuration_;
 }
 
-QString MusicSong::getSongAlbumInterpret()
+int MusicSong::getAlbumSongNumber()
 {
-    return songAlbumInterpret_;
+    return albumSongNumber_;
+}
+
+int MusicSong::getAlbumSongCount()
+{
+    return albumSongCount_;
+}
+
+QString MusicSong::getAlbumTitle()
+{
+    return albumTitle_;
+}
+
+QString MusicSong::getAlbumInterpret()
+{
+    return albumInterpret_;
 }
 
 void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
@@ -59,8 +77,12 @@ void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
         loaded_ = true;
         songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
         songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();
-        songAlbumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
-        songAlbumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
+        songDuration_ = mp_->metaData(QMediaMetaData::Duration).value<qint64>();
+
+        albumSongNumber_ = mp_->metaData(QMediaMetaData::TrackNumber).toInt();
+        albumSongCount_ = mp_->metaData(QMediaMetaData::TrackCount).toInt();
+        albumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
+        albumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
         //songCoverArt_ = new QImage(mp_->metaData(QMediaMetaData::CoverArtImage).value<QImage>());
     }
 }

@@ -2,7 +2,6 @@
 #include "ArkEchoQr.h"
 #include "WebSocketServer.h"
 #include "MessageHandler.h"
-#include "MusicSongList.h"
 
 #include <QMessageBox>
 #include <QWebSocket>

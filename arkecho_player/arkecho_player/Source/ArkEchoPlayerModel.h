@@ -1,11 +1,12 @@
 #ifndef ARKECHOPLAYERMODEL_H
 #define ARKECHOPLAYERMODEL_H
 
+#include "MusicSongList.h"
+
 #include <QObject>
 
 struct WsStringData;
 class WebSocketServer;
-class MusicSongList;
 
 enum UpdateViewEnum
 {

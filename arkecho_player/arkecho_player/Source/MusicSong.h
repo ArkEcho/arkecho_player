@@ -15,12 +15,15 @@ public:
 
     bool isLoaded();
 
-    QUrl getUrl(); 
-
+    QUrl getUrl();
     QString getSongTitle();
     QString getSongInterpret();
-    QString getSongAlbumTitle();
-    QString getSongAlbumInterpret();
+    qint64 getSongDuration();
+
+    int getAlbumSongNumber();
+    int getAlbumSongCount();
+    QString getAlbumTitle();
+    QString getAlbumInterpret();
 
 private slots:
     void onMediaStatusChanged(const QMediaPlayer::MediaStatus status);
@@ -31,8 +34,12 @@ private:
     QUrl url_;
     QString songTitle_;
     QString songInterpret_;
-    QString songAlbumTitle_;
-    QString songAlbumInterpret_;
+    qint64 songDuration_;
+
+    int albumSongNumber_;
+    int albumSongCount_;
+    QString albumTitle_;
+    QString albumInterpret_;
 
     QMediaPlayer* mp_;
 };
