@@ -1,9 +1,6 @@
 #include "MusicSong.h"
 
-#include <QFile>
 #include <QMediaMetaData>
-
-const QString METADATA_KEY_TITLE = "Title";
 
 MusicSong::MusicSong(QUrl url, QObject* parent)
     : url_(url)
@@ -11,6 +8,7 @@ MusicSong::MusicSong(QUrl url, QObject* parent)
     , songInterpret_("")
     , songAlbumTitle_("")
     , songAlbumInterpret_("")
+    , loaded_(false)
 {
     mp_ = new QMediaPlayer();
     mp_->setMedia(url_);
@@ -24,21 +22,47 @@ MusicSong::~MusicSong()
     delete mp_;
 }
 
+bool MusicSong::isLoaded()
+{
+    return loaded_;
+}
+
 QUrl MusicSong::getUrl()
 {
     return url_;
+}
+
+QString MusicSong::getSongTitle()
+{
+    return songTitle_;
+}
+
+QString MusicSong::getSongInterpret()
+{
+    return songInterpret_;
+}
+
+QString MusicSong::getSongAlbumTitle()
+{
+    return songAlbumTitle_;
+}
+
+QString MusicSong::getSongAlbumInterpret()
+{
+    return songAlbumInterpret_;
 }
 
 void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
 {
     if (status == QMediaPlayer::MediaStatus::LoadedMedia)
     {
+        loaded_ = true;
         songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
         songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();
         songAlbumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
         songAlbumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
+        //songCoverArt_ = new QImage(mp_->metaData(QMediaMetaData::CoverArtImage).value<QImage>());
     }
-    mp_->deleteLater();
 }
 
 /*

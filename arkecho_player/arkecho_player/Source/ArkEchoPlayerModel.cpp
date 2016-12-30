@@ -2,19 +2,24 @@
 #include "ArkEchoQr.h"
 #include "WebSocketServer.h"
 #include "MessageHandler.h"
-//#include "MusicSong.h"
+#include "MusicSongList.h"
 
 #include <QMessageBox>
 #include <QWebSocket>
 
 const QString SERVER_NAME = "ArkEcho Server";
 const int SERVER_PORT = 1000;
+const QStringList DIRECTORY_LIST = QStringList() << "C:/Users/steph/Music/";
 
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     : QObject(parent)
 {
-    /*QString path = "C:/Users/steph/Music/Breaking Bad Soundtrack/TV On The Radio - DLZ.mp3";
-    MusicSong* s = new MusicSong(QUrl::fromLocalFile(path));*/
+    musicSongList_ = new MusicSongList(DIRECTORY_LIST);
+    while (!musicSongList_->allSongsLoaded())
+    {
+        qApp->processEvents();
+    }
+
     webSocketServer_ = new WebSocketServer(SERVER_NAME);
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen
     {
@@ -30,6 +35,7 @@ ArkEchoPlayerModel::~ArkEchoPlayerModel()
     if(webSocketServer_) webSocketServer_->close();
 
     delete webSocketServer_;
+    delete musicSongList_;
 }
 
 void ArkEchoPlayerModel::showConnectQrDialog()

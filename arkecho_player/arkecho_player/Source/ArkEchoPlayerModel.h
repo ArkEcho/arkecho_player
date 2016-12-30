@@ -5,6 +5,7 @@
 
 struct WsStringData;
 class WebSocketServer;
+class MusicSongList;
 
 enum UpdateViewEnum
 {
@@ -29,6 +30,7 @@ signals:
 
 private:
     WebSocketServer* webSocketServer_;
+    MusicSongList* musicSongList_;
 
     QString getWebServerAddress();
 

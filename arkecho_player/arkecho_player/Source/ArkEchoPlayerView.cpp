@@ -11,12 +11,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     ui_ = new Ui::ArkEchoPlayerViewClass();
     ui_->setupUi(this);
 
-    webSocketStatus_ = new QLabel();
-
-    // UI Anzeige initialisieren
     initUi();
-    
-    setWebSocketStatusLabel(false);
 
     model_ = new ArkEchoPlayerModel();
     connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
@@ -33,7 +28,9 @@ void ArkEchoPlayerView::initUi()
     this->setWindowTitle(DIALOGTITLE);
 
     // WebSocket Statusanzeige initalisieren
+    webSocketStatus_ = new QLabel();
     ui_->statusBar->addPermanentWidget(webSocketStatus_);
+    setWebSocketStatusLabel(false);
 }
 
 void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
