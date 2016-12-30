@@ -14,7 +14,8 @@ const QStringList DIRECTORY_LIST = QStringList() << "C:/Users/steph/Music/";
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     : QObject(parent)
 {
-    musicSongList_ = new MusicSongList(DIRECTORY_LIST);
+    musicSongList_ = new MusicSongList();
+    musicSongList_->loadSongs(DIRECTORY_LIST);
     while (!musicSongList_->allSongsLoaded())
     {
         qApp->processEvents();

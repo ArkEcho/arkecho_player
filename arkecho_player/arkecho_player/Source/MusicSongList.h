@@ -1,20 +1,22 @@
 #ifndef MUSICSONGLIST_H
 #define MUSICSONGLIST_H
 
+#include "MusicSong.h"
+
 #include <QObject>
 #include <QList>
-
-class MusicSong;
 
 class MusicSongList : public QObject
 {
     Q_OBJECT
 
 public:
-    MusicSongList(QStringList directories, QObject *parent = 0);
+    MusicSongList(QObject *parent = 0);
     ~MusicSongList();
 
     bool allSongsLoaded();
+    void loadSongs(QStringList directories);
+    QList<MusicSong*> getSongList();
 
 private:
     QList<MusicSong*> songList_;
