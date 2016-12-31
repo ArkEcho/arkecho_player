@@ -22,8 +22,8 @@ private:
     QLabel* webSocketStatus_;
 
     void initUi();
-
     void setWebSocketStatusLabel(bool connected);
+    void setTWTrackList();
 
 private slots :
     void onUpdateView(const int &uve);

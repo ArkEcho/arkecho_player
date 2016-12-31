@@ -1,6 +1,7 @@
 #include "MusicSong.h"
 
 #include <QMediaMetaData>
+#include <QTime>
 
 MusicSong::MusicSong(QUrl url, QObject* parent)
     :url_(url)
@@ -45,9 +46,18 @@ QString MusicSong::getSongInterpret()
     return songInterpret_;
 }
 
-qint64 MusicSong::getSongDuration()
+qint64 MusicSong::getSongDurationAsMS()
 {
     return songDuration_;
+}
+
+QString MusicSong::getSongDurationAsMinuteSecond()
+{
+    int secondsTotal = songDuration_ / 1000;
+    int minutes = secondsTotal / 60;
+    int seconds = secondsTotal % 60;
+    QString duration = QString::number(minutes) + ":" + QString::number(seconds);
+    return duration;
 }
 
 int MusicSong::getAlbumSongNumber()
@@ -74,7 +84,6 @@ void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
 {
     if (status == QMediaPlayer::MediaStatus::LoadedMedia)
     {
-        loaded_ = true;
         songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
         songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();
         songDuration_ = mp_->metaData(QMediaMetaData::Duration).value<qint64>();
@@ -83,6 +92,7 @@ void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
         albumSongCount_ = mp_->metaData(QMediaMetaData::TrackCount).toInt();
         albumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
         albumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
+        loaded_ = true;
         //songCoverArt_ = new QImage(mp_->metaData(QMediaMetaData::CoverArtImage).value<QImage>());
     }
 }

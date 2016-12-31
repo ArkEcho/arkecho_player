@@ -26,6 +26,9 @@ public:
     void showConnectQrDialog();
     void showConnectManualDialog();
 
+    MusicSongList* getMusicSongList();
+    QString getWebServerAddress();
+
 signals:
     void updateView(int);
 
@@ -33,7 +36,6 @@ private:
     WebSocketServer* webSocketServer_;
     MusicSongList* musicSongList_;
 
-    QString getWebServerAddress();
 
 private slots:
     void onTextMessageReceived(const WsStringData& data);

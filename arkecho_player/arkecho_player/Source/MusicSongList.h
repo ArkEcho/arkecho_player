@@ -4,7 +4,7 @@
 #include "MusicSong.h"
 
 #include <QObject>
-#include <QList>
+#include <QMap>
 
 class MusicSongList : public QObject
 {
@@ -16,10 +16,10 @@ public:
 
     bool allSongsLoaded();
     void loadSongs(QStringList directories);
-    QList<MusicSong*> getSongList();
+    QMap<int,MusicSong*> getSongList();
 
 private:
-    QList<MusicSong*> songList_;
+    QMap<int,MusicSong*> songList_;
 };
 
 #endif // MUSICSONGLIST_H

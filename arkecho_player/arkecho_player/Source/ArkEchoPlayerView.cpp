@@ -5,8 +5,20 @@
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
 
+enum TableTrackListColumns
+{
+    TRACKL_ALBUMTITLE = 0,
+    TRACKL_ALBUMNUMBER,
+    TRACKL_SONGTITLE,
+    TRACKL_SONGINTERPRET,
+    TRACKL_SONGDURATION,
+    TRACKL_MAX_COLUMN_COUNT
+};
+
 ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
-    : QMainWindow(parent)
+    :QMainWindow(parent)
+    ,ui_(0)
+    ,model_(0)
 {
     ui_ = new Ui::ArkEchoPlayerViewClass();
     ui_->setupUi(this);
@@ -15,6 +27,8 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
 
     model_ = new ArkEchoPlayerModel();
     connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
+
+    setTWTrackList();
 }
 
 ArkEchoPlayerView::~ArkEchoPlayerView()
@@ -32,6 +46,13 @@ void ArkEchoPlayerView::initUi()
     webSocketStatus_ = new QLabel();
     ui_->statusBar->addPermanentWidget(webSocketStatus_);
     setWebSocketStatusLabel(false);
+
+    //TableWidget initialisieren
+    ui_->twTrackList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui_->twTrackList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui_->twTrackList->verticalHeader()->setVisible(false);
+    ui_->twTrackList->setColumnCount(TRACKL_MAX_COLUMN_COUNT);
+    ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Number;Titel;Interpret;Dauer").split(";"));
 }
 
 void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
@@ -50,6 +71,27 @@ void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
     }
     webSocketStatus_->setText(message);
     webSocketStatus_->setStyleSheet("color: "+color+";");
+}
+
+void ArkEchoPlayerView::setTWTrackList()
+{
+    if (!model_ || !ui_ || !model_->getMusicSongList()) return;
+
+    QMap<int,MusicSong*> map = model_->getMusicSongList()->getSongList();
+    int mapSize = map.size();
+    if (mapSize == 0) return;
+    ui_->twTrackList->setRowCount(mapSize);
+
+    for (int i = 0; i < mapSize; ++i)
+    {
+        MusicSong* song = map.value(i);
+        if (!song) continue;
+        ui_->twTrackList->setItem(i, TRACKL_ALBUMTITLE, new QTableWidgetItem(song->getAlbumTitle(), i));
+        ui_->twTrackList->setItem(i, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), i));
+        ui_->twTrackList->setItem(i, TRACKL_SONGTITLE, new QTableWidgetItem(song->getSongTitle(), i));
+        ui_->twTrackList->setItem(i, TRACKL_SONGINTERPRET, new QTableWidgetItem(song->getSongInterpret(), i));
+        ui_->twTrackList->setItem(i, TRACKL_SONGDURATION, new QTableWidgetItem(song->getSongDurationAsMinuteSecond(), i));
+    }
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)

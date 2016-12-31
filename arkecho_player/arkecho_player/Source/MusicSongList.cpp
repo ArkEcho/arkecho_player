@@ -1,7 +1,7 @@
 #include "MusicSongList.h"
 
 #include <QDirIterator>
-#include <QListIterator>
+#include <QMapIterator>
 
 MusicSongList::MusicSongList(QObject *parent)
     : QObject(parent)
@@ -15,10 +15,10 @@ MusicSongList::~MusicSongList()
 
 bool MusicSongList::allSongsLoaded()
 {
-    QListIterator<MusicSong*> it(songList_);
+    QMapIterator<int,MusicSong*> it(songList_);
     while (it.hasNext())
     {
-        MusicSong* s = it.next();
+        MusicSong* s = it.next().value();
         if (!s) continue;
         if (!s->isLoaded()) return false;
     }
@@ -35,13 +35,13 @@ void MusicSongList::loadSongs(QStringList directories)
         while (it->hasNext())
         {
             MusicSong* s = new MusicSong(QUrl::fromLocalFile(it->next()));
-            songList_.append(s);
+            songList_.insert(songList_.size(),s);
         }
     }
     delete it;
 }
 
-QList<MusicSong*> MusicSongList::getSongList()
+QMap<int,MusicSong*> MusicSongList::getSongList()
 {
     return songList_;
 }

@@ -11,7 +11,9 @@ const int SERVER_PORT = 1000;
 const QStringList DIRECTORY_LIST = QStringList() << "C:/Users/steph/Music/";
 
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
-    : QObject(parent)
+    :QObject(parent)
+    ,musicSongList_(0)
+    ,webSocketServer_(0)
 {
     musicSongList_ = new MusicSongList();
     musicSongList_->loadSongs(DIRECTORY_LIST);
@@ -53,6 +55,11 @@ void ArkEchoPlayerModel::showConnectManualDialog()
     msgBox.setWindowTitle("Verbindung Manuell herstellen");
     msgBox.setText("\n" + address + "\n");
     msgBox.exec();
+}
+
+MusicSongList * ArkEchoPlayerModel::getMusicSongList()
+{
+    return musicSongList_;
 }
 
 QString ArkEchoPlayerModel::getWebServerAddress()
