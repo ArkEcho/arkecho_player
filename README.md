@@ -1,16 +1,22 @@
 # ArkEcho App and Desktop Development
 
 ## Private Project ;)
-## Please don't make Commits etc. :D
+## Please don't make Commits, add Branches etc. :D
 
-### App is developed with Visual Studio 2015, Xamarin.Android in C# #
-### App is using NuGet Packages: 
+ArkEcho is a private, non-commercial Project, fully developed by Stephan Ziesenis, Student of "Medical Informatics" at Heidelberg University & Heilbronn University.
+
+The ArkEcho Player is a 'normal' Media Player, like VLC or Windows Media Player. Its developed for playing Music-Songs.
+Its Feature is the ArkEcho App, which controls the Player via NetWork. Therefore it uses the WebSocket Protocoll.
+To Connect the App to the Player, you can scan a Qr-Code in the Player or type the Address manually.
+
+### ArkEcho-App is developed with Visual Studio 2015, Xamarin.Android in C# #
+### The App is using NuGet Packages: 
 - WebSockets.PCL - [Github] (https://github.com/NVentimiglia/Websockets.PCL)
 - JSON.Net - [Github] (https://github.com/JamesNK/Newtonsoft.Json)
 - ZXing.Net.Mobile - [Github] (https://github.com/Redth/ZXing.Net.Mobile)
 
-### Player is developed with Visual Studio 2015, Qt 5.7.0 in C++
-### Player is using:
+### ArkEcho-Player is developed with Visual Studio 2015, Qt 5.7.0 in C++
+### The Player is using:
 - Nayuki's Qr-Code Generator - [Github] (https://github.com/nayuki/QR-Code-generator)
 - QDarkStylesheet - [Github] (https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 
