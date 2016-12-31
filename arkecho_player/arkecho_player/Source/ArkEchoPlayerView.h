@@ -7,6 +7,7 @@
 
 class ArkEchoPlayerModel;
 class QLabel;
+class QMediaPlayer;
 
 class ArkEchoPlayerView : public QMainWindow
 {
@@ -20,6 +21,7 @@ private:
     Ui::ArkEchoPlayerViewClass* ui_;
     ArkEchoPlayerModel* model_;
     QLabel* webSocketStatus_;
+    QMediaPlayer* player_;
 
     void initUi();
     void setWebSocketStatusLabel(bool connected);
@@ -29,6 +31,9 @@ private slots :
     void onUpdateView(const int &uve);
     void on_actionManuelle_Verbindung_triggered();
     void on_actionQR_Code_Verbindung_triggered();
+    void onPbPlay_PauseClicked();
+    void onPbStopClicked();
+    void onTwTrackListItemDoubleClicked(QTableWidgetItem* item);
 };
 
 #endif // ARKECHOPLAYERVIEW_H

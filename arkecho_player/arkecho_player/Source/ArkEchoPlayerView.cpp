@@ -19,14 +19,21 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     :QMainWindow(parent)
     ,ui_(0)
     ,model_(0)
+    ,webSocketStatus_(0)
+    ,player_(0)
 {
     ui_ = new Ui::ArkEchoPlayerViewClass();
     ui_->setupUi(this);
-
+    connect(ui_->pbPlay_Pause, SIGNAL(clicked()), this, SLOT(onPbPlay_PauseClicked()));
+    connect(ui_->pbStop, SIGNAL(clicked()), this, SLOT(onPbStopClicked()));
+    connect(ui_->twTrackList, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(onTwTrackListItemDoubleClicked(QTableWidgetItem*)));
     initUi();
 
     model_ = new ArkEchoPlayerModel();
     connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
+
+    player_ = new QMediaPlayer();
+    player_->setVolume(50);
 
     setTWTrackList();
 }
@@ -35,6 +42,7 @@ ArkEchoPlayerView::~ArkEchoPlayerView()
 {
     delete webSocketStatus_;
     delete model_;
+    delete player_;
     delete ui_;
 }
 
@@ -116,4 +124,36 @@ void ArkEchoPlayerView::on_actionManuelle_Verbindung_triggered()
 void ArkEchoPlayerView::on_actionQR_Code_Verbindung_triggered()
 {
     model_->showConnectQrDialog();
+}
+
+void ArkEchoPlayerView::onPbPlay_PauseClicked()
+{
+    if (!player_) return;
+    if (player_->state() == QMediaPlayer::PlayingState)
+    {
+        player_->pause();
+    }
+    else
+    {
+        player_->play();
+    }
+}
+
+void ArkEchoPlayerView::onPbStopClicked()
+{
+    if (!player_) return;
+    player_->stop();
+}
+
+void ArkEchoPlayerView::onTwTrackListItemDoubleClicked(QTableWidgetItem * item)
+{
+    if (!item) return;
+    int type = item->type();
+
+    if (!model_ || !model_->getMusicSongList()) return;
+    MusicSong* song = model_->getMusicSongList()->getSongList()[type];
+
+    if (!player_ || !song) return;
+    player_->setMedia(song->getUrl());
+    player_->play();
 }
