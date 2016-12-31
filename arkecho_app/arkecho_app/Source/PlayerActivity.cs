@@ -1,5 +1,7 @@
 using Android.App;
 using Android.OS;
+using Android.Widget;
+
 using System.Threading.Tasks;
 using System;
 
@@ -15,7 +17,26 @@ namespace arkecho_app.source
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.PlayerActivity);
 
+            FindViewById<Button>(Resource.Id.pbPlay_Pause).Click += onPbPlay_PauseClicked;
+            FindViewById<Button>(Resource.Id.pbForward).Click += onPbForwardClicked;
+            FindViewById<Button>(Resource.Id.pbBackward).Click += onPbBackwardClicked;
+
             ArkEchoWebSocket.webSocketConnectionClosed += onWebSocketConnectionClosed;
+        }
+
+        private void onPbBackwardClicked(object sender, EventArgs e)
+        {
+            ArkEchoWebSocket.sendMessage((int)MessageHandler.MESSAGETYPE.MT_BACKWARD, "");
+        }
+
+        private void onPbForwardClicked(object sender, EventArgs e)
+        {
+            ArkEchoWebSocket.sendMessage((int)MessageHandler.MESSAGETYPE.MT_FORWARD, "");
+        }
+
+        private void onPbPlay_PauseClicked(object sender, EventArgs e)
+        {
+            ArkEchoWebSocket.sendMessage((int)MessageHandler.MESSAGETYPE.MT_PLAY_PAUSE, "");
         }
 
         private void onWebSocketConnectionClosed()

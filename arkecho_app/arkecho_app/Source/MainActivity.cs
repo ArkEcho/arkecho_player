@@ -89,7 +89,6 @@ namespace arkecho_app.source
             {
                 MobileBarcodeScanner.Initialize(Application);
                 MobileBarcodeScanner scanner = new MobileBarcodeScanner();
-                scanner.UseCustomOverlay = true;
                 scanner.TopText = "QR-Code Scanner";
                 scanner.BottomText = "Halten sie den Roten Strich über den QR-Code";
 

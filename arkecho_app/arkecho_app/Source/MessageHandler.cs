@@ -9,9 +9,11 @@ namespace arkecho_app.source
 
         public enum MESSAGETYPE
         {
-            NOTDEFINED = 0,
-            ECHO_TEST,
-            HANDSHAKE_SEC_CODE
+            MT_NOTDEFINED = 0,
+            MT_ECHO_TEST,
+            MT_PLAY_PAUSE,
+            MT_BACKWARD,
+            MT_FORWARD
         }
 
         public static string createMessage(int messageType, string message)

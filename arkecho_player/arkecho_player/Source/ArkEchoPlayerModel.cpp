@@ -81,4 +81,17 @@ void ArkEchoPlayerModel::onTextMessageReceived(const WsStringData& data)
 {
     QString message = data.message_;
     int messageType = MessageHandler::handleReceivedMessage(message);
+
+    switch (messageType)
+    {
+    case MT_BACKWARD:
+        emit updateView(REMOTE_BUTTON_BACKWARD);
+        break;
+    case MT_FORWARD:
+        emit updateView(REMOTE_BUTTON_FORWARD);
+        break;
+    case MT_PLAY_PAUSE:
+        emit updateView(REMOTE_BUTTON_PLAY_PAUSE);
+        break;
+    }
 }

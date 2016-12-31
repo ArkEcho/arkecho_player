@@ -7,7 +7,9 @@ enum MESSAGETYPE
 {
     MT_NOTDEFINED = 0,
     MT_ECHO_TEST,
-    MT_HANDSHAKE_SEC_CODE
+    MT_PLAY_PAUSE,
+    MT_BACKWARD,
+    MT_FORWARD
 };
 
 class MessageHandler : public QObject
