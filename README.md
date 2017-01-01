@@ -1,7 +1,7 @@
-# ArkEcho App and Desktop Development
+# ArkEcho Player and Development
 
-## Private Project ;)
-## Please don't make Commits, add Branches etc. :D
+### Private Project ;)
+### Please don't make Commits, add Branches etc. :D
 
 ###Description
 ArkEcho is a private, non-commercial Project, fully developed by Stephan Ziesenis, Student of Health-Informatics at Heidelberg University & Heilbronn University.
@@ -25,6 +25,17 @@ To Connect the App to the Player, you can scan a Qr-Code in the Player or type t
 ```json
 {
 	"Message": string,
-	"Typ": int
+	"Type": int
+}
+```
+
+### JSON Song:
+```json
+{
+	"SongTitle": string,	
+	"SongInterpret": string,
+	"AlbumTitle": string,
+	"AlbumInterpret": string,
+	"CoverArt": string
 }
 ```
