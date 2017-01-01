@@ -28,7 +28,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
 
     player_ = new QMediaPlayer();
-    player_->setVolume(DEFAULT_VOLUME);
+    connect(player_, SIGNAL(positionChanged(qint64)), this, SLOT(onPlayerPositionChanged(qint64)));
 
     ui_ = new Ui::ArkEchoPlayerViewClass();
     ui_->setupUi(this);
@@ -136,11 +136,13 @@ void ArkEchoPlayerView::onUpdateView(const int &uve)
 
 void ArkEchoPlayerView::on_actionManuelle_Verbindung_triggered()
 {
+    if (!model_) return;
     model_->showConnectManualDialog();
 }
 
 void ArkEchoPlayerView::on_actionQR_Code_Verbindung_triggered()
 {
+    if (!model_) return;
     model_->showConnectQrDialog();
 }
 
@@ -155,14 +157,8 @@ void ArkEchoPlayerView::onPbForwardClicked()
 void ArkEchoPlayerView::onPbPlay_PauseClicked()
 {
     if (!player_) return;
-    if (player_->state() == QMediaPlayer::PlayingState)
-    {
-        player_->pause();
-    }
-    else
-    {
-        player_->play();
-    }
+    if (player_->state() == QMediaPlayer::PlayingState) player_->pause();
+    else player_->play();
 }
 
 void ArkEchoPlayerView::onPbStopClicked()
@@ -189,4 +185,15 @@ void ArkEchoPlayerView::onSliderVolumeValueChanged(const int &value)
     if (!player_) return;
     player_->setVolume(value);
     ui_->lblVolume->setText(QString::number(value));
+}
+
+void ArkEchoPlayerView::onPlayerPositionChanged(const qint64 & position)
+{
+    if (!player_) return;
+    double duration = (double)player_->duration();
+    double positionD = (double)position;
+
+    if (duration == 0) return;
+    double value = (positionD / duration) * 100;
+    ui_->sliderDuration->setValue(value);
 }

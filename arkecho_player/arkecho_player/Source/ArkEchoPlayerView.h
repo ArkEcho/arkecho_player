@@ -37,6 +37,7 @@ private slots :
     void onPbStopClicked();
     void onTwTrackListItemDoubleClicked(QTableWidgetItem* item);
     void onSliderVolumeValueChanged(const int &value);
+    void onPlayerPositionChanged(const qint64 &position);
 };
 
 #endif // ARKECHOPLAYERVIEW_H
