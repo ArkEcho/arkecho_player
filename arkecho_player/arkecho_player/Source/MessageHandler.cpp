@@ -3,13 +3,13 @@
 
 #include "MessageHandler.h"
 
-const QString JSON_TYP = "Typ";
+const QString JSON_TYPE = "Type";
 const QString JSON_MESSAGE = "Message";
 
 QString& MessageHandler::createMessage(int typ, QString & message)
 {
     QJsonObject obj;
-    obj[JSON_TYP] = typ;
+    obj[JSON_TYPE] = typ;
     obj[JSON_MESSAGE] = message;
 
     QJsonDocument doc;
@@ -27,7 +27,7 @@ int MessageHandler::handleReceivedMessage(QString &message)
 
     QJsonObject obj = doc.object();
 
-    int type = obj[JSON_TYP].toInt();
+    int type = obj[JSON_TYPE].toInt();
     message = obj[JSON_MESSAGE].toString();
 
     return type;
