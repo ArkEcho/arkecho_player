@@ -5,7 +5,9 @@
 #include <QLabel>
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
+const int MEDIAPLAYER_BUFFER_DURATION = 560;
 const int DEFAULT_VOLUME = 100;
+const int ROW_HEIGHT = 20;
 
 enum TableTrackListColumns
 {
@@ -66,7 +68,12 @@ void ArkEchoPlayerView::initUi()
     ui_->twTrackList->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui_->twTrackList->verticalHeader()->setVisible(false);
     ui_->twTrackList->setColumnCount(TRACKL_MAX_COLUMN_COUNT);
-    ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Number;Titel;Interpret;Dauer").split(";"));
+    ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Nummer;Titel;Interpret;Dauer").split(";"));
+    ui_->twTrackList->setColumnWidth(TRACKL_ALBUMTITLE, 200);
+    ui_->twTrackList->setColumnWidth(TRACKL_ALBUMNUMBER, 55);
+    ui_->twTrackList->setColumnWidth(TRACKL_SONGTITLE, 200);
+    ui_->twTrackList->setColumnWidth(TRACKL_SONGINTERPRET, 200);
+    ui_->twTrackList->setColumnWidth(TRACKL_SONGDURATION, 55);
     setTWTrackList();
 
     // Duration Anzeige
@@ -108,6 +115,7 @@ void ArkEchoPlayerView::setTWTrackList()
     {
         MusicSong* song = map.value(i);
         if (!song) continue;
+        ui_->twTrackList->setRowHeight(i, ROW_HEIGHT);
         ui_->twTrackList->setItem(i, TRACKL_ALBUMTITLE, new QTableWidgetItem(song->getAlbumTitle(), i));
         ui_->twTrackList->setItem(i, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), i));
         ui_->twTrackList->setItem(i, TRACKL_SONGTITLE, new QTableWidgetItem(song->getSongTitle(), i));
@@ -119,11 +127,15 @@ void ArkEchoPlayerView::setTWTrackList()
 void ArkEchoPlayerView::setLblDuration()
 {
     if (!player_) return;
-    // MetaData und Player Song Länge unterscheiden sich um 1000ms
-    QString durationOverall = MusicSong::convertSongDurationToMinuteSecond(player_->duration()-1000);
+    // MetaData und Player Song Länge unterscheiden sich etwa um 560ms
+    qint64 duration = player_->duration();
+    if (duration == 0) return;
+    QString durationOverall = MusicSong::convertSongDurationToMinuteSecond(duration - MEDIAPLAYER_BUFFER_DURATION);
+
     qint64 position = player_->position();
-    if (position >= 1000) position -= 1000;
+    if (position >= MEDIAPLAYER_BUFFER_DURATION) position -= MEDIAPLAYER_BUFFER_DURATION;
     QString durationNow = MusicSong::convertSongDurationToMinuteSecond(position);
+
     QString text = durationNow + "/" + durationOverall;
     ui_->lblDuration->setText(text);
 }
