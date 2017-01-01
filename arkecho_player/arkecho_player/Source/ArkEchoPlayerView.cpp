@@ -38,6 +38,8 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(ui_->pbStop, SIGNAL(clicked()), this, SLOT(onPbStopClicked()));
     connect(ui_->twTrackList, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(onTwTrackListItemDoubleClicked(QTableWidgetItem*)));
     connect(ui_->sliderVolume, SIGNAL(valueChanged(int)), this, SLOT(onSliderVolumeValueChanged(int)));
+    connect(ui_->sliderDuration, SIGNAL(sliderPressed()), this, SLOT(onSliderDurationPressed()));
+    connect(ui_->sliderDuration, SIGNAL(sliderReleased()), this, SLOT(onSliderDurationReleased()));
     // UI initialisieren; Grössen, Texte, Inhalt etc.
     initUi();
 }
@@ -196,4 +198,20 @@ void ArkEchoPlayerView::onPlayerPositionChanged(const qint64 & position)
     if (duration == 0) return;
     double value = (positionD / duration) * 100;
     ui_->sliderDuration->setValue(value);
+}
+
+void ArkEchoPlayerView::onSliderDurationPressed()
+{
+    if (!player_) return;
+    player_->pause();
+}
+
+void ArkEchoPlayerView::onSliderDurationReleased()
+{
+    if (!player_) return;
+    double duration = (double)player_->duration();
+    double value = ui_->sliderDuration->value();
+    double newPosition = (duration / 100) * value;
+    player_->setPosition(newPosition);
+    player_->play();
 }
