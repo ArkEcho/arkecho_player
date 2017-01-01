@@ -14,9 +14,13 @@
   <string name="PlayerActivityButtonPlay_Pause">Play/Pause</string>
   <string name="PlayerActivityButtonForward">Weiter</string>
 
+  <string name="QrScannerTextTop">Qr-Code Scanner</string>
+  <string name="QrScannerTextBottom">Halten sie den Strich über den Qr-Code!</string>
+
   <string name="MsgBoxTitleError">Fehler:</string>
   <string name="MsgBoxTextConnectionEnded">Verbindung zum ArkEcho Player unterbrochen!</string>
-  
+
+  <string name="ToastQrScanFailed">Der Qr-Code wurde nicht korrekt gescannt!</string>  
   <string name="ToastNoConnection">Keine Verbindung zum ArkEcho Player möglich!</string>
   <string name="ToastEmptyWrongAddress">Bitte füllen sie das Feld Adresse korrekt und vollständig aus!</string>
 </resources>

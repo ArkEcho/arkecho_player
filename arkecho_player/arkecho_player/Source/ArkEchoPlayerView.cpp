@@ -5,7 +5,7 @@
 #include <QLabel>
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
-const int DEFAULT_VOLUME = 50;
+const int DEFAULT_VOLUME = 100;
 
 enum TableTrackListColumns
 {
@@ -46,9 +46,9 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
 
 ArkEchoPlayerView::~ArkEchoPlayerView()
 {
-    delete webSocketStatus_;
     delete model_;
     delete player_;
+    delete webSocketStatus_;
     delete ui_;
 }
 

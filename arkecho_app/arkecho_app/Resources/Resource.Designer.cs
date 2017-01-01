@@ -161,11 +161,11 @@ namespace arkecho_app.source
 			// aapt resource value: 0x7f040002
 			public const int MainActivityTextViewHeader = 2130968578;
 			
-			// aapt resource value: 0x7f04000c
-			public const int MsgBoxTextConnectionEnded = 2130968588;
+			// aapt resource value: 0x7f04000e
+			public const int MsgBoxTextConnectionEnded = 2130968590;
 			
-			// aapt resource value: 0x7f04000b
-			public const int MsgBoxTitleError = 2130968587;
+			// aapt resource value: 0x7f04000d
+			public const int MsgBoxTitleError = 2130968589;
 			
 			// aapt resource value: 0x7f040008
 			public const int PlayerActivityButtonBackward = 2130968584;
@@ -182,11 +182,20 @@ namespace arkecho_app.source
 			// aapt resource value: 0x7f040006
 			public const int PlayerActivityTextViewTitleDefault = 2130968582;
 			
-			// aapt resource value: 0x7f04000e
-			public const int ToastEmptyWrongAddress = 2130968590;
+			// aapt resource value: 0x7f04000c
+			public const int QrScannerTextBottom = 2130968588;
 			
-			// aapt resource value: 0x7f04000d
-			public const int ToastNoConnection = 2130968589;
+			// aapt resource value: 0x7f04000b
+			public const int QrScannerTextTop = 2130968587;
+			
+			// aapt resource value: 0x7f040011
+			public const int ToastEmptyWrongAddress = 2130968593;
+			
+			// aapt resource value: 0x7f040010
+			public const int ToastNoConnection = 2130968592;
+			
+			// aapt resource value: 0x7f04000f
+			public const int ToastQrScanFailed = 2130968591;
 			
 			static String()
 			{

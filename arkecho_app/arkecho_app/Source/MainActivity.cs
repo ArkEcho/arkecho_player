@@ -13,11 +13,14 @@ namespace arkecho_app.source
     public class MainActivity : Activity
     {
         string qrCodeText_;
+        MobileBarcodeScanner scanner_;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView (Resource.Layout.MainActivity);
+
+            qrCodeText_ = "";
 
             // Connect Buttons
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
@@ -25,6 +28,10 @@ namespace arkecho_app.source
 
             // Prepare WebSockets Connection
             Websockets.Droid.WebsocketConnection.Link();
+
+            // Scanner initialisieren
+            MobileBarcodeScanner.Initialize(Application);
+            scanner_ = new MobileBarcodeScanner();
         }
         
         private void setElementsEnabled(bool enabled)
@@ -38,23 +45,7 @@ namespace arkecho_app.source
         {
             setElementsEnabled(false);
             string address = FindViewById<TextView>(Resource.Id.teAddress).Text;
-            
-            checkAddressConnectAndOpenPlayer(address);
-        }
-        
-        private async void onPbConnectWithQrClicked(object sender, System.EventArgs e)
-        {
-            setElementsEnabled(false);
-            Task scan  = scanQrCode();
-            await scan;
-            
-            string address = qrCodeText_;
 
-            checkAddressConnectAndOpenPlayer(address);
-        }
-
-        private async void checkAddressConnectAndOpenPlayer(string address)
-        {
             if (!ArkEchoWebSocket.checkIfURIAddressIsCorrect(address))
             {
                 showMessageBoxEmptyWrongAddressField();
@@ -62,6 +53,27 @@ namespace arkecho_app.source
                 return;
             }
 
+            connectAndOpenPlayer(address);
+        }
+        
+        private async void onPbConnectWithQrClicked(object sender, System.EventArgs e)
+        {
+            setElementsEnabled(false);
+            Task scan  = scanQrCode();
+            await scan;
+
+            if (!ArkEchoWebSocket.checkIfURIAddressIsCorrect(qrCodeText_))
+            {
+                showMessageBoxQrScanFailed();
+                setElementsEnabled(true);
+                return;
+            }
+
+            connectAndOpenPlayer(qrCodeText_);
+        }
+
+        private async void connectAndOpenPlayer(string address)
+        {
             Task connect = ArkEchoWebSocket.connectWebSocket(address);
             await connect;
 
@@ -69,6 +81,12 @@ namespace arkecho_app.source
 
             if (ArkEchoWebSocket.checkIfConnectionIsOpen()) StartActivity(typeof(PlayerActivity));
             else showMessageBoxNoConnection();
+        }
+
+        private void showMessageBoxQrScanFailed()
+        {
+            Toast mrToast = Toast.MakeText(this, Resource.String.ToastQrScanFailed, ToastLength.Short);
+            mrToast.Show();
         }
 
         private void showMessageBoxEmptyWrongAddressField()
@@ -87,13 +105,12 @@ namespace arkecho_app.source
         {
             try
             {
-                MobileBarcodeScanner.Initialize(Application);
-                MobileBarcodeScanner scanner = new MobileBarcodeScanner();
-                scanner.TopText = "QR-Code Scanner";
-                scanner.BottomText = "Halten sie den Roten Strich über den QR-Code";
+                scanner_.TopText = GetString(Resource.String.QrScannerTextTop);
+                scanner_.BottomText = GetString(Resource.String.QrScannerTextBottom);
 
-                var result = await scanner.Scan();
-                qrCodeText_ = result.Text;
+                var result = await scanner_.Scan();
+                if (result != null) qrCodeText_ = result.Text;
+                else qrCodeText_ = "";
             }
             catch (Exception ex)
             {
