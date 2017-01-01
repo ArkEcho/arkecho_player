@@ -4,6 +4,7 @@
 #include <QLabel>
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
+const int DEFAULT_VOLUME = 50;
 
 enum TableTrackListColumns
 {
@@ -29,13 +30,15 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(ui_->pbPlay_Pause, SIGNAL(clicked()), this, SLOT(onPbPlay_PauseClicked()));
     connect(ui_->pbStop, SIGNAL(clicked()), this, SLOT(onPbStopClicked()));
     connect(ui_->twTrackList, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(onTwTrackListItemDoubleClicked(QTableWidgetItem*)));
+    connect(ui_->sliderVolume, SIGNAL(valueChanged(int)), this, SLOT(onSliderVolumeValueChanged(int)));
+    // UI initialisieren; Grössen, Texte etc.
     initUi();
 
     model_ = new ArkEchoPlayerModel();
     connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
 
     player_ = new QMediaPlayer();
-    player_->setVolume(50);
+    player_->setVolume(DEFAULT_VOLUME);
 
     setTWTrackList();
 }
@@ -63,6 +66,10 @@ void ArkEchoPlayerView::initUi()
     ui_->twTrackList->verticalHeader()->setVisible(false);
     ui_->twTrackList->setColumnCount(TRACKL_MAX_COLUMN_COUNT);
     ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Number;Titel;Interpret;Dauer").split(";"));
+
+    //Volume initialisieren
+    ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
+    ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 }
 
 void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
@@ -175,4 +182,11 @@ void ArkEchoPlayerView::onTwTrackListItemDoubleClicked(QTableWidgetItem * item)
     if (!player_ || !song) return;
     player_->setMedia(song->getUrl());
     player_->play();
+}
+
+void ArkEchoPlayerView::onSliderVolumeValueChanged(const int &value)
+{
+    if (!player_) return;
+    player_->setVolume(value);
+    ui_->lblVolume->setText(QString::number(value));
 }
