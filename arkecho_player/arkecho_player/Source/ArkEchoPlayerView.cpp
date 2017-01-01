@@ -1,5 +1,6 @@
 #include "ArkEchoPlayerView.h"
 #include "ArkEchoPlayerModel.h"
+#include "MusicSongList.h"
 
 #include <QLabel>
 
@@ -23,6 +24,12 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     ,webSocketStatus_(0)
     ,player_(0)
 {
+    model_ = new ArkEchoPlayerModel();
+    connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
+
+    player_ = new QMediaPlayer();
+    player_->setVolume(DEFAULT_VOLUME);
+
     ui_ = new Ui::ArkEchoPlayerViewClass();
     ui_->setupUi(this);
     connect(ui_->pbBackward, SIGNAL(clicked()), this, SLOT(onPbBackwardClicked()));
@@ -31,16 +38,8 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(ui_->pbStop, SIGNAL(clicked()), this, SLOT(onPbStopClicked()));
     connect(ui_->twTrackList, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(onTwTrackListItemDoubleClicked(QTableWidgetItem*)));
     connect(ui_->sliderVolume, SIGNAL(valueChanged(int)), this, SLOT(onSliderVolumeValueChanged(int)));
-    // UI initialisieren; Grössen, Texte etc.
+    // UI initialisieren; Grössen, Texte, Inhalt etc.
     initUi();
-
-    model_ = new ArkEchoPlayerModel();
-    connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
-
-    player_ = new QMediaPlayer();
-    player_->setVolume(DEFAULT_VOLUME);
-
-    setTWTrackList();
 }
 
 ArkEchoPlayerView::~ArkEchoPlayerView()
@@ -66,6 +65,7 @@ void ArkEchoPlayerView::initUi()
     ui_->twTrackList->verticalHeader()->setVisible(false);
     ui_->twTrackList->setColumnCount(TRACKL_MAX_COLUMN_COUNT);
     ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Number;Titel;Interpret;Dauer").split(";"));
+    setTWTrackList();
 
     //Volume initialisieren
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));

@@ -1,7 +1,7 @@
 #ifndef ARKECHOPLAYERVIEW_H
 #define ARKECHOPLAYERVIEW_H
 
-#include <QtWidgets/QMainWindow>
+#include <QMainWindow>
 
 #include "ui_ArkEchoPlayerView.h"
 

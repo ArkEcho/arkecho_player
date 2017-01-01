@@ -2,21 +2,23 @@
 #include "ArkEchoQr.h"
 #include "WebSocketServer.h"
 #include "MessageHandler.h"
+#include "MusicSongList.h"
 
 #include <QMessageBox>
 #include <QWebSocket>
+#include <QDir>
 
 const QString SERVER_NAME = "ArkEcho Server";
 const int SERVER_PORT = 1000;
-const QStringList DIRECTORY_LIST = QStringList() << "C:/Users/steph/Music/";
 
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     :QObject(parent)
     ,musicSongList_(0)
     ,webSocketServer_(0)
+    ,playlist_(0)
 {
     musicSongList_ = new MusicSongList();
-    musicSongList_->loadSongs(DIRECTORY_LIST);
+    musicSongList_->loadSongs(getMusicDirectoryList());
     while (!musicSongList_->allSongsLoaded())
     {
         qApp->processEvents();
@@ -38,6 +40,7 @@ ArkEchoPlayerModel::~ArkEchoPlayerModel()
 
     delete webSocketServer_;
     delete musicSongList_;
+    delete playlist_;
 }
 
 void ArkEchoPlayerModel::showConnectQrDialog()
@@ -57,6 +60,11 @@ void ArkEchoPlayerModel::showConnectManualDialog()
     msgBox.exec();
 }
 
+QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()
+{
+    return playlist_;
+}
+
 MusicSongList * ArkEchoPlayerModel::getMusicSongList()
 {
     return musicSongList_;
@@ -65,6 +73,12 @@ MusicSongList * ArkEchoPlayerModel::getMusicSongList()
 QString ArkEchoPlayerModel::getWebServerAddress()
 {
     return webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
+}
+
+QStringList ArkEchoPlayerModel::getMusicDirectoryList()
+{
+    QStringList list = QStringList() << QDir::homePath() + "/Music/";
+    return list;
 }
 
 void ArkEchoPlayerModel::onWSConnected()

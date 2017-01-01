@@ -1,12 +1,12 @@
 #ifndef ARKECHOPLAYERMODEL_H
 #define ARKECHOPLAYERMODEL_H
 
-#include "MusicSongList.h"
-
 #include <QObject>
 
 struct WsStringData;
 class WebSocketServer;
+class MusicSongList;
+class QMediaPlaylist;
 
 enum UpdateViewEnum
 {
@@ -29,6 +29,7 @@ public:
     void showConnectQrDialog();
     void showConnectManualDialog();
 
+    QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();
     QString getWebServerAddress();
 
@@ -38,7 +39,9 @@ signals:
 private:
     WebSocketServer* webSocketServer_;
     MusicSongList* musicSongList_;
+    QMediaPlaylist* playlist_;
 
+    QStringList getMusicDirectoryList();
 
 private slots:
     void onTextMessageReceived(const WsStringData& data);
