@@ -61,7 +61,7 @@ void ArkEchoPlayerView::initUi()
     ui_->statusBar->addPermanentWidget(webSocketStatus_);
     setWebSocketStatusLabel(false);
 
-    //TableWidget initialisieren
+    // TableWidget initialisieren
     ui_->twTrackList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui_->twTrackList->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui_->twTrackList->verticalHeader()->setVisible(false);
@@ -69,7 +69,10 @@ void ArkEchoPlayerView::initUi()
     ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Number;Titel;Interpret;Dauer").split(";"));
     setTWTrackList();
 
-    //Volume initialisieren
+    // Duration Anzeige
+    ui_->lblDuration->setText("");
+
+    // Volume initialisieren
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 }
@@ -109,8 +112,20 @@ void ArkEchoPlayerView::setTWTrackList()
         ui_->twTrackList->setItem(i, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), i));
         ui_->twTrackList->setItem(i, TRACKL_SONGTITLE, new QTableWidgetItem(song->getSongTitle(), i));
         ui_->twTrackList->setItem(i, TRACKL_SONGINTERPRET, new QTableWidgetItem(song->getSongInterpret(), i));
-        ui_->twTrackList->setItem(i, TRACKL_SONGDURATION, new QTableWidgetItem(song->getSongDurationAsMinuteSecond(), i));
+        ui_->twTrackList->setItem(i, TRACKL_SONGDURATION, new QTableWidgetItem(MusicSong::convertSongDurationToMinuteSecond(song->getSongDuration()), i));
     }
+}
+
+void ArkEchoPlayerView::setLblDuration()
+{
+    if (!player_) return;
+    // MetaData und Player Song Länge unterscheiden sich um 1000ms
+    QString durationOverall = MusicSong::convertSongDurationToMinuteSecond(player_->duration()-1000);
+    qint64 position = player_->position();
+    if (position >= 1000) position -= 1000;
+    QString durationNow = MusicSong::convertSongDurationToMinuteSecond(position);
+    QString text = durationNow + "/" + durationOverall;
+    ui_->lblDuration->setText(text);
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)
@@ -180,6 +195,7 @@ void ArkEchoPlayerView::onTwTrackListItemDoubleClicked(QTableWidgetItem * item)
     if (!player_ || !song) return;
     player_->setMedia(song->getUrl());
     player_->play();
+    setLblDuration();
 }
 
 void ArkEchoPlayerView::onSliderVolumeValueChanged(const int &value)
@@ -192,6 +208,7 @@ void ArkEchoPlayerView::onSliderVolumeValueChanged(const int &value)
 void ArkEchoPlayerView::onPlayerPositionChanged(const qint64 & position)
 {
     if (!player_) return;
+    setLblDuration();
     double duration = (double)player_->duration();
     double positionD = (double)position;
 
@@ -214,4 +231,5 @@ void ArkEchoPlayerView::onSliderDurationReleased()
     double newPosition = (duration / 100) * value;
     player_->setPosition(newPosition);
     player_->play();
+    setLblDuration();
 }

@@ -26,6 +26,7 @@ private:
     void initUi();
     void setWebSocketStatusLabel(bool connected);
     void setTWTrackList();
+    void setLblDuration();
 
 private slots :
     void onUpdateView(const int &uve);

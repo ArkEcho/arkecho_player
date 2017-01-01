@@ -18,8 +18,8 @@ public:
     QUrl getUrl();
     QString getSongTitle();
     QString getSongInterpret();
-    qint64 getSongDurationAsMS();
-    QString getSongDurationAsMinuteSecond();
+    qint64 getSongDuration();
+    static QString convertSongDurationToMinuteSecond(qint64 millisecond);
 
     int getAlbumSongNumber();
     int getAlbumSongCount();

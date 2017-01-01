@@ -46,17 +46,20 @@ QString MusicSong::getSongInterpret()
     return songInterpret_;
 }
 
-qint64 MusicSong::getSongDurationAsMS()
+qint64 MusicSong::getSongDuration()
 {
     return songDuration_;
 }
 
-QString MusicSong::getSongDurationAsMinuteSecond()
+QString MusicSong::convertSongDurationToMinuteSecond(qint64 millisecond)
 {
-    int secondsTotal = songDuration_ / 1000;
+    int secondsTotal = millisecond / 1000;
     int minutes = secondsTotal / 60;
     int seconds = secondsTotal % 60;
-    QString duration = QString::number(minutes) + ":" + QString::number(seconds);
+    QString secondsString = "";
+    if (seconds < 10) secondsString = "0" + QString::number(seconds);
+    else secondsString = QString::number(seconds);
+    QString duration = QString::number(minutes) + ":" + secondsString;
     return duration;
 }
 
