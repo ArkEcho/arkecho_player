@@ -16,6 +16,7 @@ public:
     bool isLoaded();
 
     QUrl getUrl();
+    QMediaContent getMediaContent();
     QString getSongTitle();
     QString getSongInterpret();
     qint64 getSongDuration();

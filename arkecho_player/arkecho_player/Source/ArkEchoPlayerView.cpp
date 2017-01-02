@@ -30,6 +30,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
 
     player_ = new QMediaPlayer();
+    player_->setPlaylist(model_->getMediaPlaylist());
     connect(player_, SIGNAL(positionChanged(qint64)), this, SLOT(onPlayerPositionChanged(qint64)));
 
     ui_ = new Ui::ArkEchoPlayerViewClass();
@@ -106,7 +107,7 @@ void ArkEchoPlayerView::setTWTrackList()
 {
     if (!model_ || !model_->getMusicSongList()) return;
 
-    ui_->twTrackList->clear();
+    ui_->twTrackList->clearContents();
 
     QMap<int,MusicSong*> map = model_->getMusicSongList()->getSongList();
     int mapSize = map.size();
@@ -205,13 +206,14 @@ void ArkEchoPlayerView::onPbStopClicked()
 void ArkEchoPlayerView::onTwTrackListItemDoubleClicked(QTableWidgetItem * item)
 {
     if (!item) return;
-    int type = item->type();
+    int key = item->type();
 
-    if (!model_ || !model_->getMusicSongList()) return;
-    MusicSong* song = model_->getMusicSongList()->getSongList()[type];
+    if (!model_) return;
+    QList<int> keys;
+    keys.append(key);
+    model_->setMediaPlaylist(keys);
 
-    if (!player_ || !song) return;
-    player_->setMedia(song->getUrl());
+    if (!player_) return;
     player_->play();
     setLblDuration();
 }

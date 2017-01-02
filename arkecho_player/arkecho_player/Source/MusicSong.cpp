@@ -36,6 +36,13 @@ QUrl MusicSong::getUrl()
     return url_;
 }
 
+QMediaContent MusicSong::getMediaContent()
+{
+    QMediaContent media;
+    if (!mp_) return media;
+    return mp_->media();
+}
+
 QString MusicSong::getSongTitle()
 {
     return songTitle_;

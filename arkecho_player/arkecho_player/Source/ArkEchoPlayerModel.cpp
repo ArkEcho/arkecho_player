@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QWebSocket>
 #include <QDir>
+#include <QMediaPlaylist>
 
 const QString SERVER_NAME = "ArkEcho Server";
 const int SERVER_PORT = 1000;
@@ -32,6 +33,8 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
         connect(webSocketServer_, SIGNAL(wsConnected()), this, SLOT(onWSConnected()));
         connect(webSocketServer_, SIGNAL(wsDisconnected()), this, SLOT(onWSDisconnected()));
     }
+
+    playlist_ = new QMediaPlaylist();
 }
 
 ArkEchoPlayerModel::~ArkEchoPlayerModel()
@@ -59,6 +62,30 @@ void ArkEchoPlayerModel::showConnectManualDialog()
     msgBox.setWindowTitle("Verbindung Manuell herstellen");
     msgBox.setText("\n" + address + "\n");
     msgBox.exec();
+}
+
+void ArkEchoPlayerModel::setMediaPlaylist(QList<int> keys)
+{
+    if (!musicSongList_ || !playlist_) return;
+    playlist_->clear();
+    if (keys.size() == 0) return;
+
+    QListIterator<int> itKeys(keys);
+    while (itKeys.hasNext())
+    {
+        int keyList = itKeys.next();
+        QMapIterator<int, MusicSong*> itSongs(musicSongList_->getSongList());
+        while (itSongs.hasNext())
+        {
+            int keyMap = itSongs.next().key();
+            if (keyList == keyMap)
+            {
+                playlist_->addMedia(musicSongList_->getSongList().value(keyList)->getMediaContent());
+                break;
+            }
+        }
+    }
+    playlist_->setCurrentIndex(1);
 }
 
 QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()

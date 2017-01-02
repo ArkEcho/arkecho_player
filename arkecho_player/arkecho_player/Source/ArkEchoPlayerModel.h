@@ -29,6 +29,8 @@ public:
     void showConnectQrDialog();
     void showConnectManualDialog();
 
+    void setMediaPlaylist(QList<int> keys);
+
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();
     QString getWebServerAddress();
