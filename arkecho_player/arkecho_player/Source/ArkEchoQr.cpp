@@ -16,10 +16,13 @@ ArkEchoQr::ArkEchoQr(QString qrCodeText, QWidget *parent)
     ui_ = new Ui::ArkEchoQr();
     ui_->setupUi(this);
     this->setStyleSheet("background-color: white;");
-    this->setMinimumSize(200, 200);
-    this->setMaximumSize(200, 200);
+    QSize size = QSize(250, 250);
+    this->setMinimumSize(size);
+    this->setMaximumSize(size);
+    this->setWindowTitle("Verbindung mit Qr-Code");
+    this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-    createQrCode(3.5);
+    createQrCode(5);
     ui_->lblQrCode->setPixmap(QPixmap::fromImage(*qrCode_));
 }
 

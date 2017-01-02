@@ -158,10 +158,10 @@ void ArkEchoPlayerView::onUpdateView(const int &uve)
         setWebSocketStatusLabel(false);
         break;
     case REMOTE_BUTTON_BACKWARD:
-        onPbPlay_PauseClicked();
+        onPbBackwardClicked();
         break;
     case REMOTE_BUTTON_FORWARD:
-        onPbPlay_PauseClicked();
+        onPbForwardClicked();
         break;
     case REMOTE_BUTTON_PLAY_PAUSE:
         onPbPlay_PauseClicked();
