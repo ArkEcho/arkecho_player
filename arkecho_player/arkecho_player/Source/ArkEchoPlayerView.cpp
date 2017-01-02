@@ -77,7 +77,7 @@ void ArkEchoPlayerView::initUi()
     setTWTrackList();
 
     // Duration Anzeige
-    ui_->lblDuration->setText("");
+    ui_->lblDuration->setText("0:00/0:00");
 
     // Volume initialisieren
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
@@ -104,23 +104,29 @@ void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
 
 void ArkEchoPlayerView::setTWTrackList()
 {
-    if (!model_ || !ui_ || !model_->getMusicSongList()) return;
+    if (!model_ || !model_->getMusicSongList()) return;
+
+    ui_->twTrackList->clear();
 
     QMap<int,MusicSong*> map = model_->getMusicSongList()->getSongList();
     int mapSize = map.size();
     if (mapSize == 0) return;
     ui_->twTrackList->setRowCount(mapSize);
 
-    for (int i = 0; i < mapSize; ++i)
+    int row = 0;
+    QMapIterator<int, MusicSong*> it(map);
+    while (it.hasNext())
     {
-        MusicSong* song = map.value(i);
+        int key = it.next().key();
+        MusicSong* song = map.value(key);
         if (!song) continue;
-        ui_->twTrackList->setRowHeight(i, ROW_HEIGHT);
-        ui_->twTrackList->setItem(i, TRACKL_ALBUMTITLE, new QTableWidgetItem(song->getAlbumTitle(), i));
-        ui_->twTrackList->setItem(i, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), i));
-        ui_->twTrackList->setItem(i, TRACKL_SONGTITLE, new QTableWidgetItem(song->getSongTitle(), i));
-        ui_->twTrackList->setItem(i, TRACKL_SONGINTERPRET, new QTableWidgetItem(song->getSongInterpret(), i));
-        ui_->twTrackList->setItem(i, TRACKL_SONGDURATION, new QTableWidgetItem(MusicSong::convertSongDurationToMinuteSecond(song->getSongDuration()), i));
+        ui_->twTrackList->setRowHeight(row, ROW_HEIGHT);
+        ui_->twTrackList->setItem(row, TRACKL_ALBUMTITLE, new QTableWidgetItem(song->getAlbumTitle(), key));
+        ui_->twTrackList->setItem(row, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), key));
+        ui_->twTrackList->setItem(row, TRACKL_SONGTITLE, new QTableWidgetItem(song->getSongTitle(), key));
+        ui_->twTrackList->setItem(row, TRACKL_SONGINTERPRET, new QTableWidgetItem(song->getSongInterpret(), key));
+        ui_->twTrackList->setItem(row, TRACKL_SONGDURATION, new QTableWidgetItem(MusicSong::convertSongDurationToMinuteSecond(song->getSongDuration()), key));
+        ++row;
     }
 }
 

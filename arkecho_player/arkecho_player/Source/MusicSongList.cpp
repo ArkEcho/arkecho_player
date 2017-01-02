@@ -35,6 +35,7 @@ void MusicSongList::loadSongs(QStringList directories)
         while (it->hasNext())
         {
             MusicSong* s = new MusicSong(QUrl::fromLocalFile(it->next()));
+            int key = songList_.size() + 1; // Keys beginnen mit 1
             songList_.insert(songList_.size(),s);
         }
     }

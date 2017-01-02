@@ -48,7 +48,8 @@ void ArkEchoPlayerModel::showConnectQrDialog()
     if (!webSocketServer_) return;
 
     ArkEchoQr* qrDialog = new ArkEchoQr(getWebServerAddress());
-    qrDialog->show();
+    qrDialog->exec();
+    qrDialog->deleteLater();
 }
 
 void ArkEchoPlayerModel::showConnectManualDialog()

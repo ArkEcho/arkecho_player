@@ -1,13 +1,10 @@
-# ArkEcho Player and Development
-
-### Private Project ;)
-### Please don't make Commits, add Branches etc. :D
+# ArkEcho Player and App Development
 
 ###Description
-ArkEcho is a private, non-commercial Project, fully developed by Stephan Ziesenis, Student of Health-Informatics at Heidelberg University & Heilbronn University.
+ArkEcho is a private, non-commercial Project, developed by Stephan Ziesenis, Student of Health-Informatics at Heidelberg University & Heilbronn University.
 
 The ArkEcho Player is a 'normal' Media Player, like VLC or Windows Media Player. Its developed for playing Music-Songs.
-Its Feature is the ArkEcho App, which controls the Player via NetWork. Therefore it uses the WebSocket Protocoll.
+Its Feature is the ArkEcho App, that controls the Player via NetWork. Therefore it uses the WebSocket Protocoll.
 To Connect the App to the Player, you can scan a Qr-Code in the Player or type the Address manually.
 
 ### ArkEcho-App is developed with Visual Studio 2015, Xamarin.Android in C# #
