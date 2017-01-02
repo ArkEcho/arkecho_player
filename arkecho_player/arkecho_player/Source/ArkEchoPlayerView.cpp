@@ -5,6 +5,7 @@
 #include <QLabel>
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
+// MetaData und Player Song Länge unterscheiden sich etwa um 560ms
 const int MEDIAPLAYER_BUFFER_DURATION = 560;
 const int DEFAULT_VOLUME = 100;
 const int ROW_HEIGHT = 20;
@@ -124,13 +125,24 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
         MusicSong* song = map.value(key);
         if (!song) continue;
 
+        bool cont = true;
         if (filterText != "")
         {
-            if (!song->getAlbumTitle().contains(filterText, Qt::CaseInsensitive) && 
-                !song->getSongTitle().contains(filterText, Qt::CaseInsensitive) &&
-                !song->getSongInterpret().contains(filterText, Qt::CaseInsensitive)) continue;
-
+            QStringList list = filterText.split(QRegExp("\\s")); // Split text by Whitespace
+            QString allTogether = song->getAlbumTitle() + song->getSongTitle() + song->getSongInterpret();
+            QStringListIterator it(list);
+            while (it.hasNext())
+            {
+                QString filter = it.next();
+                if (!allTogether.contains(filter, Qt::CaseInsensitive))
+                {
+                    cont = false;
+                    break;
+                }
+            }
         }
+        if (!cont) continue;
+
         ui_->twTrackList->setRowCount(row + 1);
         ui_->twTrackList->setRowHeight(row, ROW_HEIGHT);
         ui_->twTrackList->setItem(row, TRACKL_ALBUMTITLE, new QTableWidgetItem(song->getAlbumTitle(), key));
@@ -145,7 +157,6 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
 void ArkEchoPlayerView::setLblDuration()
 {
     if (!player_) return;
-    // MetaData und Player Song Länge unterscheiden sich etwa um 560ms
     /*qint64 duration = player_->duration();
     if (duration == 0) return;
     QString durationOverall = MusicSong::convertSongDurationToMinuteSecond(duration - MEDIAPLAYER_BUFFER_DURATION);*/
