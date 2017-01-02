@@ -78,7 +78,7 @@ void ArkEchoPlayerView::initUi()
     setTWTrackList();
 
     // Duration Anzeige
-    ui_->lblDuration->setText("0:00/0:00");
+    ui_->lblDuration->setText("0:00");// / 0:00");
 
     // Volume initialisieren
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
@@ -135,15 +135,15 @@ void ArkEchoPlayerView::setLblDuration()
 {
     if (!player_) return;
     // MetaData und Player Song Länge unterscheiden sich etwa um 560ms
-    qint64 duration = player_->duration();
+    /*qint64 duration = player_->duration();
     if (duration == 0) return;
-    QString durationOverall = MusicSong::convertSongDurationToMinuteSecond(duration - MEDIAPLAYER_BUFFER_DURATION);
+    QString durationOverall = MusicSong::convertSongDurationToMinuteSecond(duration - MEDIAPLAYER_BUFFER_DURATION);*/
 
     qint64 position = player_->position();
     if (position >= MEDIAPLAYER_BUFFER_DURATION) position -= MEDIAPLAYER_BUFFER_DURATION;
     QString durationNow = MusicSong::convertSongDurationToMinuteSecond(position);
 
-    QString text = durationNow + "/" + durationOverall;
+    QString text = durationNow;// +"/" + durationOverall;
     ui_->lblDuration->setText(text);
 }
 
@@ -184,10 +184,14 @@ void ArkEchoPlayerView::on_actionQR_Code_Verbindung_triggered()
 
 void ArkEchoPlayerView::onPbBackwardClicked()
 {
+    if (!model_) return;
+    model_->backwardPlaylist();
 }
 
 void ArkEchoPlayerView::onPbForwardClicked()
 {
+    if (!model_) return;
+    model_->forwardPlaylist();
 }
 
 void ArkEchoPlayerView::onPbPlay_PauseClicked()
@@ -206,12 +210,16 @@ void ArkEchoPlayerView::onPbStopClicked()
 void ArkEchoPlayerView::onTwTrackListItemDoubleClicked(QTableWidgetItem * item)
 {
     if (!item) return;
-    int key = item->type();
+    int selectedKey = item->type();
 
     if (!model_) return;
     QList<int> keys;
-    keys.append(key);
-    model_->setMediaPlaylist(keys);
+    int rowCount = ui_->twTrackList->rowCount();
+    for (int i = 0; i < rowCount; ++i)
+    {
+        keys.append(ui_->twTrackList->item(i, 0)->type());
+    }
+    model_->setMediaPlaylist(keys, selectedKey);
 
     if (!player_) return;
     player_->play();

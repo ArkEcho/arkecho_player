@@ -29,7 +29,9 @@ public:
     void showConnectQrDialog();
     void showConnectManualDialog();
 
-    void setMediaPlaylist(QList<int> keys);
+    void setMediaPlaylist(QList<int> keys, int selectedKey);
+    void backwardPlaylist();
+    void forwardPlaylist();
 
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();

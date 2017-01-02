@@ -64,12 +64,13 @@ void ArkEchoPlayerModel::showConnectManualDialog()
     msgBox.exec();
 }
 
-void ArkEchoPlayerModel::setMediaPlaylist(QList<int> keys)
+void ArkEchoPlayerModel::setMediaPlaylist(QList<int> keys, int selectedKey)
 {
     if (!musicSongList_ || !playlist_) return;
     playlist_->clear();
     if (keys.size() == 0) return;
 
+    int index, startIndex = 0;
     QListIterator<int> itKeys(keys);
     while (itKeys.hasNext())
     {
@@ -80,12 +81,26 @@ void ArkEchoPlayerModel::setMediaPlaylist(QList<int> keys)
             int keyMap = itSongs.next().key();
             if (keyList == keyMap)
             {
-                playlist_->addMedia(musicSongList_->getSongList().value(keyList)->getMediaContent());
+                playlist_->insertMedia(index, musicSongList_->getSongList().value(keyList)->getMediaContent());
+                if (keyList == selectedKey) startIndex = index;
+                ++index;
                 break;
             }
         }
     }
-    playlist_->setCurrentIndex(1);
+    playlist_->setCurrentIndex(startIndex);
+}
+
+void ArkEchoPlayerModel::backwardPlaylist()
+{
+    if (!playlist_) return;
+    playlist_->previous();
+}
+
+void ArkEchoPlayerModel::forwardPlaylist()
+{
+    if (!playlist_) return;
+    playlist_->next();
 }
 
 QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()
