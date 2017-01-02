@@ -53,7 +53,7 @@
       <item>
        <widget class="QPushButton" name="pbStop">
         <property name="text">
-         <string>Stop</string>
+         <string>&amp;Stop</string>
         </property>
        </widget>
       </item>
@@ -64,21 +64,21 @@
       <item>
        <widget class="QPushButton" name="pbBackward">
         <property name="text">
-         <string>Zurück</string>
+         <string>&amp;Zurück</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pbPlay_Pause">
         <property name="text">
-         <string>Play/Pause</string>
+         <string>&amp;Play/Pause</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pbForward">
         <property name="text">
-         <string>Weiter</string>
+         <string>&amp;Weiter</string>
         </property>
        </widget>
       </item>
@@ -140,7 +140,7 @@
    </property>
    <widget class="QMenu" name="menuVerbinden">
     <property name="title">
-     <string>Verbinden</string>
+     <string>&amp;Verbinden</string>
     </property>
     <addaction name="actionManuelle_Verbindung"/>
     <addaction name="actionQR_Code_Verbindung"/>
@@ -150,12 +150,12 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionManuelle_Verbindung">
    <property name="text">
-    <string>Manuelle Verbindung</string>
+    <string>&amp;Manuelle Verbindung</string>
    </property>
   </action>
   <action name="actionQR_Code_Verbindung">
    <property name="text">
-    <string>QR-Code Verbindung</string>
+    <string>&amp;QR-Code Verbindung</string>
    </property>
   </action>
  </widget>

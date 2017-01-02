@@ -2,7 +2,6 @@
 
 #include <QDateTime>
 
-const uint SEED = 20;
 SecurityCode::SecurityCode(QObject *parent)
     : QObject(parent)
 {

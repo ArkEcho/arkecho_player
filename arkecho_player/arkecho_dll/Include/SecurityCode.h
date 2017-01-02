@@ -1,9 +1,11 @@
 #ifndef SECURITYCODE_H
 #define SECURITYCODE_H
 
+#include "arkecho_dll_global.h"
+
 #include <QObject>
 
-class SecurityCode : public QObject
+class ARKECHO_DLL_EXPORT SecurityCode : public QObject
 {
     Q_OBJECT
 

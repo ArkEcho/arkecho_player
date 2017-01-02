@@ -1,11 +1,13 @@
 #ifndef MINIPROFILER_H
 #define MINIPROFILER_H
 
+#include "arkecho_dll_global.h"
+
 #include <QString>
 #include <QElapsedTimer>
 #include <QDebug>
 
-class MiniProfiler
+class ARKECHO_DLL_EXPORT MiniProfiler
 {
 public:
     MiniProfiler(QString name);

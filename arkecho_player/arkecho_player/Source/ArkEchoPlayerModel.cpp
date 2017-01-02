@@ -70,7 +70,7 @@ void ArkEchoPlayerModel::setMediaPlaylist(QList<int> keys, int selectedKey)
     playlist_->clear();
     if (keys.size() == 0) return;
 
-    int index, startIndex = 0;
+    int index = 0, startIndex = 0;
     QListIterator<int> itKeys(keys);
     while (itKeys.hasNext())
     {
