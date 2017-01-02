@@ -25,7 +25,7 @@ private:
 
     void initUi();
     void setWebSocketStatusLabel(bool connected);
-    void setTWTrackList();
+    void setTWTrackList(QString filterText = "");
     inline void setLblDuration();
 
 private slots :
@@ -41,6 +41,8 @@ private slots :
     void onPlayerPositionChanged(const qint64 &position);
     void onSliderDurationPressed();
     void onSliderDurationReleased();
+    void onLeFilterTextChanged(const QString& text);
+    void onPbClearFilterClicked();
 };
 
 #endif // ARKECHOPLAYERVIEW_H

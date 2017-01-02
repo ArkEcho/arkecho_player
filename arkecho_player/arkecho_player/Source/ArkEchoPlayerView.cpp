@@ -43,6 +43,8 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(ui_->sliderVolume, SIGNAL(valueChanged(int)), this, SLOT(onSliderVolumeValueChanged(int)));
     connect(ui_->sliderDuration, SIGNAL(sliderPressed()), this, SLOT(onSliderDurationPressed()));
     connect(ui_->sliderDuration, SIGNAL(sliderReleased()), this, SLOT(onSliderDurationReleased()));
+    connect(ui_->leFilter, SIGNAL(textChanged(QString)), this, SLOT(onLeFilterTextChanged(QString)));
+    connect(ui_->pbFilterClear, SIGNAL(clicked()), this, SLOT(onPbClearFilterClicked()));
     // UI initialisieren; Grössen, Texte, Inhalt etc.
     initUi();
 }
@@ -103,16 +105,16 @@ void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
     webSocketStatus_->setStyleSheet("color: "+color+";");
 }
 
-void ArkEchoPlayerView::setTWTrackList()
+void ArkEchoPlayerView::setTWTrackList(QString filterText)
 {
     if (!model_ || !model_->getMusicSongList()) return;
 
     ui_->twTrackList->clearContents();
+    ui_->twTrackList->setRowCount(0);
 
     QMap<int,MusicSong*> map = model_->getMusicSongList()->getSongList();
     int mapSize = map.size();
     if (mapSize == 0) return;
-    ui_->twTrackList->setRowCount(mapSize);
 
     int row = 0;
     QMapIterator<int, MusicSong*> it(map);
@@ -121,6 +123,15 @@ void ArkEchoPlayerView::setTWTrackList()
         int key = it.next().key();
         MusicSong* song = map.value(key);
         if (!song) continue;
+
+        if (filterText != "")
+        {
+            if (!song->getAlbumTitle().contains(filterText, Qt::CaseInsensitive) && 
+                !song->getSongTitle().contains(filterText, Qt::CaseInsensitive) &&
+                !song->getSongInterpret().contains(filterText, Qt::CaseInsensitive)) continue;
+
+        }
+        ui_->twTrackList->setRowCount(row + 1);
         ui_->twTrackList->setRowHeight(row, ROW_HEIGHT);
         ui_->twTrackList->setItem(row, TRACKL_ALBUMTITLE, new QTableWidgetItem(song->getAlbumTitle(), key));
         ui_->twTrackList->setItem(row, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), key));
@@ -260,4 +271,14 @@ void ArkEchoPlayerView::onSliderDurationReleased()
     player_->setPosition(newPosition);
     player_->play();
     setLblDuration();
+}
+
+void ArkEchoPlayerView::onLeFilterTextChanged(const QString & text)
+{
+    setTWTrackList(text);
+}
+
+void ArkEchoPlayerView::onPbClearFilterClicked()
+{
+    ui_->leFilter->clear();
 }

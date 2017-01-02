@@ -15,10 +15,37 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="3">
-     <widget class="QTableWidget" name="twTrackList"/>
+    <item row="0" column="0" colspan="2">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>477</width>
+        <height>22</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLineEdit" name="leFilter"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbFilterClear">
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item row="1" column="0" colspan="3">
+     <widget class="QTableWidget" name="twTrackList"/>
+    </item>
+    <item row="2" column="0" colspan="3">
      <widget class="QSlider" name="sliderDuration">
       <property name="maximum">
        <number>100</number>
@@ -28,7 +55,7 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <spacer name="horizontalSpacer">
@@ -59,7 +86,7 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="1">
+    <item row="3" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="pbBackward">
@@ -84,7 +111,7 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="2">
+    <item row="3" column="2">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QSlider" name="sliderVolume">
