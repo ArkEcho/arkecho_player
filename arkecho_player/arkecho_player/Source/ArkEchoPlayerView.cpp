@@ -90,7 +90,7 @@ void ArkEchoPlayerView::initUi()
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 
     // Actual Song Info initalisieren
-    setLblCoverArt(QImage("./Resources/defaultMusicIcon.png"));
+    setLblCoverArt(QImage());
     ui_->lblSongTitle->setText("");
     ui_->lblSongTitle->setMaximumWidth(200);
     ui_->lblSongInterpret->setText("");
@@ -184,6 +184,7 @@ void ArkEchoPlayerView::setLblDuration()
 
 void ArkEchoPlayerView::setLblCoverArt(QImage image)
 {
+    if (image.bits() == 0)  image = QImage("./Resources/defaultMusicIcon.png");
     ui_->lblCoverArt->setPixmap(QPixmap::fromImage(image));
     ui_->lblCoverArt->setScaledContents(true);
     ui_->lblCoverArt->setMaximumSize(128, 128);
