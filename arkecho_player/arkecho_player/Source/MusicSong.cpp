@@ -2,6 +2,7 @@
 
 #include <QMediaMetaData>
 #include <QTime>
+#include <QImage>
 
 MusicSong::MusicSong(QUrl url, QObject* parent)
     :url_(url)
@@ -130,6 +131,12 @@ QString MusicSong::getAlbumInterpret(QMediaPlayer * mp)
     return getMetaDataAlbumInterpret(mp);
 }
 
+QImage MusicSong::getAlbumCoverArt(QMediaPlayer * mp)
+{
+    if (!mp) QImage();
+    return getMetaDataAlbumCoverArt(mp);
+}
+
 void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
 {
     if (status == QMediaPlayer::MediaStatus::LoadedMedia)
@@ -185,4 +192,9 @@ QString MusicSong::getMetaDataAlbumTitle(QMediaPlayer * mp)
 QString MusicSong::getMetaDataAlbumInterpret(QMediaPlayer * mp)
 {
     return mp->metaData(QMediaMetaData::AlbumArtist).toString();
+}
+
+QImage MusicSong::getMetaDataAlbumCoverArt(QMediaPlayer * mp)
+{
+    return mp->metaData(QMediaMetaData::ThumbnailImage).value<QImage>();
 }

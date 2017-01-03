@@ -90,9 +90,7 @@ void ArkEchoPlayerView::initUi()
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 
     // Actual Song Info initalisieren
-    ui_->lblCoverArt->setPixmap(QPixmap::fromImage(QImage("./Resources/defaultMusicIcon.png")));
-    ui_->lblCoverArt->setScaledContents(true);
-    ui_->lblCoverArt->setMinimumSize(128, 128);
+    setLblCoverArt(QImage("./Resources/defaultMusicIcon.png"));
     ui_->lblSongTitle->setText("");
     ui_->lblSongTitle->setMaximumWidth(200);
     ui_->lblSongInterpret->setText("");
@@ -182,6 +180,13 @@ void ArkEchoPlayerView::setLblDuration()
 
     QString text = durationNow;// +"/" + durationOverall;
     ui_->lblDuration->setText(text);
+}
+
+void ArkEchoPlayerView::setLblCoverArt(QImage image)
+{
+    ui_->lblCoverArt->setPixmap(QPixmap::fromImage(image));
+    ui_->lblCoverArt->setScaledContents(true);
+    ui_->lblCoverArt->setMaximumSize(128, 128);
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)
@@ -323,5 +328,6 @@ void ArkEchoPlayerView::onPlayerMediaStatusChanged(const QMediaPlayer::MediaStat
         ui_->lblSongInterpret->setText(MusicSong::getSongInterpret(player_));
         ui_->lblAlbumTitle->setText(MusicSong::getAlbumTitle(player_));
         ui_->lblAlbumInterpret->setText(MusicSong::getAlbumInterpret(player_));
+        setLblCoverArt(MusicSong::getAlbumCoverArt(player_));
     }
 }

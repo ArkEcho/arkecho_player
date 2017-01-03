@@ -37,6 +37,7 @@ public:
     static int getAlbumSongCount(QMediaPlayer* mp);
     static QString getAlbumTitle(QMediaPlayer* mp);
     static QString getAlbumInterpret(QMediaPlayer* mp);
+    static QImage getAlbumCoverArt(QMediaPlayer* mp);
 
     static QString convertMillisecondToMinuteSecond(qint64 millisecond);
 private slots:
@@ -58,6 +59,7 @@ private:
     static int getMetaDataAlbumSongCount(QMediaPlayer* mp);
     static QString getMetaDataAlbumTitle(QMediaPlayer* mp);
     static QString getMetaDataAlbumInterpret(QMediaPlayer* mp);
+    static QImage getMetaDataAlbumCoverArt(QMediaPlayer* mp);
 };
 
 #endif // MUSICSONG_H

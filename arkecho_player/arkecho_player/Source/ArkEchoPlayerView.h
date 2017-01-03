@@ -26,7 +26,8 @@ private:
     void initUi();
     void setWebSocketStatusLabel(bool connected);
     void setTWTrackList(QString filterText = "");
-    inline void setLblDuration();
+    void setLblDuration();
+    void setLblCoverArt(QImage image);
 
 private slots :
     void onUpdateView(const int &uve);
