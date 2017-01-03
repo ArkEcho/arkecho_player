@@ -33,6 +33,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     player_ = new QMediaPlayer();
     player_->setPlaylist(model_->getMediaPlaylist());
     connect(player_, SIGNAL(positionChanged(qint64)), this, SLOT(onPlayerPositionChanged(qint64)));
+    connect(player_, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(onPlayerMediaStatusChanged(QMediaPlayer::MediaStatus)));
 
     ui_ = new Ui::ArkEchoPlayerViewClass();
     ui_->setupUi(this);
@@ -87,6 +88,19 @@ void ArkEchoPlayerView::initUi()
     // Volume initialisieren
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
+
+    // Actual Song Info initalisieren
+    ui_->lblCoverArt->setPixmap(QPixmap::fromImage(QImage("./Resources/defaultMusicIcon.png")));
+    ui_->lblCoverArt->setScaledContents(true);
+    ui_->lblCoverArt->setMinimumSize(128, 128);
+    ui_->lblSongTitle->setText("");
+    ui_->lblSongTitle->setMaximumWidth(200);
+    ui_->lblSongInterpret->setText("");
+    ui_->lblSongInterpret->setMaximumWidth(200);
+    ui_->lblAlbumTitle->setText("");
+    ui_->lblAlbumTitle->setMaximumWidth(200);
+    ui_->lblAlbumInterpret->setText("");
+    ui_->lblAlbumInterpret->setMaximumWidth(200);
 }
 
 void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
@@ -299,4 +313,15 @@ void ArkEchoPlayerView::onPbShuffleClicked()
 {
     if (!model_) return;
     model_->shufflePlaylist();
+}
+
+void ArkEchoPlayerView::onPlayerMediaStatusChanged(const QMediaPlayer::MediaStatus & status)
+{
+    if (status == QMediaPlayer::MediaStatus::BufferedMedia || status == QMediaPlayer::MediaStatus::LoadedMedia)
+    {
+        ui_->lblSongTitle->setText(MusicSong::getSongTitle(player_));
+        ui_->lblSongInterpret->setText(MusicSong::getSongInterpret(player_));
+        ui_->lblAlbumTitle->setText(MusicSong::getAlbumTitle(player_));
+        ui_->lblAlbumInterpret->setText(MusicSong::getAlbumInterpret(player_));
+    }
 }

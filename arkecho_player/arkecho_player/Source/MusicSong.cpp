@@ -121,7 +121,7 @@ int MusicSong::getAlbumSongCount(QMediaPlayer * mp)
 QString MusicSong::getAlbumTitle(QMediaPlayer * mp)
 {
     if (!mp) return "";
-    return getAlbumTitle(mp);
+    return getMetaDataAlbumTitle(mp);
 }
 
 QString MusicSong::getAlbumInterpret(QMediaPlayer * mp)

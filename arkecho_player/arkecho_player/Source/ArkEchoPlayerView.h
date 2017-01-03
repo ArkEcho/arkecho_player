@@ -2,12 +2,12 @@
 #define ARKECHOPLAYERVIEW_H
 
 #include <QMainWindow>
+#include <QMediaPlayer>
 
 #include "ui_ArkEchoPlayerView.h"
 
 class ArkEchoPlayerModel;
 class QLabel;
-class QMediaPlayer;
 
 class ArkEchoPlayerView : public QMainWindow
 {
@@ -44,6 +44,7 @@ private slots :
     void onLeFilterTextChanged(const QString& text);
     void onPbClearFilterClicked();
     void onPbShuffleClicked();
+    void onPlayerMediaStatusChanged(const QMediaPlayer::MediaStatus& status);
 };
 
 #endif // ARKECHOPLAYERVIEW_H
