@@ -46,6 +46,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(ui_->sliderDuration, SIGNAL(sliderReleased()), this, SLOT(onSliderDurationReleased()));
     connect(ui_->leFilter, SIGNAL(textChanged(QString)), this, SLOT(onLeFilterTextChanged(QString)));
     connect(ui_->pbFilterClear, SIGNAL(clicked()), this, SLOT(onPbClearFilterClicked()));
+    connect(ui_->pbShuffle, SIGNAL(clicked()), this, SLOT(onPbShuffleClicked()));
     // UI initialisieren; Grössen, Texte, Inhalt etc.
     initUi();
 }
@@ -74,10 +75,10 @@ void ArkEchoPlayerView::initUi()
     ui_->twTrackList->setColumnCount(TRACKL_MAX_COLUMN_COUNT);
     ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Nummer;Titel;Interpret;Dauer").split(";"));
     ui_->twTrackList->setColumnWidth(TRACKL_ALBUMTITLE, 200);
-    ui_->twTrackList->setColumnWidth(TRACKL_ALBUMNUMBER, 55);
+    ui_->twTrackList->setColumnWidth(TRACKL_ALBUMNUMBER, 60);
     ui_->twTrackList->setColumnWidth(TRACKL_SONGTITLE, 200);
     ui_->twTrackList->setColumnWidth(TRACKL_SONGINTERPRET, 200);
-    ui_->twTrackList->setColumnWidth(TRACKL_SONGDURATION, 55);
+    ui_->twTrackList->setColumnWidth(TRACKL_SONGDURATION, 60);
     setTWTrackList();
 
     // Duration Anzeige
@@ -149,7 +150,7 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
         ui_->twTrackList->setItem(row, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), key));
         ui_->twTrackList->setItem(row, TRACKL_SONGTITLE, new QTableWidgetItem(song->getSongTitle(), key));
         ui_->twTrackList->setItem(row, TRACKL_SONGINTERPRET, new QTableWidgetItem(song->getSongInterpret(), key));
-        ui_->twTrackList->setItem(row, TRACKL_SONGDURATION, new QTableWidgetItem(MusicSong::convertSongDurationToMinuteSecond(song->getSongDuration()), key));
+        ui_->twTrackList->setItem(row, TRACKL_SONGDURATION, new QTableWidgetItem(song->getSongDurationAsMinuteSecond(), key));
         ++row;
     }
 }
@@ -163,7 +164,7 @@ void ArkEchoPlayerView::setLblDuration()
 
     qint64 position = player_->position();
     if (position >= MEDIAPLAYER_BUFFER_DURATION) position -= MEDIAPLAYER_BUFFER_DURATION;
-    QString durationNow = MusicSong::convertSongDurationToMinuteSecond(position);
+    QString durationNow = MusicSong::convertMillisecondToMinuteSecond(position);
 
     QString text = durationNow;// +"/" + durationOverall;
     ui_->lblDuration->setText(text);
@@ -292,4 +293,10 @@ void ArkEchoPlayerView::onLeFilterTextChanged(const QString & text)
 void ArkEchoPlayerView::onPbClearFilterClicked()
 {
     ui_->leFilter->clear();
+}
+
+void ArkEchoPlayerView::onPbShuffleClicked()
+{
+    if (!model_) return;
+    model_->shufflePlaylist();
 }

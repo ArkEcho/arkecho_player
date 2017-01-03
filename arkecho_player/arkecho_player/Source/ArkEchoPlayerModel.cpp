@@ -103,6 +103,12 @@ void ArkEchoPlayerModel::forwardPlaylist()
     playlist_->next();
 }
 
+void ArkEchoPlayerModel::shufflePlaylist()
+{
+    if (!playlist_) return;
+    playlist_->shuffle();
+}
+
 QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()
 {
     return playlist_;

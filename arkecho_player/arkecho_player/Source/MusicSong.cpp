@@ -5,13 +5,6 @@
 
 MusicSong::MusicSong(QUrl url, QObject* parent)
     :url_(url)
-    ,songTitle_("")
-    ,songInterpret_("")
-    ,songDuration_(0)
-    ,albumSongNumber_(0)
-    ,albumSongCount_(0)
-    ,albumTitle_("")
-    ,albumInterpret_("")
     ,loaded_(false)
 {
     mp_ = new QMediaPlayer();
@@ -38,27 +31,116 @@ QUrl MusicSong::getUrl()
 
 QMediaContent MusicSong::getMediaContent()
 {
-    QMediaContent media;
-    if (!mp_) return media;
-    return mp_->media();
+    return mediaContent_;
 }
 
 QString MusicSong::getSongTitle()
 {
-    return songTitle_;
+    if (!mp_) return "";
+    return getMetaDataSongTitle(mp_);
 }
 
 QString MusicSong::getSongInterpret()
 {
-    return songInterpret_;
+    if (!mp_) return "";
+    return getMetaDataSongInterpret(mp_);
 }
 
 qint64 MusicSong::getSongDuration()
 {
-    return songDuration_;
+    if (!mp_) return 0 ;
+    return getMetaDataSongDuration(mp_);
 }
 
-QString MusicSong::convertSongDurationToMinuteSecond(qint64 millisecond)
+QString MusicSong::getSongDurationAsMinuteSecond()
+{
+    if (!mp_) return "";
+    return convertMillisecondToMinuteSecond(getMetaDataSongDuration(mp_));
+}
+
+int MusicSong::getAlbumSongNumber()
+{
+    if (!mp_) return 0;
+    return getMetaDataAlbumSongNumber(mp_);
+}
+
+int MusicSong::getAlbumSongCount()
+{
+    if (!mp_) return 0;
+    return getMetaDataAlbumSongCount(mp_);
+}
+
+QString MusicSong::getAlbumTitle()
+{
+    if (!mp_) return "";
+    return getMetaDataAlbumTitle(mp_);
+}
+
+QString MusicSong::getAlbumInterpret()
+{
+    if (!mp_) return "";
+    return getMetaDataAlbumInterpret(mp_);
+}
+
+QString MusicSong::getSongTitle(QMediaPlayer * mp)
+{
+    if (!mp) return "";
+    return getMetaDataSongTitle(mp);
+}
+
+QString MusicSong::getSongInterpret(QMediaPlayer * mp)
+{
+    if (!mp) return "";
+    return getMetaDataSongInterpret(mp);
+}
+
+qint64 MusicSong::getSongDuration(QMediaPlayer * mp)
+{
+    if (!mp) return 0;
+    return getMetaDataSongDuration(mp);
+}
+
+QString MusicSong::getSongDurationAsMinuteSecond(QMediaPlayer * mp)
+{
+    if (!mp) return "";
+    return convertMillisecondToMinuteSecond(getMetaDataSongDuration(mp));
+}
+
+int MusicSong::getAlbumSongNumber(QMediaPlayer * mp)
+{
+    if (!mp) return 0;
+    return getMetaDataAlbumSongNumber(mp);
+}
+
+int MusicSong::getAlbumSongCount(QMediaPlayer * mp)
+{
+    if (!mp) return 0;
+    return getMetaDataAlbumSongCount(mp);
+}
+
+QString MusicSong::getAlbumTitle(QMediaPlayer * mp)
+{
+    if (!mp) return "";
+    return getAlbumTitle(mp);
+}
+
+QString MusicSong::getAlbumInterpret(QMediaPlayer * mp)
+{
+    if (!mp) return "";
+    return getMetaDataAlbumInterpret(mp);
+}
+
+void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
+{
+    if (status == QMediaPlayer::MediaStatus::LoadedMedia)
+    {
+        mediaContent_ = mp_->media();
+        loaded_ = true;
+        //songCoverArt_ = new QImage(mp_->metaData(QMediaMetaData::CoverArtImage).value<QImage>());
+    }
+}
+
+QString MusicSong::convertMillisecondToMinuteSecond(qint64 millisecond)
 {
     int secondsTotal = millisecond / 1000;
     int minutes = secondsTotal / 60;
@@ -70,87 +152,37 @@ QString MusicSong::convertSongDurationToMinuteSecond(qint64 millisecond)
     return duration;
 }
 
-int MusicSong::getAlbumSongNumber()
+QString MusicSong::getMetaDataSongTitle(QMediaPlayer * mp)
 {
-    return albumSongNumber_;
+    return mp->metaData(QMediaMetaData::Title).toString();
 }
 
-int MusicSong::getAlbumSongCount()
+QString MusicSong::getMetaDataSongInterpret(QMediaPlayer * mp)
 {
-    return albumSongCount_;
+    return mp->metaData(QMediaMetaData::Author).toString();
 }
 
-QString MusicSong::getAlbumTitle()
+qint64 MusicSong::getMetaDataSongDuration(QMediaPlayer * mp)
 {
-    return albumTitle_;
+    return mp->metaData(QMediaMetaData::Duration).value<qint64>();
 }
 
-QString MusicSong::getAlbumInterpret()
+int MusicSong::getMetaDataAlbumSongNumber(QMediaPlayer * mp)
 {
-    return albumInterpret_;
+    return mp->metaData(QMediaMetaData::TrackNumber).toInt();
 }
 
-void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
+int MusicSong::getMetaDataAlbumSongCount(QMediaPlayer * mp)
 {
-    if (status == QMediaPlayer::MediaStatus::LoadedMedia)
-    {
-        songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
-        songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();
-        songDuration_ = mp_->metaData(QMediaMetaData::Duration).value<qint64>();
-
-        albumSongNumber_ = mp_->metaData(QMediaMetaData::TrackNumber).toInt();
-        albumSongCount_ = mp_->metaData(QMediaMetaData::TrackCount).toInt();
-        albumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
-        albumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
-        loaded_ = true;
-        //songCoverArt_ = new QImage(mp_->metaData(QMediaMetaData::CoverArtImage).value<QImage>());
-    }
+    return mp->metaData(QMediaMetaData::TrackCount).toInt();
 }
 
-/*
-Common attributes
-Value	        Description	Type
-Title	        The title of the media.	QString
-SubTitle	    The sub-title of the media.	QString
-Author	        The authors of the media.	QStringList
-Comment	        A user comment about the media.	QString
-Description	    A description of the media.	QString
-Category	    The category of the media.	QStringList
-Genre	        The genre of the media.	QStringList
-Year	        The year of release of the media.	int
-Date	        The date of the media.	QDate.
-UserRating	    A user rating of the media.	int [0..100]
-Keywords	    A list of keywords describing the media.	QStringList
-Language	    The language of media, as an ISO 639-2 code.	QString
-Publisher	    The publisher of the media.	QString
-Copyright	    The media's copyright notice.	QString
-ParentalRating	The parental rating of the media.	QString
-RatingOrganization	The organization responsible for the parental rating of the media.	QString
+QString MusicSong::getMetaDataAlbumTitle(QMediaPlayer * mp)
+{
+    return mp->metaData(QMediaMetaData::AlbumTitle).toString();
+}
 
-Media attributes
-Size	        The size in bytes of the media.	qint64
-MediaType	    The type of the media (audio, video, etc).	QString
-Duration	    The duration in millseconds of the media.	qint64
-
-Audio attributes
-AudioBitRate	    The bit rate of the media's audio stream in bits per second.	int
-AudioCodec	        The codec of the media's audio stream.	QString
-AverageLevel	    The average volume level of the media.	int
-ChannelCount	    The number of channels in the media's audio stream.	int
-PeakValue	        The peak volume of the media's audio stream.	int
-SampleRate	        The sample rate of the media's audio stream in hertz.	int
-
-Music attributes
-AlbumTitle	        The title of the album the media belongs to.	QString
-AlbumArtist	        The principal artist of the album the media belongs to.	QString
-ContributingArtist	The artists contributing to the media.	QStringList
-Composer	        The composer of the media.	QStringList
-Conductor	        The conductor of the media.	QString
-Lyrics	            The lyrics to the media.	QString
-Mood	            The mood of the media.	QString
-TrackNumber         The track number of the media.	int
-TrackCount	        The number of tracks on the album containing the media.	int
-CoverArtUrlSmall	The URL of a small cover art image.	QUrl
-CoverArtUrlLarge	The URL of a large cover art image.	QUrl
-CoverArtImage	    An embedded cover art image.	QImage
-*/
+QString MusicSong::getMetaDataAlbumInterpret(QMediaPlayer * mp)
+{
+    return mp->metaData(QMediaMetaData::AlbumArtist).toString();
+}

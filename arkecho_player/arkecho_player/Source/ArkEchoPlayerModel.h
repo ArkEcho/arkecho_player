@@ -32,6 +32,7 @@ public:
     void setMediaPlaylist(QList<int> keys, int selectedKey);
     void backwardPlaylist();
     void forwardPlaylist();
+    void shufflePlaylist();
 
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();

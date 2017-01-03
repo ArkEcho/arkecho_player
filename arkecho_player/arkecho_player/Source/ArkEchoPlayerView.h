@@ -43,6 +43,7 @@ private slots :
     void onSliderDurationReleased();
     void onLeFilterTextChanged(const QString& text);
     void onPbClearFilterClicked();
+    void onPbShuffleClicked();
 };
 
 #endif // ARKECHOPLAYERVIEW_H
