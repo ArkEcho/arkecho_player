@@ -8,6 +8,8 @@ const QString DIALOGTITLE = "ArkEcho Media Player";
 // MetaData und Player Song Länge unterscheiden sich etwa um 560ms
 const int MEDIAPLAYER_BUFFER_DURATION = 560;
 const int DEFAULT_VOLUME = 100;
+const int ACTUAL_SONG_INFO_TEXT_WIDTH = 150;
+const QSize ACTUAL_SONG_INFO_COVER_SIZE = QSize(150, 150);
 const int ROW_HEIGHT = 20;
 
 enum TableTrackListColumns
@@ -90,15 +92,18 @@ void ArkEchoPlayerView::initUi()
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 
     // Actual Song Info initalisieren
-    setLblCoverArt(QImage());
+    ui_->lblCoverArt->setScaledContents(true);
+    ui_->lblCoverArt->setMinimumSize(ACTUAL_SONG_INFO_COVER_SIZE);
+    ui_->lblCoverArt->setMaximumSize(ACTUAL_SONG_INFO_COVER_SIZE);
+    setActualSongInfoCoverArt(QImage());
     ui_->lblSongTitle->setText("");
-    ui_->lblSongTitle->setMaximumWidth(200);
+    ui_->lblSongTitle->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
     ui_->lblSongInterpret->setText("");
-    ui_->lblSongInterpret->setMaximumWidth(200);
+    ui_->lblSongInterpret->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
     ui_->lblAlbumTitle->setText("");
-    ui_->lblAlbumTitle->setMaximumWidth(200);
+    ui_->lblAlbumTitle->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
     ui_->lblAlbumInterpret->setText("");
-    ui_->lblAlbumInterpret->setMaximumWidth(200);
+    ui_->lblAlbumInterpret->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
 }
 
 void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
@@ -182,12 +187,10 @@ void ArkEchoPlayerView::setLblDuration()
     ui_->lblDuration->setText(text);
 }
 
-void ArkEchoPlayerView::setLblCoverArt(QImage image)
+void ArkEchoPlayerView::setActualSongInfoCoverArt(QImage image)
 {
     if (image.bits() == 0)  image = QImage("./Resources/defaultMusicIcon.png");
     ui_->lblCoverArt->setPixmap(QPixmap::fromImage(image));
-    ui_->lblCoverArt->setScaledContents(true);
-    ui_->lblCoverArt->setMaximumSize(128, 128);
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)
@@ -329,6 +332,6 @@ void ArkEchoPlayerView::onPlayerMediaStatusChanged(const QMediaPlayer::MediaStat
         ui_->lblSongInterpret->setText(MusicSong::getSongInterpret(player_));
         ui_->lblAlbumTitle->setText(MusicSong::getAlbumTitle(player_));
         ui_->lblAlbumInterpret->setText(MusicSong::getAlbumInterpret(player_));
-        setLblCoverArt(MusicSong::getAlbumCoverArt(player_));
+        setActualSongInfoCoverArt(MusicSong::getAlbumCoverArt(player_));
     }
 }

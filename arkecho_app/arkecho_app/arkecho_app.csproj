@@ -98,7 +98,7 @@
     <AndroidResource Include="Resources\layout\PlayerActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <None Include="Resources\packages.config" />
+    <None Include="packages.config" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
