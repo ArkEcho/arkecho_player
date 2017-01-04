@@ -10,14 +10,14 @@
         android:src="@drawable/defaultmusicicon"
         android:layout_width="200.0dp"
         android:layout_height="200.0dp"
-        android:id="@+id/imageView1"
+        android:id="@+id/imageViewCoverArt"
         android:layout_gravity="center" />
     <TextView
         android:text="@string/PlayerActivityTextViewTitleDefault"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTitlePlayer"
         android:gravity="center"
         android:layout_marginTop="10.0dp" />
     <TextView
@@ -25,7 +25,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvInterpret"
+        android:id="@+id/tvInterpretPlayer"
         android:gravity="center"
         android:layout_marginTop="10.0dp" />
     <LinearLayout

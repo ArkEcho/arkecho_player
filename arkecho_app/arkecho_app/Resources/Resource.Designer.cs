@@ -73,7 +73,7 @@ namespace arkecho_app.source
 			public const int contentFrame = 2131034124;
 			
 			// aapt resource value: 0x7f050005
-			public const int imageView1 = 2131034117;
+			public const int imageViewCoverArt = 2131034117;
 			
 			// aapt resource value: 0x7f050009
 			public const int pbBackward = 2131034121;
@@ -100,10 +100,10 @@ namespace arkecho_app.source
 			public const int tvHeader = 2131034112;
 			
 			// aapt resource value: 0x7f050007
-			public const int tvInterpret = 2131034119;
+			public const int tvInterpretPlayer = 2131034119;
 			
 			// aapt resource value: 0x7f050006
-			public const int tvTitle = 2131034118;
+			public const int tvTitlePlayer = 2131034118;
 			
 			static Id()
 			{
