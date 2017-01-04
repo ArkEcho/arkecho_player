@@ -10,6 +10,7 @@ const int MEDIAPLAYER_BUFFER_DURATION = 560;
 const int DEFAULT_VOLUME = 100;
 const int ACTUAL_SONG_INFO_TEXT_WIDTH = 150;
 const QSize ACTUAL_SONG_INFO_COVER_SIZE = QSize(150, 150);
+const QString ACTUAL_SONG_INFO_TEXT_DEFAULT = "<Kein Lied gestartet>";
 const int ROW_HEIGHT = 20;
 
 enum TableTrackListColumns
@@ -50,7 +51,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
     connect(ui_->leFilter, SIGNAL(textChanged(QString)), this, SLOT(onLeFilterTextChanged(QString)));
     connect(ui_->pbFilterClear, SIGNAL(clicked()), this, SLOT(onPbClearFilterClicked()));
     connect(ui_->pbShuffle, SIGNAL(clicked()), this, SLOT(onPbShuffleClicked()));
-    // UI initialisieren; Grössen, Texte, Inhalt etc.
+    // UI initialisieren; Grössen, Texte, (Default)Inhalt etc.
     initUi();
 }
 
@@ -96,14 +97,12 @@ void ArkEchoPlayerView::initUi()
     ui_->lblCoverArt->setMinimumSize(ACTUAL_SONG_INFO_COVER_SIZE);
     ui_->lblCoverArt->setMaximumSize(ACTUAL_SONG_INFO_COVER_SIZE);
     setActualSongInfoCoverArt(QImage());
-    ui_->lblSongTitle->setText("");
+
     ui_->lblSongTitle->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
-    ui_->lblSongInterpret->setText("");
     ui_->lblSongInterpret->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
-    ui_->lblAlbumTitle->setText("");
     ui_->lblAlbumTitle->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
-    ui_->lblAlbumInterpret->setText("");
     ui_->lblAlbumInterpret->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
+    setActualSongInfoText();
 }
 
 void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
@@ -191,6 +190,28 @@ void ArkEchoPlayerView::setActualSongInfoCoverArt(QImage image)
 {
     if (image.bits() == 0)  image = QImage("./Resources/defaultMusicIcon.png");
     ui_->lblCoverArt->setPixmap(QPixmap::fromImage(image));
+}
+
+void ArkEchoPlayerView::setActualSongInfoText()
+{
+    // Song Titel
+    QString songTitle = MusicSong::getSongTitle(player_);
+    if (songTitle.isEmpty()) songTitle = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    ui_->lblSongTitle->setText(songTitle);
+
+    // Song Interpret
+    QString songInterpret = MusicSong::getSongInterpret(player_);
+    if (songInterpret.isEmpty()) songInterpret = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    ui_->lblSongInterpret->setText(songInterpret);
+
+    // Album Titel
+    QString albumTitle = MusicSong::getAlbumTitle(player_);
+    if (albumTitle.isEmpty()) albumTitle = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    ui_->lblAlbumTitle->setText(albumTitle);
+
+    QString albumInterpret = MusicSong::getAlbumInterpret(player_);
+    if (albumInterpret.isEmpty()) albumInterpret = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    ui_->lblAlbumInterpret->setText(albumInterpret);
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)
@@ -328,10 +349,7 @@ void ArkEchoPlayerView::onPlayerMediaStatusChanged(const QMediaPlayer::MediaStat
 {
     if (status == QMediaPlayer::MediaStatus::BufferedMedia || status == QMediaPlayer::MediaStatus::LoadedMedia)
     {
-        ui_->lblSongTitle->setText(MusicSong::getSongTitle(player_));
-        ui_->lblSongInterpret->setText(MusicSong::getSongInterpret(player_));
-        ui_->lblAlbumTitle->setText(MusicSong::getAlbumTitle(player_));
-        ui_->lblAlbumInterpret->setText(MusicSong::getAlbumInterpret(player_));
+        setActualSongInfoText();
         setActualSongInfoCoverArt(MusicSong::getAlbumCoverArt(player_));
     }
 }

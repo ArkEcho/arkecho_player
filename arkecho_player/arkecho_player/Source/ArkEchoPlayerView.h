@@ -23,6 +23,7 @@ class ArkEchoPlayerView : public QMainWindow
     void setTWTrackList(QString filterText = "");
     void setLblDuration();
     void setActualSongInfoCoverArt(QImage image);
+    void setActualSongInfoText();
 
 public:
     ArkEchoPlayerView(QWidget *parent = 0);

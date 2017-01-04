@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     QApplication application(argc, argv);
-    
+
     // Stylesheet laden
     QFile stylesheet("./resources/qdarkstyle/style.qss");
     if (stylesheet.exists())
