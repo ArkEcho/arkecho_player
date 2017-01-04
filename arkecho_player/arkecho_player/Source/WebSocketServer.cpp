@@ -1,4 +1,5 @@
 #include "WebSocketServer.h"
+#include "MessageHandler.h"
 
 #include <QWebSocket>
 #include <QNetWorkInterface>
@@ -42,9 +43,16 @@ WebSocketServer::~WebSocketServer()
     delete webSocket_;
 }
 
-QWebSocket * WebSocketServer::getWebSocket()
+bool WebSocketServer::checkIfConnectionIsOpen()
 {
-    return webSocket_;
+    if (!webSocket_) return false;
+    return webSocket_->isValid();
+}
+
+void WebSocketServer::sendMessage(int messageType, QString message)
+{
+    if (!webSocket_) return;
+    webSocket_->sendTextMessage(MessageHandler::createMessage(messageType, message));
 }
 
 QString WebSocketServer::getWebSocketServerNetworkAdress()

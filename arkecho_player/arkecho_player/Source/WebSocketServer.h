@@ -14,12 +14,15 @@ class WebSocketServer : public QWebSocketServer
 {
 	Q_OBJECT
 
+	QWebSocket* webSocket_;
+
 public:
     // Verbindet Signal und Slot für neue Verbindung
 	WebSocketServer(const QString &name, QObject *parent = 0);
 	~WebSocketServer();
 
-    QWebSocket* getWebSocket();
+    bool checkIfConnectionIsOpen();
+    void sendMessage(int messageType, QString message);
 
     QString getWebSocketServerNetworkAdress();
 
@@ -42,9 +45,6 @@ private slots:
 
     // Bei Ende der Verbindung wird der Socket aus der Liste gelöscht
 	void socketDisconnected();
-
-private:
-	QWebSocket* webSocket_;
 };
 
 #endif // WEBSOCKETSERVER_H

@@ -13,11 +13,6 @@ class ArkEchoPlayerView : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    ArkEchoPlayerView(QWidget *parent = 0);
-    ~ArkEchoPlayerView();
-
-private:
     Ui::ArkEchoPlayerViewClass* ui_;
     ArkEchoPlayerModel* model_;
     QLabel* webSocketStatus_;
@@ -28,6 +23,10 @@ private:
     void setTWTrackList(QString filterText = "");
     void setLblDuration();
     void setLblCoverArt(QImage image);
+
+public:
+    ArkEchoPlayerView(QWidget *parent = 0);
+    ~ArkEchoPlayerView();
 
 private slots :
     void onUpdateView(const int &uve);

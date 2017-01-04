@@ -22,6 +22,12 @@ class ArkEchoPlayerModel : public QObject
 {
     Q_OBJECT
 
+    WebSocketServer* webSocketServer_;
+    MusicSongList* musicSongList_;
+    QMediaPlaylist* playlist_;
+
+    QStringList getMusicDirectoryList();
+
 public:
     ArkEchoPlayerModel(QObject *parent = 0);
     ~ArkEchoPlayerModel();
@@ -40,13 +46,6 @@ public:
 
 signals:
     void updateView(int);
-
-private:
-    WebSocketServer* webSocketServer_;
-    MusicSongList* musicSongList_;
-    QMediaPlaylist* playlist_;
-
-    QStringList getMusicDirectoryList();
 
 private slots:
     void onTextMessageReceived(const WsStringData& data);

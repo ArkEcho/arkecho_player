@@ -10,6 +10,8 @@ class MusicSongList : public QObject
 {
     Q_OBJECT
 
+    QMap<int,MusicSong*> songList_;
+
 public:
     MusicSongList(QObject *parent = 0);
     ~MusicSongList();
@@ -17,9 +19,6 @@ public:
     bool allSongsLoaded();
     void loadSongs(QStringList directories);
     QMap<int,MusicSong*> getSongList();
-
-private:
-    QMap<int,MusicSong*> songList_;
 };
 
 #endif // MUSICSONGLIST_H
