@@ -8,9 +8,17 @@
 #include <QWebSocket>
 #include <QDir>
 #include <QMediaPlaylist>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QBuffer>
 
 const QString SERVER_NAME = "ArkEcho Server";
 const int SERVER_PORT = 1000;
+const QString JSON_COVER_ART = "CoverArt";
+const QString JSON_SONG_TITLE = "SongTitle";
+const QString JSON_SONG_INTERPRET = "SongInterpret";
+const QString JSON_ALBUM_TITLE = "AlbumTitle";
+const QString JSON_ALBUM_INTERPRET = "AlbumInterpret";
 
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     :QObject(parent)
@@ -107,6 +115,29 @@ void ArkEchoPlayerModel::shufflePlaylist()
 {
     if (!playlist_) return;
     playlist_->shuffle();
+}
+
+void ArkEchoPlayerModel::sendActualSongInfo(QImage image, QString songTitle, QString songInterpret, QString albumTitle, QString albumInterpret)
+{
+    QJsonObject obj;
+
+    QByteArray ba;
+    QBuffer bu(&ba);
+
+    image.save(&bu, "PNG");
+
+    QString imgBase64 = ba.toBase64();
+    obj[JSON_COVER_ART] = imgBase64;
+    obj[JSON_SONG_TITLE] = songTitle;
+    obj[JSON_SONG_INTERPRET] = songInterpret;
+    obj[JSON_ALBUM_TITLE] = albumTitle;
+    obj[JSON_ALBUM_INTERPRET] = albumInterpret;
+
+    QJsonDocument doc;
+    doc.setObject(obj);
+
+    QString message = doc.toJson(QJsonDocument::Compact);
+    webSocketServer_->sendMessage(MT_SONG_ACTUAL, message);
 }
 
 QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()

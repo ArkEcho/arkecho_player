@@ -9,7 +9,8 @@ enum MESSAGETYPE
     MT_ECHO_TEST,
     MT_PLAY_PAUSE,
     MT_BACKWARD,
-    MT_FORWARD
+    MT_FORWARD,
+    MT_SONG_ACTUAL
 };
 
 class MessageHandler : public QObject

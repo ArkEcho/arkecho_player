@@ -38,6 +38,7 @@ public:
     void backwardPlaylist();
     void forwardPlaylist();
     void shufflePlaylist();
+    void sendActualSongInfo(QImage image, QString songTitle, QString songInterpret, QString albumTitle, QString albumInterpret);
 
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();
