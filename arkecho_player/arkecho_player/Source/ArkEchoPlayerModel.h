@@ -3,7 +3,6 @@
 
 #include <QObject>
 
-struct WsStringData;
 class WebSocketServer;
 class MusicSongList;
 class QMediaPlaylist;
@@ -48,7 +47,7 @@ signals:
     void updateView(int);
 
 private slots:
-    void onTextMessageReceived(const WsStringData& data);
+    void onTextMessageReceived(const QString& message);
     void onWSConnected();
     void onWSDisconnected();
 };

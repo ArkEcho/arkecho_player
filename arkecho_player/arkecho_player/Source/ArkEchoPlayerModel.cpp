@@ -29,7 +29,7 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen
     {
         //QString s = webSocketServer_->getWebSocketServerNetworkAdress();
-        connect(webSocketServer_, SIGNAL(newTextMessageReceived(WsStringData)), this, SLOT(onTextMessageReceived(WsStringData)));
+        connect(webSocketServer_, SIGNAL(newTextMessageReceived(QString)), this, SLOT(onTextMessageReceived(QString)));
         connect(webSocketServer_, SIGNAL(wsConnected()), this, SLOT(onWSConnected()));
         connect(webSocketServer_, SIGNAL(wsDisconnected()), this, SLOT(onWSDisconnected()));
     }
@@ -140,10 +140,10 @@ void ArkEchoPlayerModel::onWSDisconnected()
     emit updateView(UVE_WEBSOCKET_DISCONNECTED);
 }
 
-void ArkEchoPlayerModel::onTextMessageReceived(const WsStringData& data)
+void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
 {
-    QString message = data.message_;
-    int messageType = MessageHandler::handleReceivedMessage(message);
+    QString msg = message;
+    int messageType = MessageHandler::handleReceivedMessage(msg);
 
     switch (messageType)
     {

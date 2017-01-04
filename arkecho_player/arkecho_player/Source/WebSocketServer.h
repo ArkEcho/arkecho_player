@@ -4,12 +4,6 @@
 #include <QWebSocketServer>
 #include <QList>
 
-struct WsStringData
-{
-    QWebSocket *socket_;
-    QString message_;
-};
-
 class WebSocketServer : public QWebSocketServer
 {
 	Q_OBJECT
@@ -34,7 +28,7 @@ signals:
     void wsDisconnected();
 
     // Werden bei neuer Nachricht ausgelöst und übergeben Nachricht + Sender als Pointer
-	void newTextMessageReceived(WsStringData);
+	void newTextMessageReceived(QString);
 
 private slots:
     // Ausgelöst bei neuer Verbindung eines WebSocket;verbindet mit restlichen Slots;fügt der Liste hinzu

@@ -24,12 +24,8 @@ void WebSocketServer::newWSConnection()
 
 void WebSocketServer::onTextMessageReceived(const QString &message)
 {
-    WsStringData data;
-
-    data.message_ = message;
-    data.socket_ = qobject_cast<QWebSocket*>(sender());
-
-    emit newTextMessageReceived(data); // Auslösen des Signals des WebSocketServer
+    QString msg = message;
+    emit newTextMessageReceived(msg); // Auslösen des Signals des WebSocketServer
 }
 
 void WebSocketServer::socketDisconnected()
