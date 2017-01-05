@@ -7,6 +7,7 @@
 #include "ui_ArkEchoPlayerView.h"
 
 class ArkEchoPlayerModel;
+struct SongInfo;
 class QLabel;
 
 class ArkEchoPlayerView : public QMainWindow
@@ -22,6 +23,7 @@ class ArkEchoPlayerView : public QMainWindow
     void setWebSocketStatusLabel(bool connected);
     void setTWTrackList(QString filterText = "");
     void setLblDuration();
+    SongInfo getActualSongInfo();
     void setActualSongInfo(bool defaultText = false);
 
 public:

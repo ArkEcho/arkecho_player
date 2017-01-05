@@ -185,38 +185,46 @@ void ArkEchoPlayerView::setLblDuration()
     ui_->lblDuration->setText(text);
 }
 
+SongInfo ArkEchoPlayerView::getActualSongInfo()
+{
+    SongInfo song;
+    song.songTitle_ = MusicSong::getSongTitle(player_);
+    song.songInterpret_ = MusicSong::getSongInterpret(player_);
+    song.albumTitle_ = MusicSong::getAlbumTitle(player_);
+    song.albumInterpret_ = MusicSong::getAlbumInterpret(player_);
+    song.coverArt_ = MusicSong::getAlbumCoverArt(player_);
+    return song;
+}
+
 void ArkEchoPlayerView::setActualSongInfo(bool defaultText)
 {
     // Song Cover
-    QImage image = MusicSong::getAlbumCoverArt(player_);
-    if (image.bits() == 0)  image = QImage("./Resources/defaultMusicIcon.png");
-    ui_->lblCoverArt->setPixmap(QPixmap::fromImage(image));
+    SongInfo song = getActualSongInfo();
+    if (song.coverArt_.bits() == 0)  song.coverArt_ = QImage("./Resources/defaultMusicIcon.png");
+    ui_->lblCoverArt->setPixmap(QPixmap::fromImage(song.coverArt_));
 
     // Song Titel
-    QString songTitle = MusicSong::getSongTitle(player_);
-    if(defaultText) songTitle = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    else if (songTitle.isEmpty()) songTitle = ACTUAL_SONG_INFO_TEXT_EMPTY;
-    ui_->lblSongTitle->setText(songTitle);
+    if(defaultText) song.songTitle_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    else if (song.songTitle_.isEmpty()) song.songTitle_ = ACTUAL_SONG_INFO_TEXT_EMPTY;
+    ui_->lblSongTitle->setText(song.songTitle_);
 
     // Song Interpret
-    QString songInterpret = MusicSong::getSongInterpret(player_);
-    if (defaultText) songInterpret = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    else if (songInterpret.isEmpty()) songInterpret = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    ui_->lblSongInterpret->setText(songInterpret);
+    if (defaultText) song.songInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    else if (song.songInterpret_.isEmpty()) song.songInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    ui_->lblSongInterpret->setText(song.songInterpret_);
 
     // Album Titel
-    QString albumTitle = MusicSong::getAlbumTitle(player_);
-    if (defaultText) albumTitle = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    else if (albumTitle.isEmpty()) albumTitle = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    ui_->lblAlbumTitle->setText(albumTitle);
+    if (defaultText) song.albumTitle_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    else if (song.albumTitle_.isEmpty()) song.albumTitle_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    ui_->lblAlbumTitle->setText(song.albumTitle_);
 
-    QString albumInterpret = MusicSong::getAlbumInterpret(player_);
-    if (defaultText) albumInterpret = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    else if (albumInterpret.isEmpty()) albumInterpret = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    ui_->lblAlbumInterpret->setText(albumInterpret);
+    // Album Interpret
+    if (defaultText) song.albumInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    else if (song.albumInterpret_.isEmpty()) song.albumInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    ui_->lblAlbumInterpret->setText(song.albumInterpret_);
 
     if (!model_ || defaultText) return;
-    model_->sendActualSongInfo(image, songTitle, songInterpret, albumTitle, albumInterpret);
+    model_->sendActualSongInfo(song);
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)

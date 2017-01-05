@@ -117,21 +117,19 @@ void ArkEchoPlayerModel::shufflePlaylist()
     playlist_->shuffle();
 }
 
-void ArkEchoPlayerModel::sendActualSongInfo(QImage image, QString songTitle, QString songInterpret, QString albumTitle, QString albumInterpret)
+void ArkEchoPlayerModel::sendActualSongInfo(SongInfo siStruct)
 {
-    QJsonObject obj;
-
     QByteArray ba;
     QBuffer bu(&ba);
-
-    image.save(&bu, "PNG");
-
+    siStruct.coverArt_.save(&bu, "PNG");
     QString imgBase64 = ba.toBase64();
+
+    QJsonObject obj;
     obj[JSON_COVER_ART] = imgBase64;
-    obj[JSON_SONG_TITLE] = songTitle;
-    obj[JSON_SONG_INTERPRET] = songInterpret;
-    obj[JSON_ALBUM_TITLE] = albumTitle;
-    obj[JSON_ALBUM_INTERPRET] = albumInterpret;
+    obj[JSON_SONG_TITLE] = siStruct.songTitle_;
+    obj[JSON_SONG_INTERPRET] = siStruct.songInterpret_;
+    obj[JSON_ALBUM_TITLE] = siStruct.albumTitle_;
+    obj[JSON_ALBUM_INTERPRET] = siStruct.albumInterpret_;
 
     QJsonDocument doc;
     doc.setObject(obj);

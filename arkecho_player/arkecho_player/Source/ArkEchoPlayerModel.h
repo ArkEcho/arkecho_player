@@ -2,6 +2,7 @@
 #define ARKECHOPLAYERMODEL_H
 
 #include <QObject>
+#include <QImage>
 
 class WebSocketServer;
 class MusicSongList;
@@ -15,6 +16,15 @@ enum UpdateViewEnum
     REMOTE_BUTTON_BACKWARD,
     REMOTE_BUTTON_FORWARD,
     REMOTE_BUTTON_PLAY_PAUSE
+};
+
+struct SongInfo
+{
+    QString songTitle_;
+    QString songInterpret_;
+    QString albumTitle_;
+    QString albumInterpret_;
+    QImage coverArt_;
 };
 
 class ArkEchoPlayerModel : public QObject
@@ -38,7 +48,7 @@ public:
     void backwardPlaylist();
     void forwardPlaylist();
     void shufflePlaylist();
-    void sendActualSongInfo(QImage image, QString songTitle, QString songInterpret, QString albumTitle, QString albumInterpret);
+    void sendActualSongInfo(SongInfo siStruct);
 
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();
