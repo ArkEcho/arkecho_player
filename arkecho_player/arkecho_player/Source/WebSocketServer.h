@@ -16,7 +16,7 @@ public:
 	~WebSocketServer();
 
     bool checkIfConnectionIsOpen();
-    void sendMessage(int messageType, QString message);
+    void sendMessage(int messageType, QString& message);
 
     QString getWebSocketServerNetworkAdress();
 

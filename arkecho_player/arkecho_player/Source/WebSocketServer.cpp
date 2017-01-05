@@ -45,7 +45,7 @@ bool WebSocketServer::checkIfConnectionIsOpen()
     return webSocket_->isValid();
 }
 
-void WebSocketServer::sendMessage(int messageType, QString message)
+void WebSocketServer::sendMessage(int messageType, QString& message)
 {
     if (!webSocket_) return;
     webSocket_->sendTextMessage(MessageHandler::createMessage(messageType, message));

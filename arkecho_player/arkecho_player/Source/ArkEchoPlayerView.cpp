@@ -93,6 +93,10 @@ void ArkEchoPlayerView::initUi()
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 
+    // Filter Line Edit initialisieren
+    ui_->leFilter->setMinimumWidth(250);
+    ui_->leFilter->setMaximumWidth(250);
+
     // Actual Song Info initalisieren
     ui_->lblCoverArt->setScaledContents(true);
     ui_->lblCoverArt->setMinimumSize(ACTUAL_SONG_INFO_COVER_SIZE);
@@ -185,9 +189,9 @@ void ArkEchoPlayerView::setLblDuration()
     ui_->lblDuration->setText(text);
 }
 
-SongInfo ArkEchoPlayerView::getActualSongInfo()
+SongInfoStruct ArkEchoPlayerView::getActualSongInfo()
 {
-    SongInfo song;
+    SongInfoStruct song;
     song.songTitle_ = MusicSong::getSongTitle(player_);
     song.songInterpret_ = MusicSong::getSongInterpret(player_);
     song.albumTitle_ = MusicSong::getAlbumTitle(player_);
@@ -198,8 +202,10 @@ SongInfo ArkEchoPlayerView::getActualSongInfo()
 
 void ArkEchoPlayerView::setActualSongInfo(bool defaultText)
 {
+    // Kopie zum bearbeiten
+    SongInfoStruct song = getActualSongInfo();
+
     // Song Cover
-    SongInfo song = getActualSongInfo();
     if (song.coverArt_.bits() == 0)  song.coverArt_ = QImage("./Resources/defaultMusicIcon.png");
     ui_->lblCoverArt->setPixmap(QPixmap::fromImage(song.coverArt_));
 

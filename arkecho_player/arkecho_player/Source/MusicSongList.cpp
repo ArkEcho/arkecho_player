@@ -25,7 +25,7 @@ bool MusicSongList::allSongsLoaded()
     return true;
 }
 
-void MusicSongList::loadSongs(QStringList directories)
+void MusicSongList::loadSongs(QStringList& directories)
 {
     qDeleteAll(songList_);
     QDirIterator* it = 0;

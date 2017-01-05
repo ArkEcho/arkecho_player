@@ -72,7 +72,7 @@ void ArkEchoPlayerModel::showConnectManualDialog()
     msgBox.exec();
 }
 
-void ArkEchoPlayerModel::setMediaPlaylist(QList<int> keys, int selectedKey)
+void ArkEchoPlayerModel::setMediaPlaylist(QList<int>& keys, int selectedKey)
 {
     if (!musicSongList_ || !playlist_) return;
     playlist_->clear();
@@ -117,25 +117,24 @@ void ArkEchoPlayerModel::shufflePlaylist()
     playlist_->shuffle();
 }
 
-void ArkEchoPlayerModel::sendActualSongInfo(SongInfo siStruct)
+void ArkEchoPlayerModel::sendActualSongInfo(SongInfoStruct& siStruct)
 {
+    if (!webSocketServer_->checkIfConnectionIsOpen()) return;
+
     QByteArray ba;
     QBuffer bu(&ba);
     siStruct.coverArt_.save(&bu, "PNG");
-    QString imgBase64 = ba.toBase64();
 
     QJsonObject obj;
-    obj[JSON_COVER_ART] = imgBase64;
+    obj[JSON_COVER_ART] = (QString)ba.toBase64();
     obj[JSON_SONG_TITLE] = siStruct.songTitle_;
     obj[JSON_SONG_INTERPRET] = siStruct.songInterpret_;
     obj[JSON_ALBUM_TITLE] = siStruct.albumTitle_;
     obj[JSON_ALBUM_INTERPRET] = siStruct.albumInterpret_;
 
-    QJsonDocument doc;
-    doc.setObject(obj);
+    QJsonDocument doc(obj);
 
-    QString message = doc.toJson(QJsonDocument::Compact);
-    webSocketServer_->sendMessage(MT_SONG_ACTUAL, message);
+    webSocketServer_->sendMessage(MT_SONG_ACTUAL, (QString) doc.toJson(QJsonDocument::Compact));
 }
 
 QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()

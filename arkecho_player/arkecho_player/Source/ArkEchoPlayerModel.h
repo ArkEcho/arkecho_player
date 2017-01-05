@@ -18,7 +18,7 @@ enum UpdateViewEnum
     REMOTE_BUTTON_PLAY_PAUSE
 };
 
-struct SongInfo
+struct SongInfoStruct
 {
     QString songTitle_;
     QString songInterpret_;
@@ -44,11 +44,11 @@ public:
     void showConnectQrDialog();
     void showConnectManualDialog();
 
-    void setMediaPlaylist(QList<int> keys, int selectedKey);
+    void setMediaPlaylist(QList<int>& keys, int selectedKey);
     void backwardPlaylist();
     void forwardPlaylist();
     void shufflePlaylist();
-    void sendActualSongInfo(SongInfo siStruct);
+    void sendActualSongInfo(SongInfoStruct& siStruct);
 
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();
