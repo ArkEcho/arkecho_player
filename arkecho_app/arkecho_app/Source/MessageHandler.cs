@@ -1,8 +1,6 @@
-using Android.Graphics.Drawables;
-using System;
-using System.IO;
-
 using Newtonsoft.Json.Linq;
+using Android.Graphics;
+using Android.Util;
 
 namespace arkecho_app.source
 {
@@ -37,13 +35,10 @@ namespace arkecho_app.source
             return messageType;
         }
 
-        public static Drawable base64ToImage(string base64String)
+        public static Bitmap base64ToImage(string base64String)
         {
-            MemoryStream stream = new MemoryStream();
-            byte[] barray = Convert.FromBase64String(base64String);
-            stream.Write(barray, 0, barray.Length);
-            Drawable drawableImage = Drawable.CreateFromStream(stream, null);
-            return drawableImage;
+            byte[] decodedBytes = Base64.Decode(base64String, 0);
+            return BitmapFactory.DecodeByteArray(decodedBytes, 0, decodedBytes.Length);
         }
     }
 }

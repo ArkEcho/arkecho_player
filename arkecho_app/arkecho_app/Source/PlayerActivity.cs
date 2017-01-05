@@ -5,7 +5,6 @@ using Android.Widget;
 using System.Threading.Tasks;
 using System;
 using Newtonsoft.Json.Linq;
-using Android.Graphics.Drawables;
 
 namespace arkecho_app.source
 {
@@ -43,16 +42,16 @@ namespace arkecho_app.source
                 string songInterpret = obj[JSON_SONG_INTERPRET].ToObject<string>();
                 //string albumTitle = obj[JSON_ALBUM_TITLE].ToObject<string>();
                 //string albumInterpret = obj[JSON_ALBUM_INTERPRET].ToObject<string>();
-                //string coverArtBase64 = obj[JSON_COVER_ART].ToObject<string>();
-                //Drawable coverArtImage = MessageHandler.base64ToImage(coverArtBase64);
-                //ImageView iv = FindViewById<ImageView>(Resource.Id.imageViewCoverArt);
-                //iv.SetImageDrawable(coverArtImage);
+                var coverArtImage = MessageHandler.base64ToImage(obj[JSON_COVER_ART].ToObject<string>());
+
+                ImageView iv = FindViewById<ImageView>(Resource.Id.imageViewCoverArt);
+                RunOnUiThread(() => iv.SetImageBitmap(coverArtImage));
+
                 TextView title = FindViewById<TextView>(Resource.Id.tvTitlePlayer);
                 RunOnUiThread(() => title.Text = songTitle);
 
                 TextView inter = FindViewById<TextView>(Resource.Id.tvInterpretPlayer);
                 RunOnUiThread(() => inter.Text = songInterpret);
-
             }
         }
 
