@@ -7,11 +7,11 @@
     android:minHeight="25px"
     android:gravity="center">
     <ImageView
-        android:src="@drawable/defaultmusicicon"
         android:layout_width="200.0dp"
         android:layout_height="200.0dp"
         android:id="@+id/imageViewCoverArt"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:src="@drawable/defaultmusicicon" />
     <TextView
         android:text="@string/PlayerActivityTextViewTitleDefault"
         android:textAppearance="?android:attr/textAppearanceLarge"

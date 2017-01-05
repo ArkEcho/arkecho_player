@@ -90,6 +90,8 @@ void ArkEchoPlayerView::initUi()
     ui_->lblDuration->setText("0:00");// / 0:00");
 
     // Volume initialisieren
+    ui_->lblVolume->setMinimumWidth(20);
+    ui_->lblVolume->setMaximumWidth(20);
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 
