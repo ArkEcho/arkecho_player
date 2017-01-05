@@ -11,7 +11,7 @@ const int DEFAULT_VOLUME = 100;
 const int ACTUAL_SONG_INFO_TEXT_WIDTH = 150;
 const QSize ACTUAL_SONG_INFO_COVER_SIZE = QSize(150, 150);
 const QString ACTUAL_SONG_INFO_TEXT_DEFAULT = "<Kein Lied gestartet>";
-const QString ACTUAL_SONG_INFO_TEXT_EMPTY = "<Keine Sonfinfo>";
+const QString ACTUAL_SONG_INFO_TEXT_EMPTY = "<Keine Meta-Information>";
 const int ROW_HEIGHT = 20;
 
 enum TableTrackListColumns
@@ -216,21 +216,27 @@ void ArkEchoPlayerView::setActualSongInfo(bool defaultText)
 
     // Song Interpret
     if (defaultText) song.songInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    else if (song.songInterpret_.isEmpty()) song.songInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    else if (song.songInterpret_.isEmpty()) song.songInterpret_ = ACTUAL_SONG_INFO_TEXT_EMPTY;
     ui_->lblSongInterpret->setText(song.songInterpret_);
 
     // Album Titel
     if (defaultText) song.albumTitle_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    else if (song.albumTitle_.isEmpty()) song.albumTitle_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    else if (song.albumTitle_.isEmpty()) song.albumTitle_ = ACTUAL_SONG_INFO_TEXT_EMPTY;
     ui_->lblAlbumTitle->setText(song.albumTitle_);
 
     // Album Interpret
     if (defaultText) song.albumInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
-    else if (song.albumInterpret_.isEmpty()) song.albumInterpret_ = ACTUAL_SONG_INFO_TEXT_DEFAULT;
+    else if (song.albumInterpret_.isEmpty()) song.albumInterpret_ = ACTUAL_SONG_INFO_TEXT_EMPTY;
     ui_->lblAlbumInterpret->setText(song.albumInterpret_);
 
     if (!model_ || defaultText) return;
     model_->sendActualSongInfo(song);
+}
+
+void ArkEchoPlayerView::actualSongInfoRequested()
+{
+    if (!player_) return;
+    if (player_->mediaStatus() == player_->BufferedMedia) setActualSongInfo();
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)
@@ -251,6 +257,9 @@ void ArkEchoPlayerView::onUpdateView(const int &uve)
         break;
     case REMOTE_BUTTON_PLAY_PAUSE:
         onPbPlay_PauseClicked();
+        break;
+    case REQUEST_SONG_ACTUAL:
+        actualSongInfoRequested();
         break;
     }
     qApp->processEvents();

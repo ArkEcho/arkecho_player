@@ -134,7 +134,7 @@ void ArkEchoPlayerModel::sendActualSongInfo(SongInfoStruct& siStruct)
 
     QJsonDocument doc(obj);
 
-    webSocketServer_->sendMessage(MT_SONG_ACTUAL, (QString) doc.toJson(QJsonDocument::Compact));
+    webSocketServer_->sendMessage(MT_SEND_SONG_ACTUAL, (QString) doc.toJson(QJsonDocument::Compact));
 }
 
 QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()
@@ -183,6 +183,9 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
         break;
     case MT_PLAY_PAUSE:
         emit updateView(REMOTE_BUTTON_PLAY_PAUSE);
+        break;
+    case MT_REQUEST_SONG_ACTUAL:
+        emit updateView(REQUEST_SONG_ACTUAL);
         break;
     }
 }

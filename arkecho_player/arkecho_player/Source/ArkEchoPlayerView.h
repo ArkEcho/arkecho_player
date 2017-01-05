@@ -25,6 +25,7 @@ class ArkEchoPlayerView : public QMainWindow
     void setLblDuration();
     SongInfoStruct getActualSongInfo();
     void setActualSongInfo(bool defaultText = false);
+    void actualSongInfoRequested();
 
 public:
     ArkEchoPlayerView(QWidget *parent = 0);
