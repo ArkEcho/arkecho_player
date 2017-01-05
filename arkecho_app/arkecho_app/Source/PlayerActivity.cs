@@ -30,12 +30,15 @@ namespace arkecho_app.source
 
             ArkEchoWebSocket.newMessageReceived += onWebSocketNewMessageReceived;
             ArkEchoWebSocket.webSocketConnectionClosed += onWebSocketConnectionClosed;
+
+            // Aktuellen Song anfragen
+            ArkEchoWebSocket.sendMessage((int)MessageHandler.MESSAGETYPE.MT_REQUEST_SONG_ACTUAL, "");
         }
 
         private void onWebSocketNewMessageReceived(string message)
         {
             int messageType = MessageHandler.handleReceivedMessage(ref message);
-            if(messageType == (int)MessageHandler.MESSAGETYPE.MT_SONG_ACTUAL)
+            if(messageType == (int)MessageHandler.MESSAGETYPE.MT_SEND_SONG_ACTUAL)
             {
                 JObject obj = JObject.Parse(message);
                 string songTitle = obj[JSON_SONG_TITLE].ToObject<string>();

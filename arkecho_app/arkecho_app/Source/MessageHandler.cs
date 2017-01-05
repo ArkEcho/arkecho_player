@@ -16,7 +16,8 @@ namespace arkecho_app.source
             MT_PLAY_PAUSE,
             MT_BACKWARD,
             MT_FORWARD,
-            MT_SONG_ACTUAL
+            MT_REQUEST_SONG_ACTUAL,
+            MT_SEND_SONG_ACTUAL
         }
 
         public static string createMessage(int messageType, string message)
