@@ -119,6 +119,7 @@ void ArkEchoPlayerModel::shufflePlaylist()
 
 void ArkEchoPlayerModel::sendActualSongInfoPerSocket(SongInfoStruct& siStruct)
 {
+    if (!webSocketServer_) return;
     if (!webSocketServer_->checkIfConnectionIsOpen()) return;
 
     QByteArray ba;
@@ -149,6 +150,7 @@ MusicSongList * ArkEchoPlayerModel::getMusicSongList()
 
 QString ArkEchoPlayerModel::getWebServerAddress()
 {
+    if (!webSocketServer_) return "";
     return webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
 }
 
