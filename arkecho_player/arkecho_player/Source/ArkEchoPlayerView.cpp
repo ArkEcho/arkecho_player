@@ -6,9 +6,11 @@
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
 // MetaData und Player Song Länge unterscheiden sich etwa um 560ms
-const int MEDIAPLAYER_BUFFER_DURATION = 560;
+const int MEDIAPLAYER_DURATION_BUFFER = 560;
 const int DEFAULT_VOLUME = 100;
 const int ACTUAL_SONG_INFO_TEXT_WIDTH = 150;
+const int FILTER_LINEEDIT_WIDTH = 250;
+const int VOLUME_TEXT_WIDTH = 20;
 const QSize ACTUAL_SONG_INFO_COVER_SIZE = QSize(150, 150);
 const QString ACTUAL_SONG_INFO_TEXT_DEFAULT = "<Kein Lied gestartet>";
 const QString ACTUAL_SONG_INFO_TEXT_EMPTY = "<Keine Meta-Information>";
@@ -90,14 +92,14 @@ void ArkEchoPlayerView::initUi()
     ui_->lblDuration->setText("0:00");// / 0:00");
 
     // Volume initialisieren
-    ui_->lblVolume->setMinimumWidth(20);
-    ui_->lblVolume->setMaximumWidth(20);
+    ui_->lblVolume->setMinimumWidth(VOLUME_TEXT_WIDTH);
+    ui_->lblVolume->setMaximumWidth(VOLUME_TEXT_WIDTH);
     ui_->lblVolume->setText(QString::number(DEFAULT_VOLUME));
     ui_->sliderVolume->setValue(DEFAULT_VOLUME);
 
     // Filter Line Edit initialisieren
-    ui_->leFilter->setMinimumWidth(250);
-    ui_->leFilter->setMaximumWidth(250);
+    ui_->leFilter->setMinimumWidth(FILTER_LINEEDIT_WIDTH);
+    ui_->leFilter->setMaximumWidth(FILTER_LINEEDIT_WIDTH);
 
     // Actual Song Info initalisieren
     ui_->lblCoverArt->setScaledContents(true);
@@ -107,7 +109,7 @@ void ArkEchoPlayerView::initUi()
     ui_->lblSongInterpret->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
     ui_->lblAlbumTitle->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
     ui_->lblAlbumInterpret->setMaximumWidth(ACTUAL_SONG_INFO_TEXT_WIDTH);
-    setActualSongInfo(true);
+    setActualSongInfoAndSendPerSocket(true);
 }
 
 void ArkEchoPlayerView::setWebSocketStatusLabel(bool connected)
@@ -147,6 +149,7 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
         MusicSong* song = map.value(key);
         if (!song) continue;
 
+        // Filter Music Songs
         bool cont = true;
         if (filterText != "")
         {
@@ -164,6 +167,7 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
             }
         }
         if (!cont) continue;
+        ////////////////////
 
         ui_->twTrackList->setRowCount(row + 1);
         ui_->twTrackList->setRowHeight(row, ROW_HEIGHT);
@@ -184,14 +188,14 @@ void ArkEchoPlayerView::setLblDuration()
     QString durationOverall = MusicSong::convertSongDurationToMinuteSecond(duration - MEDIAPLAYER_BUFFER_DURATION);*/
 
     qint64 position = player_->position();
-    if (position >= MEDIAPLAYER_BUFFER_DURATION) position -= MEDIAPLAYER_BUFFER_DURATION;
+    if (position >= MEDIAPLAYER_DURATION_BUFFER) position -= MEDIAPLAYER_DURATION_BUFFER;
     QString durationNow = MusicSong::convertMillisecondToMinuteSecond(position);
 
     QString text = durationNow;// +"/" + durationOverall;
     ui_->lblDuration->setText(text);
 }
 
-SongInfoStruct ArkEchoPlayerView::getActualSongInfo()
+SongInfoStruct ArkEchoPlayerView::getActualSongInfoMetaData()
 {
     SongInfoStruct song;
     song.songTitle_ = MusicSong::getSongTitle(player_);
@@ -202,10 +206,10 @@ SongInfoStruct ArkEchoPlayerView::getActualSongInfo()
     return song;
 }
 
-void ArkEchoPlayerView::setActualSongInfo(bool defaultText)
+void ArkEchoPlayerView::setActualSongInfoAndSendPerSocket(bool defaultText)
 {
     // Kopie zum bearbeiten
-    SongInfoStruct song = getActualSongInfo();
+    SongInfoStruct song = getActualSongInfoMetaData();
 
     // Song Cover
     if (song.coverArt_.bits() == 0)  song.coverArt_ = QImage("./Resources/defaultMusicIcon.png");
@@ -232,13 +236,14 @@ void ArkEchoPlayerView::setActualSongInfo(bool defaultText)
     ui_->lblAlbumInterpret->setText(song.albumInterpret_);
 
     if (!model_ || defaultText) return;
-    model_->sendActualSongInfo(song);
+    model_->sendActualSongInfoPerSocket(song);
 }
 
-void ArkEchoPlayerView::actualSongInfoRequested()
+void ArkEchoPlayerView::actualSongInfoRequestedBySocket()
 {
     if (!player_) return;
-    if (player_->mediaStatus() == player_->BufferedMedia) setActualSongInfo();
+    // Nur bei geladenen Medien werden die Aktuellen Song Infos losgeschickt
+    if (player_->mediaStatus() == player_->BufferedMedia) setActualSongInfoAndSendPerSocket();
 }
 
 void ArkEchoPlayerView::onUpdateView(const int &uve)
@@ -260,8 +265,8 @@ void ArkEchoPlayerView::onUpdateView(const int &uve)
     case REMOTE_BUTTON_PLAY_PAUSE:
         onPbPlay_PauseClicked();
         break;
-    case REQUEST_SONG_ACTUAL:
-        actualSongInfoRequested();
+    case REQUEST_SONG_ACTUAL_BY_SOCKET:
+        actualSongInfoRequestedBySocket();
         break;
     }
     qApp->processEvents();
@@ -379,6 +384,6 @@ void ArkEchoPlayerView::onPlayerMediaStatusChanged(const QMediaPlayer::MediaStat
 {
     if (status == QMediaPlayer::MediaStatus::BufferedMedia || status == QMediaPlayer::MediaStatus::LoadedMedia)
     {
-        setActualSongInfo();
+        setActualSongInfoAndSendPerSocket();
     }
 }

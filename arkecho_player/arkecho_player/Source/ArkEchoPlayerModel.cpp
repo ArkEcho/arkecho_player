@@ -117,7 +117,7 @@ void ArkEchoPlayerModel::shufflePlaylist()
     playlist_->shuffle();
 }
 
-void ArkEchoPlayerModel::sendActualSongInfo(SongInfoStruct& siStruct)
+void ArkEchoPlayerModel::sendActualSongInfoPerSocket(SongInfoStruct& siStruct)
 {
     if (!webSocketServer_->checkIfConnectionIsOpen()) return;
 
@@ -185,7 +185,7 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
         emit updateView(REMOTE_BUTTON_PLAY_PAUSE);
         break;
     case MT_REQUEST_SONG_ACTUAL:
-        emit updateView(REQUEST_SONG_ACTUAL);
+        emit updateView(REQUEST_SONG_ACTUAL_BY_SOCKET);
         break;
     }
 }

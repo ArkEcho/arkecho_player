@@ -23,9 +23,9 @@ class ArkEchoPlayerView : public QMainWindow
     void setWebSocketStatusLabel(bool connected);
     void setTWTrackList(QString filterText = "");
     void setLblDuration();
-    SongInfoStruct getActualSongInfo();
-    void setActualSongInfo(bool defaultText = false);
-    void actualSongInfoRequested();
+    SongInfoStruct getActualSongInfoMetaData();
+    void setActualSongInfoAndSendPerSocket(bool defaultText = false);
+    void actualSongInfoRequestedBySocket();
 
 public:
     ArkEchoPlayerView(QWidget *parent = 0);

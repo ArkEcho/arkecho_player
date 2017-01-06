@@ -16,7 +16,7 @@ enum UpdateViewEnum
     REMOTE_BUTTON_BACKWARD,
     REMOTE_BUTTON_FORWARD,
     REMOTE_BUTTON_PLAY_PAUSE,
-    REQUEST_SONG_ACTUAL
+    REQUEST_SONG_ACTUAL_BY_SOCKET
 };
 
 struct SongInfoStruct
@@ -49,7 +49,7 @@ public:
     void backwardPlaylist();
     void forwardPlaylist();
     void shufflePlaylist();
-    void sendActualSongInfo(SongInfoStruct& siStruct);
+    void sendActualSongInfoPerSocket(SongInfoStruct& siStruct);
 
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();
