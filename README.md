@@ -6,6 +6,9 @@ ArkEcho is a private, non-commercial Project, developed by Stephan Ziesenis, Stu
 The ArkEcho Player is a 'normal' Media Player, like VLC or Windows Media Player. Its developed for playing Music-Songs.
 Its Feature is the ArkEcho App, that controls the Player via NetWork. Therefore it uses the WebSocket Protocoll.
 To Connect the App to the Player, you can scan a Qr-Code in the Player or type the Address manually.
+ArkEcho Player can play the following Audio Formats:
+- .mp3
+- .m4a
 
 ### ArkEcho-App is developed with Visual Studio 2015, Xamarin.Android in C# #
 #### The App is using NuGet Packages: 
@@ -17,6 +20,10 @@ To Connect the App to the Player, you can scan a Qr-Code in the Player or type t
 #### The Player is using:
 - Nayuki's Qr-Code Generator - [Github] (https://github.com/nayuki/QR-Code-generator)
 - QDarkStylesheet - [Github] (https://github.com/ColinDuquesnoy/QDarkStyleSheet)
+
+### IMPORTANT INFORMATION:
+If some of your Media-Files aren't loaded by the player, you need to install extra Music Code.
+I used the K-Lite Codec Pack, downloadable at [Codecguide](http://www.codecguide.com/download_kl.htm)
 
 ### JSON Messages:
 ```json
