@@ -27,7 +27,7 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     ,playlist_(0)
 {
     musicSongList_ = new MusicSongList();
-    musicSongList_->loadSongs(getMusicDirectoryList());
+    musicSongList_->loadSongs(getMusicDirectoryList(), getMusicFormatList());
     while (!musicSongList_->allSongsLoaded())
     {
         qApp->processEvents();
@@ -157,6 +157,12 @@ QString ArkEchoPlayerModel::getWebServerAddress()
 QStringList ArkEchoPlayerModel::getMusicDirectoryList()
 {
     QStringList list = QStringList() << QDir::homePath() + "/Music/";
+    return list;
+}
+
+QStringList ArkEchoPlayerModel::getMusicFormatList()
+{
+    QStringList list = QStringList() << "*.mp3" << "*.m4a";
     return list;
 }
 

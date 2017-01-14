@@ -37,6 +37,7 @@ class ArkEchoPlayerModel : public QObject
     QMediaPlaylist* playlist_;
 
     QStringList getMusicDirectoryList();
+    QStringList getMusicFormatList();
 
 public:
     ArkEchoPlayerModel(QObject *parent = 0);

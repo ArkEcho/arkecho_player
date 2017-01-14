@@ -11,9 +11,18 @@ class MusicSong : public QObject
 
     QUrl url_;
 
-    bool loaded_;
+    QMediaPlayer::MediaStatus status_;
     QMediaPlayer* mp_;
     QMediaContent mediaContent_;
+
+    QString songTitle_;
+    QString songInterpret_;
+    qint64 songDuration_;
+
+    int albumSongNumber_;
+    int albumSongCount_;
+    QString albumTitle_;
+    QString albumInterpret_;
 
 
     static QString getMetaDataSongTitle(QMediaPlayer* mp);
@@ -30,7 +39,7 @@ public:
     MusicSong(QUrl url, QObject* parent = 0);
     ~MusicSong();
 
-    bool isLoaded();
+    QMediaPlayer::MediaStatus getStatus();
 
     QUrl getUrl();
     QMediaContent getMediaContent();

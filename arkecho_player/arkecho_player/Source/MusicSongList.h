@@ -17,7 +17,7 @@ public:
     ~MusicSongList();
 
     bool allSongsLoaded();
-    void loadSongs(QStringList& directories);
+    void loadSongs(QStringList& directories, QStringList& formats);
     QMap<int,MusicSong*> getSongList();
 };
 

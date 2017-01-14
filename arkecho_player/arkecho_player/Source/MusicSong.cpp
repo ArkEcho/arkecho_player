@@ -6,10 +6,12 @@
 
 MusicSong::MusicSong(QUrl url, QObject* parent)
     :url_(url)
-    ,loaded_(false)
+    ,songDuration_(0)
+    ,albumSongNumber_(0)
+    ,albumSongCount_(0)
 {
     mp_ = new QMediaPlayer();
-    mp_->setMedia(url_);
+    mp_->setMedia(url);
 
     // Ist die Datei geladen wird der Slot ausgelöst und die MetaDaten geladen
     connect(mp_, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(onMediaStatusChanged(QMediaPlayer::MediaStatus)));
@@ -17,12 +19,12 @@ MusicSong::MusicSong(QUrl url, QObject* parent)
 
 MusicSong::~MusicSong()
 {
-    delete mp_;
+    //delete mp_;
 }
 
-bool MusicSong::isLoaded()
+QMediaPlayer::MediaStatus MusicSong::getStatus()
 {
-    return loaded_;
+    return status_;
 }
 
 QUrl MusicSong::getUrl()
@@ -37,50 +39,42 @@ QMediaContent MusicSong::getMediaContent()
 
 QString MusicSong::getSongTitle()
 {
-    if (!mp_) return "";
-    return getMetaDataSongTitle(mp_);
+    return songTitle_;
 }
 
 QString MusicSong::getSongInterpret()
 {
-    if (!mp_) return "";
-    return getMetaDataSongInterpret(mp_);
+    return songInterpret_;
 }
 
 qint64 MusicSong::getSongDuration()
 {
-    if (!mp_) return 0 ;
-    return getMetaDataSongDuration(mp_);
+    return songDuration_;
 }
 
 QString MusicSong::getSongDurationAsMinuteSecond()
 {
-    if (!mp_) return "";
-    return convertMillisecondToMinuteSecond(getMetaDataSongDuration(mp_));
+    return convertMillisecondToMinuteSecond(songDuration_);
 }
 
 int MusicSong::getAlbumSongNumber()
 {
-    if (!mp_) return 0;
-    return getMetaDataAlbumSongNumber(mp_);
+    return albumSongNumber_;
 }
 
 int MusicSong::getAlbumSongCount()
 {
-    if (!mp_) return 0;
-    return getMetaDataAlbumSongCount(mp_);
+    return albumSongCount_;
 }
 
 QString MusicSong::getAlbumTitle()
 {
-    if (!mp_) return "";
-    return getMetaDataAlbumTitle(mp_);
+    return albumTitle_;
 }
 
 QString MusicSong::getAlbumInterpret()
 {
-    if (!mp_) return "";
-    return getMetaDataAlbumInterpret(mp_);
+    return albumInterpret_;
 }
 
 QString MusicSong::getSongTitle(QMediaPlayer * mp)
@@ -139,12 +133,21 @@ QImage MusicSong::getAlbumCoverArt(QMediaPlayer * mp)
 
 void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
 {
-    if (status == QMediaPlayer::MediaStatus::LoadedMedia)
+    if (!mp_) return;
+    status_ = status;
+    if (status_ == QMediaPlayer::MediaStatus::LoadedMedia || status_ == QMediaPlayer::MediaStatus::BufferedMedia)
     {
         mediaContent_ = mp_->media();
-        loaded_ = true;
-        //songCoverArt_ = new QImage(mp_->metaData(QMediaMetaData::CoverArtImage).value<QImage>());
+        songTitle_ = getMetaDataSongTitle(mp_);
+        songInterpret_ = getMetaDataSongInterpret(mp_);
+        songDuration_ = getMetaDataSongDuration(mp_);
+
+        albumSongNumber_ = getMetaDataAlbumSongNumber(mp_);
+        albumSongCount_ = getMetaDataAlbumSongCount(mp_);
+        albumTitle_ = getMetaDataAlbumTitle(mp_);
+        albumInterpret_ = getMetaDataAlbumInterpret(mp_);
     }
+    mp_->deleteLater();
 }
 
 QString MusicSong::convertMillisecondToMinuteSecond(qint64 millisecond)
