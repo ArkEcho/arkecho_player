@@ -22,8 +22,8 @@ ArkEcho Player can play the following Audio Formats:
 - QDarkStylesheet - [Github] (https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 
 ### IMPORTANT INFORMATION:
-If some of your Media-Files aren't loaded by the player, you need to install extra Music Code.
-I used the K-Lite Codec Pack, downloadable at [Codecguide](http://www.codecguide.com/download_kl.htm)
+If some of your Media-Files aren't loaded by the player, you need to install extra Music Codec.
+I used the K-Lite Codec Pack, downloadable at [Codecguide](http://www.codecguide.com/download_kl.htm).
 
 ### JSON Messages:
 ```json

@@ -658,10 +658,15 @@
       <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Multimedia.lib;Qt5MultimediaWidgets.lib;Qt5Network.lib;Qt5WebSockets.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /e /y /i /r
+      <Command>xcopy "$(OutDir)$(TargetName).exe" "$(SolutionDir)bin\" /e /y /i /r
+xcopy "$(ProjectDir)Resources" "$(SolutionDir)bin\Resources" /e /y /i /r
+xcopy "$(SolutionDir)$(Platform)\$(ConfigurationName)\arkecho_dll.dll"  "$(SolutionDir)bin" /e /y /i /r
 
-$(QtDir)\bin\windeployqt.exe $(OutDir)</Command>
+"$(QtDir)\bin\windeployqt.exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
