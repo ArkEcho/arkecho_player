@@ -18,6 +18,10 @@ public:
 
     bool allSongsLoaded();
     void loadSongs(QStringList& directories, QStringList& formats);
+
+    // Sortiert in Reihenfolge AlbumTitel ABC -> AlbumNummer 123; vergibt die Keys neu
+    void sortSongs();
+
     QMap<int,MusicSong*> getSongList();
 };
 

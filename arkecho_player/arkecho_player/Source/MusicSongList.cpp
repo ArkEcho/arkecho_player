@@ -20,15 +20,16 @@ bool MusicSongList::allSongsLoaded()
     QMapIterator<int,MusicSong*> it(songList_);
     while (it.hasNext())
     {
-        int key = it.next().key();
-        MusicSong* s = songList_[key];
-        if (!s) continue;
-        if (s->getStatus() == QMediaPlayer::MediaStatus::InvalidMedia)
+        int actualKey = it.next().key();
+        MusicSong* actualSong
+            = songList_[actualKey];
+        if (!actualSong) continue;
+        if (actualSong->getStatus() == QMediaPlayer::MediaStatus::InvalidMedia)
         {
-            delete s;
-            songList_.remove(key);
+            delete actualSong;
+            songList_.remove(actualKey);
         }
-        else if (s->getStatus() != QMediaPlayer::MediaStatus::LoadedMedia)
+        else if (actualSong->getStatus() != QMediaPlayer::MediaStatus::LoadedMedia)
         {
             ++countNotLoaded;
         }
@@ -52,6 +53,38 @@ void MusicSongList::loadSongs(QStringList& directories, QStringList& formats)
         }
     }
     delete it;
+}
+
+void MusicSongList::sortSongs()
+{
+    QMap<int, MusicSong*> newSongListSorted;
+    int songListSize = songList_.size();
+    while (newSongListSorted.size() < songListSize)
+    {
+        QString lowestAlbumTitle = "ZZZZZZZZZZ";
+        int lowestAlbumSongNumber = 9999999;
+        int lowestAlbumSongKey = 0;
+        QMapIterator<int, MusicSong*> iteratorOldList(songList_);
+        while (iteratorOldList.hasNext())
+        {
+            int actualKey = iteratorOldList.next().key();
+            MusicSong* actualSong = songList_[actualKey];
+            if (!actualSong) continue;
+            QString actualAlbumTitle = actualSong->getAlbumTitle();
+            int actualAlbumSongNumber = actualSong->getAlbumSongNumber();
+
+            if (actualAlbumTitle < lowestAlbumTitle || (actualAlbumTitle == lowestAlbumTitle && actualAlbumSongNumber < lowestAlbumSongNumber))
+            {
+                lowestAlbumTitle = actualAlbumTitle;
+                lowestAlbumSongNumber = actualAlbumSongNumber;
+                lowestAlbumSongKey = actualKey;
+            }
+        }
+        int newKey = newSongListSorted.size() + 1;
+        newSongListSorted.insert(newKey, songList_[lowestAlbumSongKey]);
+        songList_.remove(lowestAlbumSongKey);
+    }
+    songList_ = newSongListSorted;
 }
 
 QMap<int,MusicSong*> MusicSongList::getSongList()

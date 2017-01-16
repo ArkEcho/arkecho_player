@@ -32,6 +32,7 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     {
         qApp->processEvents();
     }
+    musicSongList_->sortSongs();
 
     webSocketServer_ = new WebSocketServer(SERVER_NAME);
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen
