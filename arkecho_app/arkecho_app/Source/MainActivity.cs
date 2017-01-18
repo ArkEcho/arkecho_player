@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Widget;
 using Android.OS;
+using Android.Views;
 
 using System;
 using System.Threading.Tasks;
@@ -116,6 +117,12 @@ namespace arkecho_app.source
             {
                 ex.ToString();
             }
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            return base.OnCreateOptionsMenu(menu);
         }
     }
 }

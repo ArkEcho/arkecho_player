@@ -23,4 +23,6 @@
   <string name="ToastQrScanFailed">Der Qr-Code wurde nicht korrekt gescannt!</string>  
   <string name="ToastNoConnection">Keine Verbindung zum ArkEcho Player möglich!</string>
   <string name="ToastEmptyWrongAddress">Bitte füllen sie das Feld Adresse korrekt und vollständig aus!</string>
+
+  <string name="TopMenusMenu">Menü</string>
 </resources>
