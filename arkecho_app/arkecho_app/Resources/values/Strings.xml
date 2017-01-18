@@ -24,5 +24,7 @@
   <string name="ToastNoConnection">Keine Verbindung zum ArkEcho Player möglich!</string>
   <string name="ToastEmptyWrongAddress">Bitte füllen sie das Feld Adresse korrekt und vollständig aus!</string>
 
-  <string name="TopMenusMenu">Menü</string>
+  <string name="TopMenuQrCode">Mit Qr-Code verbinden</string>
+  <string name="TopMenuManual">Manuell verbinden</string>
+  <string name="TopMenuImpressum">Impressum</string>
 </resources>

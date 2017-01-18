@@ -78,9 +78,6 @@ namespace arkecho_app.source
 			// aapt resource value: 0x7f060005
 			public const int imageViewCoverArt = 2131099653;
 			
-			// aapt resource value: 0x7f06000d
-			public const int menu_edit = 2131099661;
-			
 			// aapt resource value: 0x7f060009
 			public const int pbBackward = 2131099657;
 			
@@ -98,6 +95,15 @@ namespace arkecho_app.source
 			
 			// aapt resource value: 0x7f060002
 			public const int teAddress = 2131099650;
+			
+			// aapt resource value: 0x7f06000f
+			public const int top_menus_impressum = 2131099663;
+			
+			// aapt resource value: 0x7f06000e
+			public const int top_menus_manual = 2131099662;
+			
+			// aapt resource value: 0x7f06000d
+			public const int top_menus_qrCode = 2131099661;
 			
 			// aapt resource value: 0x7f060001
 			public const int tvAddress = 2131099649;
@@ -219,8 +225,14 @@ namespace arkecho_app.source
 			// aapt resource value: 0x7f04000f
 			public const int ToastQrScanFailed = 2130968591;
 			
+			// aapt resource value: 0x7f040014
+			public const int TopMenuImpressum = 2130968596;
+			
+			// aapt resource value: 0x7f040013
+			public const int TopMenuManual = 2130968595;
+			
 			// aapt resource value: 0x7f040012
-			public const int TopMenusMenu = 2130968594;
+			public const int TopMenuQrCode = 2130968594;
 			
 			static String()
 			{

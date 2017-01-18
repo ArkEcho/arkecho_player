@@ -124,6 +124,20 @@ namespace arkecho_app.source
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);
             return base.OnCreateOptionsMenu(menu);
         }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch(item.ItemId)
+            {
+                case Resource.Id.top_menus_qrCode:
+                    break;
+                case Resource.Id.top_menus_manual:
+                    break;
+                case Resource.Id.top_menus_impressum:
+                    break;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
     }
 }
 
