@@ -96,14 +96,8 @@ namespace arkecho_app.source
 			// aapt resource value: 0x7f060002
 			public const int teAddress = 2131099650;
 			
-			// aapt resource value: 0x7f06000f
-			public const int top_menus_impressum = 2131099663;
-			
-			// aapt resource value: 0x7f06000e
-			public const int top_menus_manual = 2131099662;
-			
 			// aapt resource value: 0x7f06000d
-			public const int top_menus_qrCode = 2131099661;
+			public const int top_menu_impressum = 2131099661;
 			
 			// aapt resource value: 0x7f060001
 			public const int tvAddress = 2131099649;
@@ -156,7 +150,7 @@ namespace arkecho_app.source
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int top_menus = 2131034112;
+			public const int top_menu = 2131034112;
 			
 			static Menu()
 			{

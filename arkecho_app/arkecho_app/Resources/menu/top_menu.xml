@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item
-      android:id="@+id/top_menus_qrCode"
+  <!-- <item
+      android:id="@+id/top_menu_qrCode"
       android:icon="@drawable/menu_icon"
       android:title="@string/TopMenuQrCode"/>
   <item
-      android:id="@+id/top_menus_manual"
+      android:id="@+id/top_menu_manual"
       android:icon="@drawable/menu_icon"
-      android:title="@string/TopMenuManual"/>
+      android:title="@string/TopMenuManual"/> -->
   <item
-      android:id="@+id/top_menus_impressum"
+      android:id="@+id/top_menu_impressum"
       android:icon="@drawable/menu_icon"
       android:title="@string/TopMenuImpressum"/>
 </menu>

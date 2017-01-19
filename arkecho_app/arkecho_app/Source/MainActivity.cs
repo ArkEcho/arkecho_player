@@ -19,9 +19,10 @@ namespace arkecho_app.source
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView (Resource.Layout.MainActivity);
+            SetContentView(Resource.Layout.MainActivity);
 
-            qrCodeText_ = "";
+            //ActionBar.SetCustomView(Resource.Layout.Toolbar);
+            //ActionBar.SetTitle(Resource.String.TopMenuManual);
 
             // Connect Buttons
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
@@ -33,6 +34,7 @@ namespace arkecho_app.source
             // Scanner initialisieren
             MobileBarcodeScanner.Initialize(Application);
             scanner_ = new MobileBarcodeScanner();
+            qrCodeText_ = "";
         }
         
         private void setElementsEnabled(bool enabled)
@@ -121,19 +123,15 @@ namespace arkecho_app.source
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            MenuInflater.Inflate(Resource.Menu.top_menu, menu);
             return base.OnCreateOptionsMenu(menu);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch(item.ItemId)
+            switch (item.ItemId)
             {
-                case Resource.Id.top_menus_qrCode:
-                    break;
-                case Resource.Id.top_menus_manual:
-                    break;
-                case Resource.Id.top_menus_impressum:
+                case Resource.Id.top_menu_impressum:
                     break;
             }
             return base.OnOptionsItemSelected(item);
