@@ -21,7 +21,8 @@ namespace arkecho_app.source
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainActivity);
 
-            //ActionBar.SetCustomView(Resource.Layout.Toolbar);
+            ActionBar.SetDisplayShowCustomEnabled(true);
+            ActionBar.SetCustomView(Resource.Layout.ActionBar);
             //ActionBar.SetTitle(Resource.String.TopMenuManual);
 
             // Connect Buttons
