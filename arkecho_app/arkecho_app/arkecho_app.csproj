@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\BaseActivity.cs" />
     <Compile Include="Source\MainActivity.cs" />
     <Compile Include="Source\MessageHandler.cs" />
     <Compile Include="Source\ArkEchoWebSocket.cs" />

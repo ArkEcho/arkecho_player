@@ -1,7 +1,6 @@
 using Android.App;
 using Android.Widget;
 using Android.OS;
-using Android.Views;
 
 using System;
 using System.Threading.Tasks;
@@ -10,29 +9,16 @@ using ZXing.Mobile;
 
 namespace arkecho_app.source
 {
-    [Activity(Label = "@string/ApplicationTitle", MainLauncher = true, Icon = "@drawable/playerIcon")]
-    public class MainActivity : Activity
+    [Activity(MainLauncher = true)]
+    public class MainActivity : BaseActivity
     {
         string qrCodeText_;
         MobileBarcodeScanner scanner_;
-
-        Button actionBarMenuButton;
-        PopupMenu actionBarPopupMenu;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainActivity);
-
-            // Action Bar
-            ActionBar.SetDisplayShowCustomEnabled(true);
-            ActionBar.SetCustomView(Resource.Layout.ActionBar);
-            actionBarMenuButton = FindViewById<Button>(Resource.Id.pbActionBarMenu);
-            actionBarMenuButton.Click += onPbActionBarMenuClicked;
-            actionBarPopupMenu = new PopupMenu(this, actionBarMenuButton);
-            actionBarPopupMenu.MenuInflater.Inflate(Resource.Menu.top_menu, actionBarPopupMenu.Menu);
-            actionBarPopupMenu.MenuItemClick += onPopupMenuItemClicked;
-            actionBarPopupMenu.DismissEvent += (s, arg) => { };
 
             // Connect Buttons
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
@@ -52,16 +38,6 @@ namespace arkecho_app.source
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Enabled = enabled;
             FindViewById<Button>(Resource.Id.pbConnectManually).Enabled = enabled;
             FindViewById<TextView>(Resource.Id.teAddress).Enabled = enabled;
-        }
-
-        private void onPbActionBarMenuClicked(object sender, EventArgs e)
-        {
-            actionBarPopupMenu.Show();
-        }
-
-        private void onPopupMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
-        {
-            return;
         }
 
         private void onPbConnectManuallyClicked(object sender, EventArgs e)

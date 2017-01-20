@@ -8,8 +8,8 @@ using Newtonsoft.Json.Linq;
 
 namespace arkecho_app.source
 {
-    [Activity(Label = "@string/ApplicationTitle")]
-    public class PlayerActivity : Activity
+    [Activity]
+    public class PlayerActivity : BaseActivity
     {
         private const string JSON_COVER_ART = "CoverArt";
         private const string JSON_SONG_TITLE = "SongTitle";
