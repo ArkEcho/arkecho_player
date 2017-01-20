@@ -34,7 +34,21 @@ namespace arkecho_app.source
 
         private void onPopupMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
-            return;
+            int itemId = e.Item.ItemId;
+            if (itemId == Resource.Id.top_menu_impressum)
+            {
+
+            }
+            else if (itemId == Resource.Id.top_menu_help)
+            {
+
+            }
+        }
+
+        protected void setActionBarButtonBackHidden(bool hide)
+        {
+            if(hide) FindViewById<Button>(Resource.Id.pbActionBarBack).Visibility = Android.Views.ViewStates.Invisible;
+            else FindViewById<Button>(Resource.Id.pbActionBarBack).Visibility = Android.Views.ViewStates.Visible;
         }
     }
 }

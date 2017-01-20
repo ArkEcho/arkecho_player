@@ -9,7 +9,7 @@ using ZXing.Mobile;
 
 namespace arkecho_app.source
 {
-    [Activity(MainLauncher = true)]
+    [Activity]
     public class MainActivity : BaseActivity
     {
         string qrCodeText_;
@@ -20,12 +20,11 @@ namespace arkecho_app.source
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainActivity);
 
+            setActionBarButtonBackHidden(true);
+
             // Connect Buttons
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
             FindViewById<Button>(Resource.Id.pbConnectManually).Click += onPbConnectManuallyClicked;
-
-            // Prepare WebSockets Connection
-            Websockets.Droid.WebsocketConnection.Link();
 
             // Scanner initialisieren
             MobileBarcodeScanner.Initialize(Application);
