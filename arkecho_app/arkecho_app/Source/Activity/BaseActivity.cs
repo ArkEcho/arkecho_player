@@ -4,7 +4,7 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 
-namespace arkecho_app.source
+namespace arkecho_app.source.activity
 {
     [Activity(Label = "@string/ApplicationTitle", Icon = "@drawable/playerIcon")]
     public class BaseActivity : Activity

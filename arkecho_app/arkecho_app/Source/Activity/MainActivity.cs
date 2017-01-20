@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 using ZXing.Mobile;
 
-namespace arkecho_app.source
+using arkecho_app.source.connection;
+
+namespace arkecho_app.source.activity
 {
     [Activity]
     public class MainActivity : BaseActivity

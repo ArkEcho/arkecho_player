@@ -4,9 +4,12 @@ using Android.Widget;
 
 using System.Threading.Tasks;
 using System;
+
 using Newtonsoft.Json.Linq;
 
-namespace arkecho_app.source
+using arkecho_app.source.connection;
+
+namespace arkecho_app.source.activity
 {
     [Activity]
     public class PlayerActivity : BaseActivity

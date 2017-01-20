@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+
 using System.Threading.Tasks;
 
-namespace arkecho_app.source.Source
+namespace arkecho_app.source.activity
 {
     [Activity(Theme = "@style/SplashScreen", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : Activity

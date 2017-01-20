@@ -81,12 +81,12 @@
   <ItemGroup>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\BaseActivity.cs" />
-    <Compile Include="Source\MainActivity.cs" />
-    <Compile Include="Source\MessageHandler.cs" />
-    <Compile Include="Source\ArkEchoWebSocket.cs" />
-    <Compile Include="Source\PlayerActivity.cs" />
-    <Compile Include="Source\SplashActivity.cs" />
+    <Compile Include="Source\Activity\BaseActivity.cs" />
+    <Compile Include="Source\Activity\MainActivity.cs" />
+    <Compile Include="Source\Activity\PlayerActivity.cs" />
+    <Compile Include="Source\Activity\SplashActivity.cs" />
+    <Compile Include="Source\Connection\ArkEchoWebSocket.cs" />
+    <Compile Include="Source\Connection\MessageHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainActivity.axml">
@@ -131,6 +131,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values\Style.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

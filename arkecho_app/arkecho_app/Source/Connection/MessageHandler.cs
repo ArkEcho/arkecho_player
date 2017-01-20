@@ -2,7 +2,7 @@ using Newtonsoft.Json.Linq;
 using Android.Graphics;
 using Android.Util;
 
-namespace arkecho_app.source
+namespace arkecho_app.source.connection
 {
     class MessageHandler
     {

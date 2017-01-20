@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace arkecho_app.source
+namespace arkecho_app.source.connection
 {
     public static class ArkEchoWebSocket
     {
