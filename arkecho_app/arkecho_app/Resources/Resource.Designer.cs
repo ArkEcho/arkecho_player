@@ -48,13 +48,16 @@ namespace arkecho_app.source
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int defaultMusicIcon = 2130837504;
+			public const int backIcon = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int menu_icon = 2130837505;
+			public const int defaultMusicIcon = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int playerIcon = 2130837506;
+			public const int menuIcon = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int playerIcon = 2130837507;
 			
 			static Drawable()
 			{
@@ -69,50 +72,65 @@ namespace arkecho_app.source
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060009
-			public const int ButtonLayout = 2131099657;
-			
 			// aapt resource value: 0x7f06000d
-			public const int contentFrame = 2131099661;
+			public const int ButtonLayout = 2131099661;
 			
-			// aapt resource value: 0x7f060006
-			public const int imageViewCoverArt = 2131099654;
-			
-			// aapt resource value: 0x7f060000
-			public const int mytext = 2131099648;
+			// aapt resource value: 0x7f060011
+			public const int contentFrame = 2131099665;
 			
 			// aapt resource value: 0x7f06000a
-			public const int pbBackward = 2131099658;
+			public const int imageViewCoverArt = 2131099658;
+			
+			// aapt resource value: 0x7f060000
+			public const int pbActionBarBack = 2131099648;
 			
 			// aapt resource value: 0x7f060004
-			public const int pbConnectManually = 2131099652;
-			
-			// aapt resource value: 0x7f060005
-			public const int pbConnectWithQr = 2131099653;
-			
-			// aapt resource value: 0x7f06000c
-			public const int pbForward = 2131099660;
-			
-			// aapt resource value: 0x7f06000b
-			public const int pbPlay_Pause = 2131099659;
-			
-			// aapt resource value: 0x7f060003
-			public const int teAddress = 2131099651;
+			public const int pbActionBarMenu = 2131099652;
 			
 			// aapt resource value: 0x7f06000e
-			public const int top_menu_impressum = 2131099662;
-			
-			// aapt resource value: 0x7f060002
-			public const int tvAddress = 2131099650;
-			
-			// aapt resource value: 0x7f060001
-			public const int tvHeader = 2131099649;
+			public const int pbBackward = 2131099662;
 			
 			// aapt resource value: 0x7f060008
-			public const int tvInterpretPlayer = 2131099656;
+			public const int pbConnectManually = 2131099656;
+			
+			// aapt resource value: 0x7f060009
+			public const int pbConnectWithQr = 2131099657;
+			
+			// aapt resource value: 0x7f060010
+			public const int pbForward = 2131099664;
+			
+			// aapt resource value: 0x7f06000f
+			public const int pbPlay_Pause = 2131099663;
+			
+			// aapt resource value: 0x7f060003
+			public const int space1 = 2131099651;
+			
+			// aapt resource value: 0x7f060001
+			public const int space2 = 2131099649;
 			
 			// aapt resource value: 0x7f060007
-			public const int tvTitlePlayer = 2131099655;
+			public const int teAddress = 2131099655;
+			
+			// aapt resource value: 0x7f060013
+			public const int top_menu_help = 2131099667;
+			
+			// aapt resource value: 0x7f060012
+			public const int top_menu_impressum = 2131099666;
+			
+			// aapt resource value: 0x7f060006
+			public const int tvAddress = 2131099654;
+			
+			// aapt resource value: 0x7f060005
+			public const int tvHeader = 2131099653;
+			
+			// aapt resource value: 0x7f06000c
+			public const int tvInterpretPlayer = 2131099660;
+			
+			// aapt resource value: 0x7f06000b
+			public const int tvTitlePlayer = 2131099659;
+			
+			// aapt resource value: 0x7f060002
+			public const int twActionBarTitle = 2131099650;
 			
 			static Id()
 			{
@@ -224,6 +242,9 @@ namespace arkecho_app.source
 			
 			// aapt resource value: 0x7f04000f
 			public const int ToastQrScanFailed = 2130968591;
+			
+			// aapt resource value: 0x7f040015
+			public const int TopMenuHelp = 2130968597;
 			
 			// aapt resource value: 0x7f040014
 			public const int TopMenuImpressum = 2130968596;

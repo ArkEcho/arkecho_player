@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/pbActionBarBack"
+        android:background="@drawable/backIcon"/>
+    <Space
+        android:layout_width="21.5dp"
+        android:layout_height="match_parent"
+        android:id="@+id/space2"
+        android:layout_weight="1" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/ApplicationTitle"
-        android:id="@+id/mytext"
+        android:id="@+id/twActionBarTitle"
         android:textSize="24dp"
         android:textColor="#ffffff" />
+    <Space
+        android:layout_width="27.0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/space1"
+        android:layout_weight="1" />
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/pbActionBarMenu"
+        android:background="@drawable/menuIcon" />
 </LinearLayout>

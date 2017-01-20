@@ -16,14 +16,23 @@ namespace arkecho_app.source
         string qrCodeText_;
         MobileBarcodeScanner scanner_;
 
+        Button actionBarMenuButton;
+        PopupMenu actionBarPopupMenu;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainActivity);
 
+            // Action Bar
             ActionBar.SetDisplayShowCustomEnabled(true);
             ActionBar.SetCustomView(Resource.Layout.ActionBar);
-            //ActionBar.SetTitle(Resource.String.TopMenuManual);
+            actionBarMenuButton = FindViewById<Button>(Resource.Id.pbActionBarMenu);
+            actionBarMenuButton.Click += onPbActionBarMenuClicked;
+            actionBarPopupMenu = new PopupMenu(this, actionBarMenuButton);
+            actionBarPopupMenu.MenuInflater.Inflate(Resource.Menu.top_menu, actionBarPopupMenu.Menu);
+            actionBarPopupMenu.MenuItemClick += onPopupMenuItemClicked;
+            actionBarPopupMenu.DismissEvent += (s, arg) => { };
 
             // Connect Buttons
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
@@ -37,12 +46,22 @@ namespace arkecho_app.source
             scanner_ = new MobileBarcodeScanner();
             qrCodeText_ = "";
         }
-        
+
         private void setElementsEnabled(bool enabled)
         {
             FindViewById<Button>(Resource.Id.pbConnectWithQr).Enabled = enabled;
             FindViewById<Button>(Resource.Id.pbConnectManually).Enabled = enabled;
             FindViewById<TextView>(Resource.Id.teAddress).Enabled = enabled;
+        }
+
+        private void onPbActionBarMenuClicked(object sender, EventArgs e)
+        {
+            actionBarPopupMenu.Show();
+        }
+
+        private void onPopupMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
+        {
+            return;
         }
 
         private void onPbConnectManuallyClicked(object sender, EventArgs e)
@@ -120,22 +139,6 @@ namespace arkecho_app.source
             {
                 ex.ToString();
             }
-        }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.top_menu, menu);
-            return base.OnCreateOptionsMenu(menu);
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.top_menu_impressum:
-                    break;
-            }
-            return base.OnOptionsItemSelected(item);
         }
     }
 }
