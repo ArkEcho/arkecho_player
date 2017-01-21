@@ -10,6 +10,10 @@ ArkEcho Player can play the following Audio Formats:
 - .mp3
 - .m4a
 
+### Project is under the MIT-License
+#### App and Player are using:
+- Material-Design-Icons [Github] (https://github.com/google/material-design-icons)
+
 ### ArkEcho-App is developed with Visual Studio 2015, Xamarin.Android in C# #
 #### The App is using NuGet Packages: 
 - WebSockets.PCL - [Github] (https://github.com/NVentimiglia/Websockets.PCL)
