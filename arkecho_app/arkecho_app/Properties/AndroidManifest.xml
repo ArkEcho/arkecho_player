@@ -5,5 +5,5 @@
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
 	<application android:label="@string/ApplicationTitle"
-                 android:theme="@style/ArkEcho"></application>
+                 android:theme="@style/ArkEcho.Main"></application>
 </manifest>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace arkecho_app.source.activity
 {
-    [Activity(Theme = "@style/SplashScreen", MainLauncher = true, NoHistory = true)]
+    [Activity(Theme = "@style/ArkEcho.SplashScreen", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : BaseActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

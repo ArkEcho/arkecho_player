@@ -47,17 +47,11 @@ namespace arkecho_app.source
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f040003
-			public const int colorAccent = 2130968579;
+			// aapt resource value: 0x7f040001
+			public const int colorActionBar = 2130968577;
 			
 			// aapt resource value: 0x7f040000
-			public const int colorBackground = 2130968576;
-			
-			// aapt resource value: 0x7f040001
-			public const int colorPrimary = 2130968577;
-			
-			// aapt resource value: 0x7f040002
-			public const int colorPrimaryDark = 2130968578;
+			public const int colorWindowBackground = 2130968576;
 			
 			static Color()
 			{
@@ -299,11 +293,14 @@ namespace arkecho_app.source
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int ArkEcho = 2131099648;
-			
 			// aapt resource value: 0x7f060001
-			public const int SplashScreen = 2131099649;
+			public const int ArkEcho_ActionBar = 2131099649;
+			
+			// aapt resource value: 0x7f060000
+			public const int ArkEcho_Main = 2131099648;
+			
+			// aapt resource value: 0x7f060002
+			public const int ArkEcho_SplashScreen = 2131099650;
 			
 			static Style()
 			{
