@@ -12,7 +12,7 @@ using arkecho_app.source.connection;
 namespace arkecho_app.source.activity
 {
     [Activity]
-    public class MainActivity : BaseActivity
+    public class MainActivity : ExtendedActivity
     {
         string qrCodeText_;
         MobileBarcodeScanner scanner_;

@@ -12,7 +12,7 @@ using arkecho_app.source.connection;
 namespace arkecho_app.source.activity
 {
     [Activity]
-    public class PlayerActivity : BaseActivity
+    public class PlayerActivity : ExtendedActivity
     {
         private const string JSON_COVER_ART = "CoverArt";
         private const string JSON_SONG_TITLE = "SongTitle";
