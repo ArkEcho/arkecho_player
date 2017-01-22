@@ -2,7 +2,7 @@
 <resources>
   <string name="ApplicationName">arkecho_app</string>
   <string name="ApplicationTitle">ArkEcho</string>
-  
+
   <string name="MainActivityTextViewHeader">Verbindung zum Player herstellen</string>
   <string name="MainActivityTextViewAddress">Adresse:</string>
   <string name="MainActivityPushButtonConnectQr">Mit Qr-Code verbinden</string>
@@ -14,6 +14,10 @@
   <string name="PlayerActivityButtonPlay_Pause">Play/Pause</string>
   <string name="PlayerActivityButtonForward">Weiter</string>
 
+  <string name="ImpressumActivityTextViewHeader">Impressum:</string>
+
+  <string name="HelpActivityTextViewHeader">ArkEcho-Hilfe:</string>
+
   <string name="QrScannerTextTop">Qr-Code Scanner</string>
   <string name="QrScannerTextBottom">Halten sie den Strich über den Qr-Code!</string>
 
@@ -24,8 +28,6 @@
   <string name="ToastNoConnection">Keine Verbindung zum ArkEcho Player möglich!</string>
   <string name="ToastEmptyWrongAddress">Bitte füllen sie das Feld Adresse korrekt und vollständig aus!</string>
 
-  <string name="TopMenuQrCode">Mit Qr-Code verbinden</string>
-  <string name="TopMenuManual">Manuell verbinden</string>
   <string name="TopMenuImpressum">Impressum</string>
   <string name="TopMenuHelp">Hilfe</string>
 </resources>

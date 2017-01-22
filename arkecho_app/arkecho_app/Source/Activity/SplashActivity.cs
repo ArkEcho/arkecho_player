@@ -12,7 +12,7 @@ namespace arkecho_app.source.activity
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.SplashActivity);
+            SetContentView(Resource.Layout.Splash);
             // Create your application here
         }
 

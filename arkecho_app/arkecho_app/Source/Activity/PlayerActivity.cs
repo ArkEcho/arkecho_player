@@ -25,7 +25,7 @@ namespace arkecho_app.source.activity
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.PlayerActivity);
+            SetContentView(Resource.Layout.Player);
 
             setActionBarButtonBackHidden(true);
 

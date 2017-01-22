@@ -20,7 +20,7 @@ namespace arkecho_app.source.activity
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.MainActivity);
+            SetContentView(Resource.Layout.Main);
 
             setActionBarButtonBackHidden(true);
 

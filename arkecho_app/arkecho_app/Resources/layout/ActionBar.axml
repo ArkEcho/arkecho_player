@@ -4,6 +4,10 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="center">
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/space3" />
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -32,4 +36,8 @@
         android:layout_height="30dp"
         android:id="@+id/pbActionBarMenu"
         android:background="@drawable/menuIcon" />
+    <Space
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:id="@+id/space4" />
 </LinearLayout>
