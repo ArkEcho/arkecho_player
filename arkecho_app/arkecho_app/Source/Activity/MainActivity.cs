@@ -17,16 +17,22 @@ namespace arkecho_app.source.activity
         string qrCodeText_;
         MobileBarcodeScanner scanner_;
 
+        Button connectWithQrButton;
+        Button connectManuallyButton;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
             setActionBarButtonBackHidden(true);
+            setActionBarTitleText(GetString(Resource.String.MainActivityTitle));
 
             // Connect Buttons
-            FindViewById<Button>(Resource.Id.pbConnectWithQr).Click += onPbConnectWithQrClicked;
-            FindViewById<Button>(Resource.Id.pbConnectManually).Click += onPbConnectManuallyClicked;
+            connectWithQrButton = FindViewById<Button>(Resource.Id.pbConnectWithQr);
+            connectWithQrButton.Click += onPbConnectWithQrClicked;
+            connectManuallyButton = FindViewById<Button>(Resource.Id.pbConnectManually);
+            connectManuallyButton.Click += onPbConnectManuallyClicked;
 
             // Scanner initialisieren
             MobileBarcodeScanner.Initialize(Application);
@@ -36,8 +42,8 @@ namespace arkecho_app.source.activity
 
         private void setElementsEnabled(bool enabled)
         {
-            FindViewById<Button>(Resource.Id.pbConnectWithQr).Enabled = enabled;
-            FindViewById<Button>(Resource.Id.pbConnectManually).Enabled = enabled;
+            connectWithQrButton.Enabled = enabled;
+            connectManuallyButton.Enabled = enabled;
             FindViewById<TextView>(Resource.Id.teAddress).Enabled = enabled;
         }
 

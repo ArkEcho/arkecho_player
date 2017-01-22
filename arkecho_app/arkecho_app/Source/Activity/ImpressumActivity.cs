@@ -13,6 +13,7 @@ namespace arkecho_app.source.activity
             SetContentView(Resource.Layout.Impressum);
 
             setActionBarButtonMenuHidden(true);
+            setActionBarTitleText(GetString(Resource.String.ImpressumActivityTitle));
         }
     }
 }

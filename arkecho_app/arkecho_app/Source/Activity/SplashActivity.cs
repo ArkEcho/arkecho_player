@@ -13,7 +13,6 @@ namespace arkecho_app.source.activity
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Splash);
-            // Create your application here
         }
 
         protected override async void OnResume()

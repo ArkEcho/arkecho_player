@@ -28,6 +28,7 @@ namespace arkecho_app.source.activity
             SetContentView(Resource.Layout.Player);
 
             setActionBarButtonBackHidden(true);
+            setActionBarTitleText(GetString(Resource.String.PlayerActivityTitle));
 
             FindViewById<Button>(Resource.Id.pbPlay_Pause).Click += onPbPlay_PauseClicked;
             FindViewById<Button>(Resource.Id.pbForward).Click += onPbForwardClicked;

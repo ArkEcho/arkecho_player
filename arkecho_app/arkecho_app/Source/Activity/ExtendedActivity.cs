@@ -20,14 +20,22 @@ namespace arkecho_app.source.activity
             // Action Bar
             ActionBar.SetDisplayShowCustomEnabled(true);
             ActionBar.SetCustomView(Resource.Layout.ActionBar);
+
             actionBarBackButton = FindViewById<Button>(Resource.Id.pbActionBarBack);
             actionBarBackButton.Click += onPbActionBarBackClicked;
+
             actionBarMenuButton = FindViewById<Button>(Resource.Id.pbActionBarMenu);
             actionBarMenuButton.Click += onPbActionBarMenuClicked;
+
             actionBarPopupMenu = new PopupMenu(this, actionBarMenuButton);
             actionBarPopupMenu.MenuInflater.Inflate(Resource.Menu.top_menu, actionBarPopupMenu.Menu);
             actionBarPopupMenu.MenuItemClick += onPopupMenuItemClicked;
             actionBarPopupMenu.DismissEvent += (s, arg) => { };
+        }
+
+        protected void setActionBarTitleText(string title)
+        {
+            FindViewById<TextView>(Resource.Id.twActionBarTitle).Text = title;
         }
 
         private void onPbActionBarBackClicked(object sender, EventArgs e)
