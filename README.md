@@ -1,5 +1,8 @@
 # ArkEcho Player and App Development
 
+Player - [Github] (https://github.com/stephan-z/arkecho_player)
+App - [Github] (https://github.com/stephan-z/arkecho_app)
+
 ###Description
 ArkEcho is a private, non-commercial Project, developed by Stephan Ziesenis, Student of Health-Informatics at Heidelberg University & Heilbronn University.
 
