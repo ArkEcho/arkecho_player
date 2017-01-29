@@ -1,6 +1,7 @@
-# ArkEcho Player and App Development
+# ArkEcho Player, Page and App Development
 
 Player - [Github] (https://github.com/stephan-z/arkecho_player)
+Page - [Github] (https://github.com/stephan-z/arkecho_page)
 App - [Github] (https://github.com/stephan-z/arkecho_app)
 
 ###Description
@@ -14,7 +15,7 @@ ArkEcho Player can play the following Audio Formats:
 - .m4a
 
 ### Project is under the MIT-License
-#### App and Player are using:
+#### App, Page and Player are using:
 - Material-Design-Icons [Github] (https://github.com/google/material-design-icons)
 
 ### ArkEcho-App is developed with Visual Studio 2015, Xamarin.Android in C# #
@@ -27,6 +28,10 @@ ArkEcho Player can play the following Audio Formats:
 #### The Player is using:
 - Nayuki's Qr-Code Generator - [Github] (https://github.com/nayuki/QR-Code-generator)
 - QDarkStylesheet - [Github] (https://github.com/ColinDuquesnoy/QDarkStyleSheet)
+
+### ArkEcho-Page is developed with HTML, CSS and JavaScript
+#### The Page is using:
+- AngularJS, JavaScript MVC-Framework [Github] (https://github.com/angular)
 
 ### IMPORTANT INFORMATION:
 If some of your Media-Files aren't loaded by the player, you need to install extra Music Codec.
