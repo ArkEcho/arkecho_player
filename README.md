@@ -1,8 +1,11 @@
-# ArkEcho Player, Page and App Development
+# ArkEcho Player Development
 
 - [Player] (https://github.com/stephan-z/arkecho_player)
 - [Page] (https://github.com/stephan-z/arkecho_page)
 - [App] (https://github.com/stephan-z/arkecho_app)
+
+### IMPORTANT INFORMATION:
+If some of your Media-Files aren't loaded by the player, you need to install extra Music Codec.
 
 ###Description
 ArkEcho is a private, non-commercial Project, developed by Stephan Ziesenis, Student of Health-Informatics at Heidelberg University & Heilbronn University.
@@ -16,18 +19,13 @@ ArkEcho Player can play the following Audio Formats:
 - .mp3
 - .m4a
 
-### Project is under the MIT-License
-#### App, Page and 2Player are using:
+### App, Page and Player are using:
 - Material-Design-Icons [Github] (https://github.com/google/material-design-icons)
 
 ### ArkEcho-Player is developed with Visual Studio 2015, Qt 5.7.0 in C++
 #### The Player is using:
 - Nayuki's Qr-Code Generator - [Github] (https://github.com/nayuki/QR-Code-generator)
 - QDarkStylesheet - [Github] (https://github.com/ColinDuquesnoy/QDarkStyleSheet)
-
-### IMPORTANT INFORMATION:
-If some of your Media-Files aren't loaded by the player, you need to install extra Music Codec.
-I used the K-Lite Codec Pack, downloadable at [Codecguide](http://www.codecguide.com/download_kl.htm).
 
 ### JSON Messages:
 ```json
@@ -45,5 +43,22 @@ I used the K-Lite Codec Pack, downloadable at [Codecguide](http://www.codecguide
 	"AlbumTitle": string,
 	"AlbumInterpret": string,
 	"CoverArt": string
+}
+```
+
+### JSON Songlist:
+```json
+{
+	[
+		"Key": int,
+		"Song": 
+		{		
+			"SongTitle": string,	
+			"SongInterpret": string,
+			"AlbumTitle": string,
+			"AlbumInterpret": string,
+			"CoverArt": string
+		}
+	]
 }
 ```
