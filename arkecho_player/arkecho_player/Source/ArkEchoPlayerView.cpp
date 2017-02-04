@@ -14,6 +14,7 @@ const int VOLUME_TEXT_WIDTH = 20;
 const QSize ACTUAL_SONG_INFO_COVER_SIZE = QSize(150, 150);
 const QString ACTUAL_SONG_INFO_TEXT_DEFAULT = "<Kein Lied gestartet>";
 const QString ACTUAL_SONG_INFO_TEXT_EMPTY = "<Keine Meta-Information>";
+const QString BUTTON_ICON_RESOURCE_PATH = "./Resources/player/";
 const int ROW_HEIGHT = 20;
 
 enum TableTrackListColumns
@@ -100,6 +101,32 @@ void ArkEchoPlayerView::initUi()
     // Filter Line Edit initialisieren
     ui_->leFilter->setMinimumWidth(FILTER_LINEEDIT_WIDTH);
     ui_->leFilter->setMaximumWidth(FILTER_LINEEDIT_WIDTH);
+
+    // PushButton Icons
+    QSize buttonSize = QSize(40, 20);
+    ui_->pbPlay_Pause->setText("");
+    ui_->pbPlay_Pause->setIcon(QPixmap::fromImage(QImage(BUTTON_ICON_RESOURCE_PATH + "playPauseIcon.png")));
+    ui_->pbPlay_Pause->setIconSize(QSize(60, 30));
+
+    ui_->pbFilterClear->setText("");
+    ui_->pbFilterClear->setIcon(QPixmap::fromImage(QImage(BUTTON_ICON_RESOURCE_PATH + "clearIcon.png")));
+    ui_->pbFilterClear->setIconSize(QSize(40,16));
+
+    ui_->pbBackward->setText("");
+    ui_->pbBackward->setIcon(QPixmap::fromImage(QImage(BUTTON_ICON_RESOURCE_PATH + "rewindIcon.png")));
+    ui_->pbBackward->setIconSize(buttonSize);
+
+    ui_->pbForward->setText("");
+    ui_->pbForward->setIcon(QPixmap::fromImage(QImage(BUTTON_ICON_RESOURCE_PATH + "forwardIcon.png")));
+    ui_->pbForward->setIconSize(buttonSize);
+
+    ui_->pbShuffle->setText("");
+    ui_->pbShuffle->setIcon(QPixmap::fromImage(QImage(BUTTON_ICON_RESOURCE_PATH + "shuffleIcon.png")));
+    ui_->pbShuffle->setIconSize(buttonSize);
+
+    ui_->pbStop->setText("");
+    ui_->pbStop->setIcon(QPixmap::fromImage(QImage(BUTTON_ICON_RESOURCE_PATH + "stopIcon.png")));
+    ui_->pbStop->setIconSize(buttonSize);
 
     // Actual Song Info initalisieren
     ui_->lblCoverArt->setScaledContents(true);
