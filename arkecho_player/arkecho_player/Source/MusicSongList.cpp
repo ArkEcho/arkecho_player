@@ -2,6 +2,7 @@
 
 #include <QDirIterator>
 #include <QMapIterator>
+#include <QBuffer>
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -16,6 +17,7 @@ const QString JSON_ALBUMSONGNUMBER = "AlbumSongNumber";
 const QString JSON_ALBUMSONGCOUNT = "AlbumSongCount";
 const QString JSON_ALBUMTITLE = "AlbumTitle";
 const QString JSON_ALBUMINTERPRET = "AlbumInterpret";
+const QString JSON_ALBUMCOVERART = "AlbumCoverArt";
 
 MusicSongList::MusicSongList(QObject *parent)
     : QObject(parent)
@@ -122,6 +124,11 @@ void MusicSongList::toJSONString(QString& json)
         obj[JSON_ALBUMSONGCOUNT] = song->getAlbumSongCount();
         obj[JSON_ALBUMTITLE] = song->getAlbumTitle();
         obj[JSON_ALBUMINTERPRET] = song->getAlbumInterpret();
+        /*QByteArray ba;
+        QBuffer bu(&ba);
+        song->getAlbumCoverArt().save(&bu, "PNG");
+        obj[JSON_ALBUMCOVERART] = (QString)ba.toBase64();*/
+
         QJsonObject objSong;
         objSong[JSON_KEY] = key;
         objSong[JSON_SONG] = obj;

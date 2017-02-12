@@ -27,11 +27,6 @@ ArkEcho Player can play the following Audio Formats:
 - Nayuki's Qr-Code Generator - [Github] (https://github.com/nayuki/QR-Code-generator)
 - QDarkStylesheet - [Github] (https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 
-### ToDo-List:
-- [ ] Load and Save SongList to File
-- [ ] Check if Song still exists/new Songs
-- [ ] Improve loading of MetaData -> just once at the beginning
-
 ### JSON Messages:
 ```json
 {
@@ -40,7 +35,7 @@ ArkEcho Player can play the following Audio Formats:
 }
 ```
 
-### JSON Song:
+### JSON Actual-Song:
 ```json
 {
 	"SongTitle": string,	
@@ -62,9 +57,11 @@ ArkEcho Player can play the following Audio Formats:
 			{		
 				"SongTitle": string,	
 				"SongInterpret": string,
+				"SongDuration": int,
+				"AlbumSongNumber": int,
+				"AlbumSongCount": int,
 				"AlbumTitle": string,
-				"AlbumInterpret": string,
-				"CoverArt": string
+				"AlbumInterpret": string
 			}
 		},
 		{
@@ -73,9 +70,11 @@ ArkEcho Player can play the following Audio Formats:
 			{		
 				"SongTitle": string,	
 				"SongInterpret": string,
+				"SongDuration": int,
+				"AlbumSongNumber": int,
+				"AlbumSongCount": int,
 				"AlbumTitle": string,
-				"AlbumInterpret": string,
-				"CoverArt": string
+				"AlbumInterpret": string
 			}
 		}
 	]

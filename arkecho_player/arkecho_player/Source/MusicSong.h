@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QMediaPlayer>
+#include <QImage>
 
 class MusicSong : public QObject
 {
@@ -21,6 +22,7 @@ class MusicSong : public QObject
     int albumSongCount_;
     QString albumTitle_;
     QString albumInterpret_;
+    QImage albumCoverArt_;
 
     static QString getMetaDataSongTitle(QMediaPlayer* mp);
     static QString getMetaDataSongInterpret(QMediaPlayer* mp);
@@ -50,6 +52,7 @@ public:
     int getAlbumSongCount();
     QString getAlbumTitle();
     QString getAlbumInterpret();
+    QImage& getAlbumCoverArt();
 
     static QString getSongTitle(QMediaPlayer* mp);
     static QString getSongInterpret(QMediaPlayer* mp);

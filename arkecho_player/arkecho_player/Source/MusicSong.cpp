@@ -2,7 +2,6 @@
 
 #include <QMediaMetaData>
 #include <QTime>
-#include <QImage>
 #include <QJsonObject>
 #include <QJsonDocument>
 
@@ -79,6 +78,11 @@ QString MusicSong::getAlbumInterpret()
     return albumInterpret_;
 }
 
+QImage & MusicSong::getAlbumCoverArt()
+{
+    return albumCoverArt_;
+}
+
 QString MusicSong::getSongTitle(QMediaPlayer * mp)
 {
     if (!mp) return "";
@@ -147,6 +151,7 @@ void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
         albumSongCount_ = getMetaDataAlbumSongCount(mp_);
         albumTitle_ = getMetaDataAlbumTitle(mp_);
         albumInterpret_ = getMetaDataAlbumInterpret(mp_);
+        albumCoverArt_ = getMetaDataAlbumCoverArt(mp_);
     }
     mp_->deleteLater();
 }
