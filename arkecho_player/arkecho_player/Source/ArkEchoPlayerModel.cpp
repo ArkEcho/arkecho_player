@@ -33,6 +33,9 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
         qApp->processEvents();
     }
     musicSongList_->sortSongs();
+    //QString json;
+    //musicSongList_->toJSONString(json);
+    //musicSongList_->songToJSONString(2, json);
 
     webSocketServer_ = new WebSocketServer(SERVER_NAME);
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen

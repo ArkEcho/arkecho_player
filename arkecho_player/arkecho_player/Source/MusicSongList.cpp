@@ -19,6 +19,24 @@ const QString JSON_ALBUMTITLE = "AlbumTitle";
 const QString JSON_ALBUMINTERPRET = "AlbumInterpret";
 const QString JSON_ALBUMCOVERART = "AlbumCoverArt";
 
+void MusicSongList::songToJSONObject(MusicSong * song, QJsonObject& obj, bool coverArt)
+{
+    obj[JSON_SONGTITLE] = song->getSongTitle();
+    obj[JSON_SONGINTERPRET] = song->getSongInterpret();
+    obj[JSON_SONGDURATION] = song->getSongDuration();
+    obj[JSON_ALBUMSONGNUMBER] = song->getAlbumSongNumber();
+    obj[JSON_ALBUMSONGCOUNT] = song->getAlbumSongCount();
+    obj[JSON_ALBUMTITLE] = song->getAlbumTitle();
+    obj[JSON_ALBUMINTERPRET] = song->getAlbumInterpret();
+    if (coverArt)
+    {
+        QByteArray ba;
+        QBuffer bu(&ba);
+        song->getAlbumCoverArt().save(&bu, "PNG");
+        obj[JSON_ALBUMCOVERART] = (QString)ba.toBase64();
+    }
+}
+
 MusicSongList::MusicSongList(QObject *parent)
     : QObject(parent)
 {
@@ -117,17 +135,7 @@ void MusicSongList::toJSONString(QString& json)
         MusicSong* song = songList_.value(key);
         if (!song)continue;
         QJsonObject obj;
-        obj[JSON_SONGTITLE] = song->getSongTitle();
-        obj[JSON_SONGINTERPRET] = song->getSongInterpret();
-        obj[JSON_SONGDURATION] = song->getSongDuration();
-        obj[JSON_ALBUMSONGNUMBER] = song->getAlbumSongNumber();
-        obj[JSON_ALBUMSONGCOUNT] = song->getAlbumSongCount();
-        obj[JSON_ALBUMTITLE] = song->getAlbumTitle();
-        obj[JSON_ALBUMINTERPRET] = song->getAlbumInterpret();
-        /*QByteArray ba;
-        QBuffer bu(&ba);
-        song->getAlbumCoverArt().save(&bu, "PNG");
-        obj[JSON_ALBUMCOVERART] = (QString)ba.toBase64();*/
+        songToJSONObject(song, obj);
 
         QJsonObject objSong;
         objSong[JSON_KEY] = key;
@@ -138,6 +146,15 @@ void MusicSongList::toJSONString(QString& json)
 
     QJsonObject obj;
     obj[JSON_SONGLIST] = arr;
+
+    QJsonDocument doc(obj);
+    json = doc.toJson(QJsonDocument::Compact);
+}
+
+void MusicSongList::songToJSONString(int key, QString & json)
+{
+    QJsonObject obj;
+    songToJSONObject(songList_.value(key), obj, true);
 
     QJsonDocument doc(obj);
     json = doc.toJson(QJsonDocument::Compact);
