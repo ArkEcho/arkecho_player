@@ -32,11 +32,6 @@ QUrl MusicSong::getUrl()
     return url_;
 }
 
-QMediaContent MusicSong::getMediaContent()
-{
-    return mediaContent_;
-}
-
 QString MusicSong::getSongTitle()
 {
     return songTitle_;
@@ -137,7 +132,6 @@ void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
     status_ = status;
     if (status_ == QMediaPlayer::MediaStatus::LoadedMedia || status_ == QMediaPlayer::MediaStatus::BufferedMedia)
     {
-        mediaContent_ = mp_->media();
         songTitle_ = getMetaDataSongTitle(mp_);
         songInterpret_ = getMetaDataSongInterpret(mp_);
         songDuration_ = getMetaDataSongDuration(mp_);

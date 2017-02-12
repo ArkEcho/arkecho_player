@@ -13,7 +13,6 @@ class MusicSong : public QObject
 
     QMediaPlayer::MediaStatus status_;
     QMediaPlayer* mp_;
-    QMediaContent mediaContent_;
 
     QString songTitle_;
     QString songInterpret_;
@@ -42,7 +41,6 @@ public:
     QMediaPlayer::MediaStatus getStatus();
 
     QUrl getUrl();
-    QMediaContent getMediaContent();
 
     QString getSongTitle();
     QString getSongInterpret();

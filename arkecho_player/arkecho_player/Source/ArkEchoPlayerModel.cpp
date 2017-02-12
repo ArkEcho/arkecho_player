@@ -79,18 +79,19 @@ void ArkEchoPlayerModel::setMediaPlaylist(QList<int>& keys, int selectedKey)
     playlist_->clear();
     if (keys.size() == 0) return;
 
+    QMap<int, MusicSong*> songList = musicSongList_->getSongList();
     int index = 0, startIndex = 0;
     QListIterator<int> itKeys(keys);
     while (itKeys.hasNext())
     {
         int keyList = itKeys.next();
-        QMapIterator<int, MusicSong*> itSongs(musicSongList_->getSongList());
+        QMapIterator<int, MusicSong*> itSongs(songList);
         while (itSongs.hasNext())
         {
             int keyMap = itSongs.next().key();
             if (keyList == keyMap)
             {
-                playlist_->insertMedia(index, musicSongList_->getSongList().value(keyList)->getMediaContent());
+                playlist_->insertMedia(index, songList.value(keyList)->getUrl());
                 if (keyList == selectedKey) startIndex = index;
                 ++index;
                 break;

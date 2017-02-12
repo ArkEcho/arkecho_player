@@ -1,3 +1,6 @@
+# ArkEcho Media Data Files
+*.amdf
+
 # User-specific files
 *.suo
 *.user
