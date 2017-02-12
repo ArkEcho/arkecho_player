@@ -6,16 +6,6 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-const QString JSON_SONG = "Song";
-const QString JSON_URL = "Url";
-const QString JSON_SONGTITLE = "SongTitle";
-const QString JSON_SONGINTERPRET = "SongInterpret";
-const QString JSON_SONGDURATION = "SongDuration";
-const QString JSON_ALBUMSONGNUMBER = "AlbumSongNumber";
-const QString JSON_ALBUMSONGCOUNT = "AlbumSongCount";
-const QString JSON_ALBUMTITLE = "AlbumTitle";
-const QString JSON_ALBUMINTERPRET = "AlbumInterpret";
-
 MusicSong::MusicSong(QObject * parent)
 {
     status_ = QMediaPlayer::MediaStatus::LoadedMedia;
@@ -37,44 +27,6 @@ MusicSong::MusicSong(QUrl url, QObject* parent)
 MusicSong::~MusicSong()
 {
     //delete mp_;
-}
-
-void MusicSong::toJSONString(QString& json)
-{
-    QJsonObject obj;
-    obj[JSON_URL] = url_.toString();
-    obj[JSON_SONGTITLE] = songTitle_;
-    obj[JSON_SONGINTERPRET] = songInterpret_;
-    obj[JSON_SONGDURATION] = songDuration_;
-    obj[JSON_ALBUMSONGNUMBER] = albumSongNumber_;
-    obj[JSON_ALBUMSONGCOUNT] = albumSongCount_;
-    obj[JSON_ALBUMTITLE] = albumTitle_;
-    obj[JSON_ALBUMINTERPRET] = albumInterpret_;
-
-    QJsonObject objSong;
-    objSong[JSON_SONG] = obj;
-
-    QJsonDocument doc;
-    doc.setObject(objSong);
-    json = doc.toJson(QJsonDocument::Compact);
-}
-
-void MusicSong::setFromJSONString(QString& json)
-{
-    QJsonDocument doc;
-    doc = doc.fromJson(json.toUtf8());
-
-    QJsonObject objSong = doc.object();
-
-    QJsonObject obj = objSong[JSON_SONG].toObject();
-    url_ = obj[JSON_URL].toVariant().toUrl();
-    songTitle_ = obj[JSON_SONGTITLE].toString();
-    songInterpret_ = obj[JSON_SONGINTERPRET].toString();
-    songDuration_ = obj[JSON_SONGDURATION].toInt();
-    albumSongNumber_ = obj[JSON_ALBUMSONGNUMBER].toInt();
-    albumSongCount_ = obj[JSON_ALBUMSONGCOUNT].toInt();
-    albumTitle_ = obj[JSON_ALBUMTITLE].toString();
-    albumInterpret_ = obj[JSON_ALBUMINTERPRET].toString();
 }
 
 QMediaPlayer::MediaStatus MusicSong::getStatus()

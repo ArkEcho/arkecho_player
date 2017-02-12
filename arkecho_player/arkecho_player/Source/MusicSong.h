@@ -10,7 +10,6 @@ class MusicSong : public QObject
     Q_OBJECT
 
     QUrl url_;
-
     QMediaPlayer::MediaStatus status_;
     QMediaPlayer* mp_;
 
@@ -22,7 +21,6 @@ class MusicSong : public QObject
     int albumSongCount_;
     QString albumTitle_;
     QString albumInterpret_;
-
 
     static QString getMetaDataSongTitle(QMediaPlayer* mp);
     static QString getMetaDataSongInterpret(QMediaPlayer* mp);
@@ -38,9 +36,6 @@ public:
     MusicSong(QObject* parent = 0);
     MusicSong(QUrl url, QObject* parent = 0);
     ~MusicSong();
-
-    void toJSONString(QString& json);
-    void setFromJSONString(QString& json);
 
     QMediaPlayer::MediaStatus getStatus();
 

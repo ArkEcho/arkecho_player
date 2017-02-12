@@ -7,6 +7,15 @@
 #include <QJsonArray>
 
 const QString JSON_SONGLIST = "SongList";
+const QString JSON_SONG = "Song";
+const QString JSON_KEY = "Key";
+const QString JSON_SONGTITLE = "SongTitle";
+const QString JSON_SONGINTERPRET = "SongInterpret";
+const QString JSON_SONGDURATION = "SongDuration";
+const QString JSON_ALBUMSONGNUMBER = "AlbumSongNumber";
+const QString JSON_ALBUMSONGCOUNT = "AlbumSongCount";
+const QString JSON_ALBUMTITLE = "AlbumTitle";
+const QString JSON_ALBUMINTERPRET = "AlbumInterpret";
 
 MusicSongList::MusicSongList(QObject *parent)
     : QObject(parent)
@@ -98,14 +107,25 @@ void MusicSongList::toJSONString(QString& json)
     if (listeSize == 0) return;
 
     QJsonArray arr;
-    QString string;
+    QString songJSON;
     QMapIterator<int, MusicSong*> it(songList_);
     while (it.hasNext())
     {
-        MusicSong* s = it.next().value();
-        if (!s)continue;
-        s->toJSONString(string);
-        arr.append(string);
+        int key = it.next().key();
+        MusicSong* song = songList_.value(key);
+        if (!song)continue;
+        QJsonObject obj;
+        obj[JSON_SONGTITLE] = song->getSongTitle();
+        obj[JSON_SONGINTERPRET] = song->getSongInterpret();
+        obj[JSON_SONGDURATION] = song->getSongDuration();
+        obj[JSON_ALBUMSONGNUMBER] = song->getAlbumSongNumber();
+        obj[JSON_ALBUMSONGCOUNT] = song->getAlbumSongCount();
+        obj[JSON_ALBUMTITLE] = song->getAlbumTitle();
+        obj[JSON_ALBUMINTERPRET] = song->getAlbumInterpret();
+        QJsonObject objSong;
+        objSong[JSON_KEY] = key;
+        objSong[JSON_SONG] = obj;
+        arr.append(objSong);
     }
     if (arr.size() == 0) return;
 
@@ -114,26 +134,6 @@ void MusicSongList::toJSONString(QString& json)
 
     QJsonDocument doc(obj);
     json = doc.toJson(QJsonDocument::Compact);
-}
-
-void MusicSongList::setFromJSONString(QString & json)
-{
-    QJsonDocument doc;
-    doc = doc.fromJson(json.toUtf8());
-
-    QJsonObject obj = doc.object();
-    QJsonArray arr = obj[JSON_SONGLIST].toArray();
-    int arraySize = arr.size();
-    if (arraySize == 0) return;
-
-    QString jsonSong;
-    for (int i = 0; i < arraySize; ++i)
-    {
-        jsonSong = arr[i].toString();
-        MusicSong *song = new MusicSong();
-        song->setFromJSONString(jsonSong);
-        songList_.insert(songList_.size(), song);
-    }
 }
 
 QMap<int,MusicSong*> MusicSongList::getSongList()

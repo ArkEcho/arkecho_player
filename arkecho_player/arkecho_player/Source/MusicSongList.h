@@ -23,7 +23,6 @@ public:
     void sortSongs();
 
     void toJSONString(QString& json);
-    void setFromJSONString(QString& json);
 
     QMap<int,MusicSong*> getSongList();
 };
