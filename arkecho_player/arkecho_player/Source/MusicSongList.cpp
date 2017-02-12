@@ -2,6 +2,11 @@
 
 #include <QDirIterator>
 #include <QMapIterator>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+
+const QString JSON_SONGLIST = "SongList";
 
 MusicSongList::MusicSongList(QObject *parent)
     : QObject(parent)
@@ -85,6 +90,50 @@ void MusicSongList::sortSongs()
         songList_.remove(lowestAlbumSongKey);
     }
     songList_ = newSongListSorted;
+}
+
+void MusicSongList::toJSONString(QString& json)
+{
+    int listeSize = songList_.size();
+    if (listeSize == 0) return;
+
+    QJsonArray arr;
+    QString string;
+    QMapIterator<int, MusicSong*> it(songList_);
+    while (it.hasNext())
+    {
+        MusicSong* s = it.next().value();
+        if (!s)continue;
+        s->toJSONString(string);
+        arr.append(string);
+    }
+    if (arr.size() == 0) return;
+
+    QJsonObject obj;
+    obj[JSON_SONGLIST] = arr;
+
+    QJsonDocument doc(obj);
+    json = doc.toJson(QJsonDocument::Compact);
+}
+
+void MusicSongList::setFromJSONString(QString & json)
+{
+    QJsonDocument doc;
+    doc = doc.fromJson(json.toUtf8());
+
+    QJsonObject obj = doc.object();
+    QJsonArray arr = obj[JSON_SONGLIST].toArray();
+    int arraySize = arr.size();
+    if (arraySize == 0) return;
+
+    QString jsonSong;
+    for (int i = 0; i < arraySize; ++i)
+    {
+        jsonSong = arr[i].toString();
+        MusicSong *song = new MusicSong();
+        song->setFromJSONString(jsonSong);
+        songList_.insert(songList_.size(), song);
+    }
 }
 
 QMap<int,MusicSong*> MusicSongList::getSongList()

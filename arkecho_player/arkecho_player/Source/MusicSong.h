@@ -35,8 +35,12 @@ class MusicSong : public QObject
     static QImage getMetaDataAlbumCoverArt(QMediaPlayer* mp);
 
 public:
+    MusicSong(QObject* parent = 0);
     MusicSong(QUrl url, QObject* parent = 0);
     ~MusicSong();
+
+    void toJSONString(QString& json);
+    void setFromJSONString(QString& json);
 
     QMediaPlayer::MediaStatus getStatus();
 

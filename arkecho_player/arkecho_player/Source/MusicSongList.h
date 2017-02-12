@@ -22,6 +22,9 @@ public:
     // Sortiert in Reihenfolge AlbumTitel ABC -> AlbumNummer 123; vergibt die Keys neu
     void sortSongs();
 
+    void toJSONString(QString& json);
+    void setFromJSONString(QString& json);
+
     QMap<int,MusicSong*> getSongList();
 };
 
