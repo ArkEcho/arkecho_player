@@ -23,13 +23,18 @@ class ArkEchoPlayerView : public QMainWindow
     void setWebSocketStatusLabel(bool connected);
     void setTWTrackList(QString filterText = "");
     void setLblDuration();
+
+    // SongInfo Anzeige im UI anhand des Struct; setzen von Default Werten falls leer
     void setActualSongInfo(SongInfoStruct& songInfoS);
 
 public:
     ArkEchoPlayerView(QWidget *parent = 0);
     ~ArkEchoPlayerView();
 
-private slots :
+    // Neu Laden der Liste im Model, und aktualisieren der Anzeige mit Status MessageBox
+    void loadMusicSongs();
+
+private slots:
     void onUpdateView(const int &uve);
     void on_actionManuelle_Verbindung_triggered();
     void on_actionQR_Code_Verbindung_triggered();

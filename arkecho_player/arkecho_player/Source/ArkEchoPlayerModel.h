@@ -47,6 +47,9 @@ public:
     ArkEchoPlayerModel(QObject *parent = 0);
     ~ArkEchoPlayerModel();
 
+    // Löschen und Neu Laden der SongList anhand der Dir und Formate
+    void loadMusicSongList();
+
     void showConnectQrDialog();
     void showConnectManualDialog();
 

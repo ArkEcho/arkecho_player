@@ -19,12 +19,6 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     ,playlist_(0)
 {
     musicSongList_ = new MusicSongList();
-    musicSongList_->loadSongs(getMusicDirectoryList(), getMusicFormatList());
-    while (!musicSongList_->allSongsLoaded())
-    {
-        qApp->processEvents();
-    }
-    musicSongList_->sortSongs();
 
     webSocketServer_ = new WebSocketServer(SERVER_NAME);
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen
@@ -46,6 +40,12 @@ ArkEchoPlayerModel::~ArkEchoPlayerModel()
     delete webSocketServer_;
     delete musicSongList_;
     delete playlist_;
+}
+
+void ArkEchoPlayerModel::loadMusicSongList()
+{
+    musicSongList_->getSongList().clear();
+    musicSongList_->loadSongs(getMusicDirectoryList(), getMusicFormatList());
 }
 
 void ArkEchoPlayerModel::showConnectQrDialog()
@@ -70,6 +70,7 @@ void ArkEchoPlayerModel::setMediaPlaylist(QList<int>& keys, int selectedKey)
 {
     if (!musicSongList_ || !playlist_) return;
     playlist_->clear();
+    playlistIndexSongListKeyMap.clear();
     if (keys.size() == 0) return;
 
     QMap<int, MusicSong*> songList = musicSongList_->getSongList();

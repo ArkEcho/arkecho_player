@@ -4,6 +4,7 @@
 
 #include <QLabel>
 #include <QMediaPlayer>
+#include <QMessageBox>
 
 const QString DIALOGTITLE = "ArkEcho Media Player";
 // MetaData und Player Song Länge unterscheiden sich etwa um 560ms
@@ -66,6 +67,32 @@ ArkEchoPlayerView::~ArkEchoPlayerView()
     delete player_;
     delete webSocketStatus_;
     delete ui_;
+}
+
+void ArkEchoPlayerView::loadMusicSongs()
+{
+    if (!model_) return;
+
+    QMessageBox msgBoxLoad;
+    msgBoxLoad.setWindowTitle("Achtung!");
+    msgBoxLoad.setText("Medien werden geladen...");
+    msgBoxLoad.exec();
+
+    model_->loadMusicSongList();
+
+    if (!model_->getMusicSongList()) return;
+    while (!model_->getMusicSongList()->allSongsLoaded())
+    {
+        qApp->processEvents();
+    }
+    model_->getMusicSongList()->sortSongs();
+    setTWTrackList();
+    msgBoxLoad.close();
+
+    QMessageBox msgBoxSuccess;
+    msgBoxSuccess.setWindowTitle("Erfolg!");
+    msgBoxSuccess.setText("Medien komplett geladen!");
+    msgBoxSuccess.exec();
 }
 
 void ArkEchoPlayerView::initUi()

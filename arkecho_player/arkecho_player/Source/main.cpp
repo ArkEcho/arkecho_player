@@ -19,5 +19,6 @@ int main(int argc, char *argv[])
 
     ArkEchoPlayerView dialog;
     dialog.show();
+    dialog.loadMusicSongs();
     return application.exec();
 }
