@@ -76,16 +76,18 @@ void ArkEchoPlayerView::loadMusicSongs()
     QMessageBox msgBoxLoad;
     msgBoxLoad.setWindowTitle("Achtung!");
     msgBoxLoad.setText("Medien werden geladen...");
-    msgBoxLoad.exec();
+    msgBoxLoad.show();
+    qApp->processEvents();
 
     model_->loadMusicSongList();
 
-    if (!model_->getMusicSongList()) return;
-    while (!model_->getMusicSongList()->allSongsLoaded())
+    MusicSongList* songList = model_->getMusicSongList();
+    if (!songList) return;
+    while (!songList->allSongsLoaded())
     {
         qApp->processEvents();
     }
-    model_->getMusicSongList()->sortSongs();
+    songList->sortSongs();
     setTWTrackList();
     msgBoxLoad.close();
 

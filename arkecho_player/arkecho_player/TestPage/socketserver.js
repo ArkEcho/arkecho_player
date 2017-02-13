@@ -2,7 +2,7 @@ var lh = "localhost";
 var lhIp = "127.0.0.1";
 var net = "192.168.0.59"; // Adresse im Netzwerk
 var net2 = "192.168.178.20"; // Adresse LGH
-var webSocket = new WebSocket("ws://" + net2 + ":1000");
+var webSocket = new WebSocket("ws://" + lh + ":1000");
 
 webSocket.onopen = function (evt) {
     alert("Connected..");
