@@ -83,7 +83,7 @@ void MusicSongList::loadSongs(QStringList& directories, QStringList& formats)
         {
             MusicSong* s = new MusicSong(QUrl::fromLocalFile(it->next()));
             int key = songList_.size() + 1; // Keys beginnen mit 1
-            songList_.insert(songList_.size(),s);
+            songList_.insert(key,s);
         }
     }
     delete it;

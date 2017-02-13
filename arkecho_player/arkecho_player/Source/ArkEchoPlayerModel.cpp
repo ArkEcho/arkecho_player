@@ -9,7 +9,7 @@
 #include <QDir>
 #include <QMediaPlaylist>
 
-const QString SERVER_NAME = "ArkEcho Server";
+const QString SERVER_NAME = "ArkEchoServer";
 const int SERVER_PORT = 1000;
 
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
@@ -25,9 +25,6 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
         qApp->processEvents();
     }
     musicSongList_->sortSongs();
-    //QString json;
-    //musicSongList_->toJSONString(json);
-    //musicSongList_->songToJSONString(2, json, true);
 
     webSocketServer_ = new WebSocketServer(SERVER_NAME);
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen
@@ -88,7 +85,7 @@ void ArkEchoPlayerModel::setMediaPlaylist(QList<int>& keys, int selectedKey)
             if (keyList == keyMap)
             {
                 playlist_->insertMedia(index, songList.value(keyList)->getUrl());
-                playlistIndexSongListKeyMap.insert(index, keyMap);
+                playlistIndexSongListKeyMap.insert(index, keyMap); // Fill the Map for later Remapping
                 if (keyList == selectedKey) startIndex = index;
                 ++index;
                 break;
@@ -147,7 +144,7 @@ QStringList ArkEchoPlayerModel::getMusicFormatList()
 void ArkEchoPlayerModel::setActualSongInfoAndSend(int playlistPosition)
 {
     if (!musicSongList_) return;
-    // Zurück mapping der Playlist Position auf den Key der Songlist
+    // Remapping der Playlist Position auf den Key der Songlist
     int songListKey = playlistIndexSongListKeyMap.value(playlistPosition);
     MusicSong* song = musicSongList_->getSongList().value(songListKey);
     if (!song) return;

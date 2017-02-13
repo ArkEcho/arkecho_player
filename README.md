@@ -40,6 +40,9 @@ ArkEcho Player can play the following Audio Formats:
 {
 	"SongTitle": string,	
 	"SongInterpret": string,
+	"SongDuration": int,
+	"AlbumSongNumber": int,
+	"AlbumSongCount": int,
 	"AlbumTitle": string,
 	"AlbumInterpret": string,
 	"CoverArt": string
