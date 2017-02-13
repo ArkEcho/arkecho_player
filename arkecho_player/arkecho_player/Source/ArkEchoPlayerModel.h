@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QImage>
+#include <QMap>
 
 class WebSocketServer;
 class MusicSongList;
@@ -32,6 +33,7 @@ class ArkEchoPlayerModel : public QObject
 {
     Q_OBJECT
 
+    QMap<int, int> playlistIndexSongListKeyMap;
     WebSocketServer* webSocketServer_;
     MusicSongList* musicSongList_;
     QMediaPlaylist* playlist_;
@@ -50,7 +52,6 @@ public:
     void backwardPlaylist();
     void forwardPlaylist();
     void shufflePlaylist();
-    void sendActualSongInfoPerSocket(SongInfoStruct& siStruct);
 
     QMediaPlaylist* getMediaPlaylist();
     MusicSongList* getMusicSongList();
@@ -58,11 +59,13 @@ public:
 
 signals:
     void updateView(int);
+    void actualSongInfoChanged(SongInfoStruct);
 
 private slots:
     void onTextMessageReceived(const QString& message);
     void onWSConnected();
     void onWSDisconnected();
+    void onPlaylistCurrentIndexChanged(const int& position);
 };
 
 #endif // ARKECHOPLAYERMODEL_H

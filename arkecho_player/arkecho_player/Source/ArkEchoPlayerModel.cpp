@@ -47,6 +47,7 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     }
 
     playlist_ = new QMediaPlaylist();
+    connect(playlist_, SIGNAL(currentIndexChanged(int)), this, SLOT(onPlaylistCurrentIndexChanged(int)));
 }
 
 ArkEchoPlayerModel::~ArkEchoPlayerModel()
@@ -95,6 +96,7 @@ void ArkEchoPlayerModel::setMediaPlaylist(QList<int>& keys, int selectedKey)
             if (keyList == keyMap)
             {
                 playlist_->insertMedia(index, songList.value(keyList)->getUrl());
+                playlistIndexSongListKeyMap.insert(index, keyMap);
                 if (keyList == selectedKey) startIndex = index;
                 ++index;
                 break;
@@ -120,27 +122,6 @@ void ArkEchoPlayerModel::shufflePlaylist()
 {
     if (!playlist_) return;
     playlist_->shuffle();
-}
-
-void ArkEchoPlayerModel::sendActualSongInfoPerSocket(SongInfoStruct& siStruct)
-{
-    if (!webSocketServer_) return;
-    if (!webSocketServer_->checkIfConnectionIsOpen()) return;
-
-    QByteArray ba;
-    QBuffer bu(&ba);
-    siStruct.coverArt_.save(&bu, "PNG");
-
-    QJsonObject obj;
-    obj[JSON_COVER_ART] = (QString)ba.toBase64();
-    obj[JSON_SONG_TITLE] = siStruct.songTitle_;
-    obj[JSON_SONG_INTERPRET] = siStruct.songInterpret_;
-    obj[JSON_ALBUM_TITLE] = siStruct.albumTitle_;
-    obj[JSON_ALBUM_INTERPRET] = siStruct.albumInterpret_;
-
-    QJsonDocument doc(obj);
-
-    webSocketServer_->sendMessage(MT_SEND_SONG_ACTUAL, (QString) doc.toJson(QJsonDocument::Compact));
 }
 
 QMediaPlaylist * ArkEchoPlayerModel::getMediaPlaylist()
@@ -201,4 +182,27 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
         emit updateView(REQUEST_SONG_ACTUAL_BY_SOCKET);
         break;
     }
+}
+
+void ArkEchoPlayerModel::onPlaylistCurrentIndexChanged(const int & position)
+{
+    if (!musicSongList_) return;
+    // Zurück mapping der Playlist Position auf den Key der Songlist
+    int songListKey = playlistIndexSongListKeyMap.value(position);
+    MusicSong* song = musicSongList_->getSongList().value(songListKey);
+    if (!song) return;
+    SongInfoStruct sis;
+    sis.songTitle_ = song->getSongTitle();
+    sis.songInterpret_ = song->getSongInterpret();
+    sis.albumTitle_ = song->getAlbumTitle();
+    sis.albumInterpret_ = song->getAlbumInterpret();
+    sis.coverArt_ = song->getAlbumCoverArt();
+    emit actualSongInfoChanged(sis);
+
+    // Sending of actual Song Info
+    if (!webSocketServer_) return;
+    if (!webSocketServer_->checkIfConnectionIsOpen()) return;
+    QString songAsJSON;
+    musicSongList_->songToJSONString(songListKey, songAsJSON, true);
+    webSocketServer_->sendMessage(MT_SEND_SONG_ACTUAL, songAsJSON);
 }

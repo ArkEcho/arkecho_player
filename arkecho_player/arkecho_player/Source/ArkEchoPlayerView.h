@@ -2,13 +2,13 @@
 #define ARKECHOPLAYERVIEW_H
 
 #include <QMainWindow>
-#include <QMediaPlayer>
 
 #include "ui_ArkEchoPlayerView.h"
 
 class ArkEchoPlayerModel;
 struct SongInfoStruct;
 class QLabel;
+class QMediaPlayer;
 
 class ArkEchoPlayerView : public QMainWindow
 {
@@ -23,9 +23,7 @@ class ArkEchoPlayerView : public QMainWindow
     void setWebSocketStatusLabel(bool connected);
     void setTWTrackList(QString filterText = "");
     void setLblDuration();
-    SongInfoStruct getActualSongInfoMetaData();
-    void setActualSongInfoAndSendPerSocket(bool defaultText = false);
-    void actualSongInfoRequestedBySocket();
+    void setActualSongInfo(SongInfoStruct& songInfoS);
 
 public:
     ArkEchoPlayerView(QWidget *parent = 0);
@@ -47,7 +45,7 @@ private slots :
     void onLeFilterTextChanged(const QString& text);
     void onPbClearFilterClicked();
     void onPbShuffleClicked();
-    void onPlayerMediaStatusChanged(const QMediaPlayer::MediaStatus& status);
+    void onActualSongInfoChanged(const SongInfoStruct& sis);
 };
 
 #endif // ARKECHOPLAYERVIEW_H

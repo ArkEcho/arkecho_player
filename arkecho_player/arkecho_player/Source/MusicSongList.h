@@ -22,7 +22,11 @@ public:
     void sortSongs();
     bool allSongsLoaded();
     void loadSongs(QStringList& directories, QStringList& formats);
+
+    // List to JSON with Keys, no CoverArt
     void toJSONString(QString& json);
+
+    // Song to JSON by Map Key, coverArt with bool
     void songToJSONString(int key, QString& json, bool coverArt);
     
     QMap<int,MusicSong*> getSongList();
