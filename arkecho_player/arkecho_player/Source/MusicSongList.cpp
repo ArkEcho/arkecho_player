@@ -151,10 +151,10 @@ void MusicSongList::toJSONString(QString& json)
     json = doc.toJson(QJsonDocument::Compact);
 }
 
-void MusicSongList::songToJSONString(int key, QString & json)
+void MusicSongList::songToJSONString(int key, QString & json, bool coverArt)
 {
     QJsonObject obj;
-    songToJSONObject(songList_.value(key), obj, true);
+    songToJSONObject(songList_.value(key), obj, coverArt);
 
     QJsonDocument doc(obj);
     json = doc.toJson(QJsonDocument::Compact);

@@ -35,7 +35,7 @@ ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     musicSongList_->sortSongs();
     //QString json;
     //musicSongList_->toJSONString(json);
-    //musicSongList_->songToJSONString(2, json);
+    //musicSongList_->songToJSONString(2, json, true);
 
     webSocketServer_ = new WebSocketServer(SERVER_NAME);
     if (webSocketServer_->listen(QHostAddress::Any, SERVER_PORT)) // Port festlegen
@@ -173,12 +173,12 @@ QStringList ArkEchoPlayerModel::getMusicFormatList()
 
 void ArkEchoPlayerModel::onWSConnected()
 {
-    emit updateView(UVE_WEBSOCKET_CONNECTED);
+    emit updateView(WEBSOCKET_CONNECTED);
 }
 
 void ArkEchoPlayerModel::onWSDisconnected()
 {
-    emit updateView(UVE_WEBSOCKET_DISCONNECTED);
+    emit updateView(WEBSOCKET_DISCONNECTED);
 }
 
 void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)

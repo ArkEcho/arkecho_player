@@ -236,7 +236,8 @@ SongInfoStruct ArkEchoPlayerView::getActualSongInfoMetaData()
 void ArkEchoPlayerView::setActualSongInfoAndSendPerSocket(bool defaultText)
 {
     // Kopie zum bearbeiten
-    SongInfoStruct song = getActualSongInfoMetaData();
+    SongInfoStruct song;
+    if(!defaultText) song = getActualSongInfoMetaData();
 
     // Song Cover
     if (song.coverArt_.bits() == 0)  song.coverArt_ = QImage("./Resources/defaultMusicIcon.png");
@@ -277,10 +278,10 @@ void ArkEchoPlayerView::onUpdateView(const int &uve)
 {
     switch(uve)
     {
-    case UVE_WEBSOCKET_CONNECTED:
+    case WEBSOCKET_CONNECTED:
         setWebSocketStatusLabel(true);
         break;
-    case UVE_WEBSOCKET_DISCONNECTED:
+    case WEBSOCKET_DISCONNECTED:
         setWebSocketStatusLabel(false);
         break;
     case REMOTE_BUTTON_BACKWARD:

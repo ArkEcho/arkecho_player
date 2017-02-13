@@ -23,7 +23,7 @@ public:
     bool allSongsLoaded();
     void loadSongs(QStringList& directories, QStringList& formats);
     void toJSONString(QString& json);
-    void songToJSONString(int key, QString& json);
+    void songToJSONString(int key, QString& json, bool coverArt);
     
     QMap<int,MusicSong*> getSongList();
 };
