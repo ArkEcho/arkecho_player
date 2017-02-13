@@ -14,7 +14,7 @@ webSocket.onclose = function (evt) {
 
 webSocket.onmessage = function (evt) {
     var json = JSON.parse(evt.data);
-    var out = "Typ: " + json.Typ + " Nachricht: " + json.Message;
+    var out = "Type: " + json.Typ + " Nachricht: " + json.Message;
     alert(out);
 };
 
@@ -23,12 +23,12 @@ webSocket.onerror = function (evt) {
 };
 
 function send() {
-    var typ = document.getElementById("typ");
+    var typ = document.getElementById("type");
     var valTyp = typ.value;
 
     var msg = document.getElementById("msg");
     var valMsg = msg.value;
 
-    var json = '{ "Typ": '+valTyp+', "Message": "'+valMsg+'" }';
+    var json = '{ "Type": '+valTyp+', "Message": "'+valMsg+'" }';
     webSocket.send(json);
 }

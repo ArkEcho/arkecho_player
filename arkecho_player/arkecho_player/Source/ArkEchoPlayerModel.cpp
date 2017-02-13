@@ -8,17 +8,9 @@
 #include <QWebSocket>
 #include <QDir>
 #include <QMediaPlaylist>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QBuffer>
 
 const QString SERVER_NAME = "ArkEcho Server";
 const int SERVER_PORT = 1000;
-const QString JSON_COVER_ART = "CoverArt";
-const QString JSON_SONG_TITLE = "SongTitle";
-const QString JSON_SONG_INTERPRET = "SongInterpret";
-const QString JSON_ALBUM_TITLE = "AlbumTitle";
-const QString JSON_ALBUM_INTERPRET = "AlbumInterpret";
 
 ArkEchoPlayerModel::ArkEchoPlayerModel(QObject *parent)
     :QObject(parent)
@@ -152,6 +144,29 @@ QStringList ArkEchoPlayerModel::getMusicFormatList()
     return list;
 }
 
+void ArkEchoPlayerModel::setActualSongInfoAndSend(int playlistPosition)
+{
+    if (!musicSongList_) return;
+    // Zurück mapping der Playlist Position auf den Key der Songlist
+    int songListKey = playlistIndexSongListKeyMap.value(playlistPosition);
+    MusicSong* song = musicSongList_->getSongList().value(songListKey);
+    if (!song) return;
+    SongInfoStruct sis;
+    sis.songTitle_ = song->getSongTitle();
+    sis.songInterpret_ = song->getSongInterpret();
+    sis.albumTitle_ = song->getAlbumTitle();
+    sis.albumInterpret_ = song->getAlbumInterpret();
+    sis.coverArt_ = song->getAlbumCoverArt();
+    emit actualSongInfoChanged(sis);
+
+    // Sending of actual Song Info
+    if (!webSocketServer_) return;
+    if (!webSocketServer_->checkIfConnectionIsOpen()) return;
+    QString songAsJSON;
+    musicSongList_->songToJSONString(songListKey, songAsJSON, true);
+    webSocketServer_->sendMessage(MT_SEND_SONG_ACTUAL, songAsJSON);
+}
+
 void ArkEchoPlayerModel::onWSConnected()
 {
     emit updateView(WEBSOCKET_CONNECTED);
@@ -179,30 +194,12 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
         emit updateView(REMOTE_BUTTON_PLAY_PAUSE);
         break;
     case MT_REQUEST_SONG_ACTUAL:
-        emit updateView(REQUEST_SONG_ACTUAL_BY_SOCKET);
+        setActualSongInfoAndSend(playlist_->currentIndex());
         break;
     }
 }
 
 void ArkEchoPlayerModel::onPlaylistCurrentIndexChanged(const int & position)
 {
-    if (!musicSongList_) return;
-    // Zurück mapping der Playlist Position auf den Key der Songlist
-    int songListKey = playlistIndexSongListKeyMap.value(position);
-    MusicSong* song = musicSongList_->getSongList().value(songListKey);
-    if (!song) return;
-    SongInfoStruct sis;
-    sis.songTitle_ = song->getSongTitle();
-    sis.songInterpret_ = song->getSongInterpret();
-    sis.albumTitle_ = song->getAlbumTitle();
-    sis.albumInterpret_ = song->getAlbumInterpret();
-    sis.coverArt_ = song->getAlbumCoverArt();
-    emit actualSongInfoChanged(sis);
-
-    // Sending of actual Song Info
-    if (!webSocketServer_) return;
-    if (!webSocketServer_->checkIfConnectionIsOpen()) return;
-    QString songAsJSON;
-    musicSongList_->songToJSONString(songListKey, songAsJSON, true);
-    webSocketServer_->sendMessage(MT_SEND_SONG_ACTUAL, songAsJSON);
+    setActualSongInfoAndSend(position);
 }

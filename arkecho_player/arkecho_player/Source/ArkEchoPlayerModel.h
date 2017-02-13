@@ -16,8 +16,7 @@ enum UpdateViewEnum
     WEBSOCKET_DISCONNECTED,
     REMOTE_BUTTON_BACKWARD,
     REMOTE_BUTTON_FORWARD,
-    REMOTE_BUTTON_PLAY_PAUSE,
-    REQUEST_SONG_ACTUAL_BY_SOCKET
+    REMOTE_BUTTON_PLAY_PAUSE
 };
 
 struct SongInfoStruct
@@ -40,6 +39,8 @@ class ArkEchoPlayerModel : public QObject
 
     QStringList getMusicDirectoryList();
     QStringList getMusicFormatList();
+
+    void setActualSongInfoAndSend(int playlistPosition);
 
 public:
     ArkEchoPlayerModel(QObject *parent = 0);

@@ -39,9 +39,8 @@ public:
     MusicSong(QUrl url, QObject* parent = 0);
     ~MusicSong();
 
-    QMediaPlayer::MediaStatus getStatus();
-
     QUrl getUrl();
+    QMediaPlayer::MediaStatus getStatus();
 
     QString getSongTitle();
     QString getSongInterpret();
@@ -53,17 +52,6 @@ public:
     QString getAlbumTitle();
     QString getAlbumInterpret();
     QImage& getAlbumCoverArt();
-
-    static QString getSongTitle(QMediaPlayer* mp);
-    static QString getSongInterpret(QMediaPlayer* mp);
-    static qint64 getSongDuration(QMediaPlayer* mp);
-    static QString getSongDurationAsMinuteSecond(QMediaPlayer* mp);
-
-    static int getAlbumSongNumber(QMediaPlayer* mp);
-    static int getAlbumSongCount(QMediaPlayer* mp);
-    static QString getAlbumTitle(QMediaPlayer* mp);
-    static QString getAlbumInterpret(QMediaPlayer* mp);
-    static QImage getAlbumCoverArt(QMediaPlayer* mp);
 
     static QString convertMillisecondToMinuteSecond(qint64 millisecond);
 

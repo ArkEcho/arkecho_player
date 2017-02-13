@@ -270,9 +270,6 @@ void ArkEchoPlayerView::onUpdateView(const int &uve)
     case REMOTE_BUTTON_PLAY_PAUSE:
         onPbPlay_PauseClicked();
         break;
-    case REQUEST_SONG_ACTUAL_BY_SOCKET:
-        // TODO: Einbauen
-        break;
     }
     qApp->processEvents();
 }

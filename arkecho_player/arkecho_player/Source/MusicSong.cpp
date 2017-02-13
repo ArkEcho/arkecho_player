@@ -83,60 +83,6 @@ QImage & MusicSong::getAlbumCoverArt()
     return albumCoverArt_;
 }
 
-QString MusicSong::getSongTitle(QMediaPlayer * mp)
-{
-    if (!mp) return "";
-    return getMetaDataSongTitle(mp);
-}
-
-QString MusicSong::getSongInterpret(QMediaPlayer * mp)
-{
-    if (!mp) return "";
-    return getMetaDataSongInterpret(mp);
-}
-
-qint64 MusicSong::getSongDuration(QMediaPlayer * mp)
-{
-    if (!mp) return 0;
-    return getMetaDataSongDuration(mp);
-}
-
-QString MusicSong::getSongDurationAsMinuteSecond(QMediaPlayer * mp)
-{
-    if (!mp) return "";
-    return convertMillisecondToMinuteSecond(getMetaDataSongDuration(mp));
-}
-
-int MusicSong::getAlbumSongNumber(QMediaPlayer * mp)
-{
-    if (!mp) return 0;
-    return getMetaDataAlbumSongNumber(mp);
-}
-
-int MusicSong::getAlbumSongCount(QMediaPlayer * mp)
-{
-    if (!mp) return 0;
-    return getMetaDataAlbumSongCount(mp);
-}
-
-QString MusicSong::getAlbumTitle(QMediaPlayer * mp)
-{
-    if (!mp) return "";
-    return getMetaDataAlbumTitle(mp);
-}
-
-QString MusicSong::getAlbumInterpret(QMediaPlayer * mp)
-{
-    if (!mp) return "";
-    return getMetaDataAlbumInterpret(mp);
-}
-
-QImage MusicSong::getAlbumCoverArt(QMediaPlayer * mp)
-{
-    if (!mp) QImage();
-    return getMetaDataAlbumCoverArt(mp);
-}
-
 void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
 {
     if (!mp_) return;
