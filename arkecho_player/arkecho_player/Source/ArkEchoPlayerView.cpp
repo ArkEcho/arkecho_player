@@ -73,9 +73,8 @@ void ArkEchoPlayerView::loadMusicSongs()
 {
     if (!model_) return;
 
-    QMessageBox msgBoxLoad;
-    msgBoxLoad.setWindowTitle("Achtung!");
-    msgBoxLoad.setText("Medien werden geladen...");
+    QMessageBox msgBoxLoad(QMessageBox::Information, "Achtung!","Medien werden geladen...");
+    msgBoxLoad.setStandardButtons(0);
     msgBoxLoad.show();
     qApp->processEvents();
 
@@ -90,11 +89,6 @@ void ArkEchoPlayerView::loadMusicSongs()
     songList->sortSongs();
     setTWTrackList();
     msgBoxLoad.close();
-
-    QMessageBox msgBoxSuccess;
-    msgBoxSuccess.setWindowTitle("Erfolg!");
-    msgBoxSuccess.setText("Medien komplett geladen!");
-    msgBoxSuccess.exec();
 }
 
 void ArkEchoPlayerView::initUi()

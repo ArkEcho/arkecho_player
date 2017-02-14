@@ -17,7 +17,7 @@ const QString JSON_ALBUMSONGNUMBER = "AlbumSongNumber";
 const QString JSON_ALBUMSONGCOUNT = "AlbumSongCount";
 const QString JSON_ALBUMTITLE = "AlbumTitle";
 const QString JSON_ALBUMINTERPRET = "AlbumInterpret";
-const QString JSON_ALBUMCOVERART = "AlbumCoverArt";
+const QString JSON_ALBUMCOVERART = "CoverArt";
 
 void MusicSongList::songToJSONObject(MusicSong * song, QJsonObject& obj, bool coverArt)
 {
