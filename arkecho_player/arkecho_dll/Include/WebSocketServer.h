@@ -1,10 +1,12 @@
 #ifndef WEBSOCKETSERVER_H
 #define WEBSOCKETSERVER_H
 
+#include "arkecho_dll_global.h"
+
 #include <QWebSocketServer>
 #include <QList>
 
-class WebSocketServer : public QWebSocketServer
+class ARKECHO_DLL_EXPORT WebSocketServer : public QWebSocketServer
 {
 	Q_OBJECT
 

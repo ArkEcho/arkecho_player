@@ -305,7 +305,14 @@
     <addaction name="actionManuelle_Verbindung"/>
     <addaction name="actionQR_Code_Verbindung"/>
    </widget>
+   <widget class="QMenu" name="menuExtras">
+    <property name="title">
+     <string>E&amp;xtras</string>
+    </property>
+    <addaction name="actionEinstellungen"/>
+   </widget>
    <addaction name="menuVerbinden"/>
+   <addaction name="menuExtras"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionManuelle_Verbindung">
@@ -316,6 +323,11 @@
   <action name="actionQR_Code_Verbindung">
    <property name="text">
     <string>&amp;QR-Code Verbindung</string>
+   </property>
+  </action>
+  <action name="actionEinstellungen">
+   <property name="text">
+    <string>&amp;Einstellungen</string>
    </property>
   </action>
  </widget>

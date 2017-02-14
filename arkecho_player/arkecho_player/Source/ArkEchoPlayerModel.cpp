@@ -1,5 +1,6 @@
 #include "ArkEchoPlayerModel.h"
 #include "ArkEchoQr.h"
+#include "ArkEchoSettingsView.h"
 #include "WebSocketServer.h"
 #include "MessageHandler.h"
 #include "MusicSongList.h"
@@ -64,6 +65,13 @@ void ArkEchoPlayerModel::showConnectManualDialog()
     msgBox.setWindowTitle("Verbindung Manuell herstellen");
     msgBox.setText("\n" + address + "\n");
     msgBox.exec();
+}
+
+void ArkEchoPlayerModel::showSettingsDialog()
+{
+    ArkEchoSettingsView* dialog = new ArkEchoSettingsView();
+    dialog->exec();
+    dialog->deleteLater();
 }
 
 void ArkEchoPlayerModel::setMediaPlaylist(QList<int>& keys, int selectedKey)
@@ -162,7 +170,7 @@ void ArkEchoPlayerModel::setActualSongInfoAndSend(int playlistPosition)
     if (!webSocketServer_->checkIfConnectionIsOpen()) return;
     QString songAsJSON;
     musicSongList_->songToJSONString(songListKey, songAsJSON, true);
-    webSocketServer_->sendMessage(MT_SEND_SONG_ACTUAL, songAsJSON);
+    webSocketServer_->sendMessage(MessageHandler::MT_SEND_SONG_ACTUAL, songAsJSON);
 }
 
 void ArkEchoPlayerModel::onWSConnected()
@@ -182,16 +190,16 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
 
     switch (messageType)
     {
-    case MT_BACKWARD:
+    case MessageHandler::MT_BACKWARD:
         emit updateView(REMOTE_BUTTON_BACKWARD);
         break;
-    case MT_FORWARD:
+    case MessageHandler::MT_FORWARD:
         emit updateView(REMOTE_BUTTON_FORWARD);
         break;
-    case MT_PLAY_PAUSE:
+    case MessageHandler::MT_PLAY_PAUSE:
         emit updateView(REMOTE_BUTTON_PLAY_PAUSE);
         break;
-    case MT_REQUEST_SONG_ACTUAL:
+    case MessageHandler::MT_REQUEST_SONG_ACTUAL:
         setActualSongInfoAndSend(playlist_->currentIndex());
         break;
     }

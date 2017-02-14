@@ -38,6 +38,7 @@ private slots:
     void onUpdateView(const int &uve);
     void on_actionManuelle_Verbindung_triggered();
     void on_actionQR_Code_Verbindung_triggered();
+    void on_actionEinstellungen_triggered();
     void onPbBackwardClicked();
     void onPbForwardClicked();
     void onPbPlay_PauseClicked();

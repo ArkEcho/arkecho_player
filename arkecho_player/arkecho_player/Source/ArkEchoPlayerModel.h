@@ -52,6 +52,7 @@ public:
 
     void showConnectQrDialog();
     void showConnectManualDialog();
+    void showSettingsDialog();
 
     void setMediaPlaylist(QList<int>& keys, int selectedKey);
     void backwardPlaylist();

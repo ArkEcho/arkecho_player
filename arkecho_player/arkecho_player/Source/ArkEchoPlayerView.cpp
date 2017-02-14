@@ -309,6 +309,12 @@ void ArkEchoPlayerView::on_actionQR_Code_Verbindung_triggered()
     model_->showConnectQrDialog();
 }
 
+void ArkEchoPlayerView::on_actionEinstellungen_triggered()
+{
+    if (!model_) return;
+    model_->showSettingsDialog();
+}
+
 void ArkEchoPlayerView::onPbBackwardClicked()
 {
     if (!model_) return;

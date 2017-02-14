@@ -56,12 +56,6 @@
     <CustomBuild Include="Source\ArkEchoPlayerView.h">
       <Filter>Header Dateien</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source\MessageHandler.h">
-      <Filter>Header Dateien</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Source\WebSocketServer.h">
-      <Filter>Header Dateien</Filter>
-    </CustomBuild>
     <CustomBuild Include="Source\ArkEchoQr.h">
       <Filter>Header Dateien</Filter>
     </CustomBuild>
@@ -77,14 +71,14 @@
     <CustomBuild Include="Source\MusicSongList.h">
       <Filter>Header Dateien</Filter>
     </CustomBuild>
-    <CustomBuild Include="Ui\ArkEchoSettingsView.ui">
-      <Filter>Form Dateien</Filter>
-    </CustomBuild>
     <CustomBuild Include="Source\ArkEchoSettingsView.h">
       <Filter>Header Dateien</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\ArkEchoSettingsModel.h">
       <Filter>Header Dateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Ui\ArkEchoSettingsView.ui">
+      <Filter>Form Dateien</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -120,18 +114,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ArkEchoPlayerView.cpp">
       <Filter>Generierte Dateien\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MessageHandler.cpp">
-      <Filter>Generierte Dateien\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MessageHandler.cpp">
-      <Filter>Generierte Dateien\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_WebSocketServer.cpp">
-      <Filter>Generierte Dateien\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_WebSocketServer.cpp">
-      <Filter>Generierte Dateien\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ArkEchoPlayerModel.cpp">
       <Filter>Source Dateien</Filter>
     </ClCompile>
@@ -139,12 +121,6 @@
       <Filter>Source Dateien</Filter>
     </ClCompile>
     <ClCompile Include="Source\main.cpp">
-      <Filter>Source Dateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MessageHandler.cpp">
-      <Filter>Source Dateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WebSocketServer.cpp">
       <Filter>Source Dateien</Filter>
     </ClCompile>
     <ClCompile Include="QRCodeGenerator\BitBuffer.cpp">

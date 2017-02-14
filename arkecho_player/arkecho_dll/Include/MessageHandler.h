@@ -1,20 +1,11 @@
 #ifndef MESSAGEHANDLER_H
 #define MESSAGEHANDLER_H
 
+#include "arkecho_dll_global.h"
+
 #include <QObject>
 
-enum MESSAGETYPE
-{
-    MT_NOTDEFINED = 0,
-    MT_ECHO_TEST,
-    MT_PLAY_PAUSE,
-    MT_BACKWARD,
-    MT_FORWARD,
-    MT_REQUEST_SONG_ACTUAL,
-    MT_SEND_SONG_ACTUAL
-};
-
-class MessageHandler : public QObject
+class ARKECHO_DLL_EXPORT MessageHandler : public QObject
 {
     Q_OBJECT
 
@@ -22,6 +13,17 @@ class MessageHandler : public QObject
     ~MessageHandler() {}
 
 public:
+    enum MESSAGETYPE
+    {
+        MT_NOTDEFINED = 0,
+        MT_ECHO_TEST,
+        MT_PLAY_PAUSE,
+        MT_BACKWARD,
+        MT_FORWARD,
+        MT_REQUEST_SONG_ACTUAL,
+        MT_SEND_SONG_ACTUAL
+    };
+
     // Setzt die Nachricht und den Typ zum JSON zusammenzimmern
     static QString& createMessage(int typ, QString& message);
 
