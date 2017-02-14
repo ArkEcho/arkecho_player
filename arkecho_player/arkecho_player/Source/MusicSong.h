@@ -24,18 +24,7 @@ class MusicSong : public QObject
     QString albumInterpret_;
     QImage albumCoverArt_;
 
-    static QString getMetaDataSongTitle(QMediaPlayer* mp);
-    static QString getMetaDataSongInterpret(QMediaPlayer* mp);
-    static qint64 getMetaDataSongDuration(QMediaPlayer* mp);
-
-    static int getMetaDataAlbumSongNumber(QMediaPlayer* mp);
-    static int getMetaDataAlbumSongCount(QMediaPlayer* mp);
-    static QString getMetaDataAlbumTitle(QMediaPlayer* mp);
-    static QString getMetaDataAlbumInterpret(QMediaPlayer* mp);
-    static QImage getMetaDataAlbumCoverArt(QMediaPlayer* mp);
-
 public:
-    MusicSong(QObject* parent = 0);
     MusicSong(QUrl url, QObject* parent = 0);
     ~MusicSong();
 

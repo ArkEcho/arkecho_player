@@ -5,11 +5,6 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-MusicSong::MusicSong(QObject * parent)
-{
-    status_ = QMediaPlayer::MediaStatus::LoadedMedia;
-}
-
 MusicSong::MusicSong(QUrl url, QObject* parent)
     :url_(url)
     ,songDuration_(0)
@@ -89,15 +84,15 @@ void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
     status_ = status;
     if (status_ == QMediaPlayer::MediaStatus::LoadedMedia || status_ == QMediaPlayer::MediaStatus::BufferedMedia)
     {
-        songTitle_ = getMetaDataSongTitle(mp_);
-        songInterpret_ = getMetaDataSongInterpret(mp_);
-        songDuration_ = getMetaDataSongDuration(mp_);
+        songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
+        songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();
+        songDuration_ = mp_->metaData(QMediaMetaData::Duration).value<qint64>();
 
-        albumSongNumber_ = getMetaDataAlbumSongNumber(mp_);
-        albumSongCount_ = getMetaDataAlbumSongCount(mp_);
-        albumTitle_ = getMetaDataAlbumTitle(mp_);
-        albumInterpret_ = getMetaDataAlbumInterpret(mp_);
-        albumCoverArt_ = getMetaDataAlbumCoverArt(mp_);
+        albumSongNumber_ = mp_->metaData(QMediaMetaData::TrackNumber).toInt();
+        albumSongCount_ = mp_->metaData(QMediaMetaData::TrackCount).toInt();
+        albumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
+        albumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
+        albumCoverArt_ = mp_->metaData(QMediaMetaData::ThumbnailImage).value<QImage>();
     }
     mp_->deleteLater();
 }
@@ -112,44 +107,4 @@ QString MusicSong::convertMillisecondToMinuteSecond(qint64 millisecond)
     else secondsString = QString::number(seconds);
     QString duration = QString::number(minutes) + ":" + secondsString;
     return duration;
-}
-
-QString MusicSong::getMetaDataSongTitle(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::Title).toString();
-}
-
-QString MusicSong::getMetaDataSongInterpret(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::Author).toString();
-}
-
-qint64 MusicSong::getMetaDataSongDuration(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::Duration).value<qint64>();
-}
-
-int MusicSong::getMetaDataAlbumSongNumber(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::TrackNumber).toInt();
-}
-
-int MusicSong::getMetaDataAlbumSongCount(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::TrackCount).toInt();
-}
-
-QString MusicSong::getMetaDataAlbumTitle(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::AlbumTitle).toString();
-}
-
-QString MusicSong::getMetaDataAlbumInterpret(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::AlbumArtist).toString();
-}
-
-QImage MusicSong::getMetaDataAlbumCoverArt(QMediaPlayer * mp)
-{
-    return mp->metaData(QMediaMetaData::ThumbnailImage).value<QImage>();
 }
