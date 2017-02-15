@@ -17,6 +17,7 @@ const QSize ACTUAL_SONG_INFO_COVER_SIZE = QSize(150, 150);
 const QString ACTUAL_SONG_INFO_TEXT_DEFAULT = "<Kein Lied gestartet>";
 const QString ACTUAL_SONG_INFO_TEXT_EMPTY = "<Keine Meta-Information>";
 const QString BUTTON_ICON_RESOURCE_PATH = "./Resources/player/";
+const QString MENU_ICON_RESOURCE_PATH = "./Resources/menu/";
 const int ROW_HEIGHT = 20;
 
 enum TableTrackListColumns
@@ -151,6 +152,10 @@ void ArkEchoPlayerView::initUi()
     ui_->pbStop->setText("");
     ui_->pbStop->setIcon(QPixmap::fromImage(QImage(BUTTON_ICON_RESOURCE_PATH + "stopIcon.png")));
     ui_->pbStop->setIconSize(buttonSize);
+
+    // Menu Bar Icons
+    ui_->actionManuelle_Verbindung->setIcon(QPixmap::fromImage(QImage(MENU_ICON_RESOURCE_PATH + "manualIcon.png")));
+    ui_->actionEinstellungen->setIcon(QPixmap::fromImage(QImage(MENU_ICON_RESOURCE_PATH + "settingsIcon.png")));
 
     // Actual Song Info initalisieren
     ui_->lblCoverArt->setScaledContents(true);

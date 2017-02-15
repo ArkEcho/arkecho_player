@@ -7,6 +7,7 @@ using namespace qrcodegen;
 
 const int RGB_WHITE = 255 * 65536 + 255 * 256 + 255;
 const int RGB_BLACK = 0;
+const QString DIALOGTITLE = "Verbindung mit Qr-Code";
 
 ArkEchoQr::ArkEchoQr(QString qrCodeText, QWidget *parent)
     : QDialog(parent)
@@ -19,7 +20,7 @@ ArkEchoQr::ArkEchoQr(QString qrCodeText, QWidget *parent)
     QSize size = QSize(250, 250);
     this->setMinimumSize(size);
     this->setMaximumSize(size);
-    this->setWindowTitle("Verbindung mit Qr-Code");
+    this->setWindowTitle(DIALOGTITLE);
     this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     createQrCode(5);
