@@ -7,9 +7,17 @@ class ArkEchoSettingsModel : public QObject
 {
     Q_OBJECT
 
+    // Temporäre Kopie der Music Directories List
+    QStringList directoriesList_;
+
 public:
     ArkEchoSettingsModel(QObject *parent = 0);
     ~ArkEchoSettingsModel();
+
+    QStringList& getDirectoriesList();
+    void newDirectory();
+    void editDirectory(int index);
+    void deleteDirectory(int index);
 };
 
 #endif // ARKECHOSETTINGSMODEL_H

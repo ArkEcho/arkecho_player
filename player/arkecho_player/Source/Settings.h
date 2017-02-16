@@ -22,6 +22,7 @@ class Settings : public QObject
 
 public:
     static QStringList& getMusicDirectoriesList();
+    static void setMusicDirectoriesList(QStringList& list);
 };
 
 #endif // SETTINGS_H

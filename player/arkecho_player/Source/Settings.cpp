@@ -13,7 +13,7 @@ void Settings::loadSettingsFromFile()
     QFile file(FILENAME);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) // Default Settings if File doesn't exist
     {
-        musicDirectoriesList_ = QStringList() << QDir::homePath() + "/Music/";
+        musicDirectoriesList_.append(QDir::homePath() + "/Music/");
     }
 
     QTextStream in(&file);
@@ -23,7 +23,7 @@ void Settings::loadSettingsFromFile()
         line = in.readLine();
         if (line == "") break;
         else if (line.startsWith("#")) continue;
-        else if (line != "") musicDirectoriesList_ = QStringList() << line;
+        else if (line != "") musicDirectoriesList_.append(line);
     }
 
     file.close();
@@ -52,4 +52,9 @@ void Settings::saveSettingsToFile()
 QStringList & Settings::getMusicDirectoriesList()
 {
     return musicDirectoriesList_;
+}
+
+void Settings::setMusicDirectoriesList(QStringList & list)
+{
+    musicDirectoriesList_ = list;
 }

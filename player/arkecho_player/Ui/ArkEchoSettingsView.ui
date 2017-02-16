@@ -36,12 +36,12 @@
       <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="swPagePath">
+     <widget class="QWidget" name="swPageDirectories">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
-        <widget class="QListWidget" name="listWidget"/>
+        <widget class="QListWidget" name="lwDirectories"/>
        </item>
        <item row="1" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -59,21 +59,21 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pbDirectoryNew">
            <property name="text">
             <string>Neu</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pbDirectoryEdit">
            <property name="text">
             <string>Bearbeiten</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="pbDirectoryDelete">
            <property name="text">
             <string>Löschen</string>
            </property>

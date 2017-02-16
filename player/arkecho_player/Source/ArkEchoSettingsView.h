@@ -16,12 +16,17 @@ class ArkEchoSettingsView : public QDialog
     void initUi();
     void setSwSettingsPageIndex(int index);
 
+    void setLwDirectories();
+
 public:
     ArkEchoSettingsView(QWidget *parent = 0);
     ~ArkEchoSettingsView();
 
 private slots:
     void onLwSettingsItemPressed(QListWidgetItem* item);
+    void onPbDirectoryNewClicked();
+    void onPbDirectoryEditClicked();
+    void onPbDirectoryDeleteClicked();
 };
 
 #endif // ARKECHOSETTINGSVIEW_H
