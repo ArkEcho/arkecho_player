@@ -28,6 +28,7 @@ void ArkEchoSettingsModel::newDirectory()
 
 void ArkEchoSettingsModel::editDirectory(int index)
 {
+    if (index < 0) return;
     QString actual = directoriesList_.at(index);
     QString dir = QFileDialog::getExistingDirectory(0, tr("Ordner anpassen:"), actual,
                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
@@ -36,5 +37,6 @@ void ArkEchoSettingsModel::editDirectory(int index)
 
 void ArkEchoSettingsModel::deleteDirectory(int index)
 {
+    if (index < 0) return;
     directoriesList_.removeAt(index);
 }

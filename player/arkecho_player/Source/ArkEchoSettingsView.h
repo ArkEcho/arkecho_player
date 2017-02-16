@@ -17,6 +17,7 @@ class ArkEchoSettingsView : public QDialog
     void setSwSettingsPageIndex(int index);
 
     void setLwDirectories();
+    int getLwDirectoriesSelectedItemType();
 
 public:
     ArkEchoSettingsView(QWidget *parent = 0);

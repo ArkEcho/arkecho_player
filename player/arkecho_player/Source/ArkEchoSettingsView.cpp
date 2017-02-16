@@ -41,25 +41,15 @@ void ArkEchoSettingsView::onPbDirectoryNewClicked()
 
 void ArkEchoSettingsView::onPbDirectoryEditClicked()
 {
-    if (!model_ || !ui_) return;
-
-    // Get selected Item (Single Selection Mode; only One)
-    QListWidgetItem* item = ui_->lwDirectories->selectedItems().at(0);
-    if (!item) return;
-    int index = item->type();
-    model_->editDirectory(index);
+    if (!model_) return;
+    model_->editDirectory(getLwDirectoriesSelectedItemType());
     setLwDirectories();
 }
 
 void ArkEchoSettingsView::onPbDirectoryDeleteClicked()
 {
-    if (!model_ || !ui_) return;
-
-    // Get selected Item (Single Selection Mode; only One)
-    QListWidgetItem* item = ui_->lwDirectories->selectedItems().at(0);
-    if (!item) return;
-    int index = item->type();
-    model_->deleteDirectory(index);
+    if (!model_) return;
+    model_->deleteDirectory(getLwDirectoriesSelectedItemType());
     setLwDirectories();
 }
 
@@ -93,6 +83,15 @@ void ArkEchoSettingsView::setLwDirectories()
     {
         QListWidgetItem* item = new QListWidgetItem(directories.at(i), ui_->lwDirectories, i);
     }
+}
+
+int ArkEchoSettingsView::getLwDirectoriesSelectedItemType()
+{
+    if (!ui_) return -1;
+    // Get selected Item (Single Selection Mode; only One)
+    QListWidgetItem* item = ui_->lwDirectories->selectedItems().at(0);
+    if (!item) return -1;
+    return item->type();
 }
 
 void ArkEchoSettingsView::onLwSettingsItemPressed(QListWidgetItem* item)
