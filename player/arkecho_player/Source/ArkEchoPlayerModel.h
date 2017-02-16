@@ -37,7 +37,6 @@ class ArkEchoPlayerModel : public QObject
     MusicSongList* musicSongList_;
     QMediaPlaylist* playlist_;
 
-    QStringList getMusicDirectoryList();
     QStringList getMusicFormatList();
 
     // Anhand einer Playlist Position die SongInfo im View aktualisieren und Senden

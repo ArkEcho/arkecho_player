@@ -1,5 +1,5 @@
-# ArkEcho Media Data Files
-*.amdf
+# ArkEcho Output Files
+*.ark
 
 # User-specific files
 *.suo

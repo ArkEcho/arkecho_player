@@ -4,10 +4,10 @@
 #include "WebSocketServer.h"
 #include "MessageHandler.h"
 #include "MusicSongList.h"
+#include "Settings.h"
 
 #include <QMessageBox>
 #include <QWebSocket>
-#include <QDir>
 #include <QMediaPlaylist>
 
 const QString SERVER_NAME = "ArkEchoServer";
@@ -46,7 +46,7 @@ ArkEchoPlayerModel::~ArkEchoPlayerModel()
 void ArkEchoPlayerModel::loadMusicSongList()
 {
     musicSongList_->getSongList().clear();
-    musicSongList_->loadSongs(getMusicDirectoryList(), getMusicFormatList());
+    musicSongList_->loadSongs(Settings::getMusicDirectoriesList(), getMusicFormatList());
 }
 
 void ArkEchoPlayerModel::showConnectQrDialog()
@@ -136,12 +136,6 @@ QString ArkEchoPlayerModel::getWebServerAddress()
 {
     if (!webSocketServer_) return "";
     return webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
-}
-
-QStringList ArkEchoPlayerModel::getMusicDirectoryList()
-{
-    QStringList list = QStringList() << QDir::homePath() + "/Music/";
-    return list;
 }
 
 QStringList ArkEchoPlayerModel::getMusicFormatList()
