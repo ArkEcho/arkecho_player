@@ -6,7 +6,7 @@ const QString DIALOGTITLE = "Einstellungen";
 enum SWSETTINGSPAGEINDEX
 {
     DIRECTORIES = 0,
-    TEST = 1
+    //TEST = 1
 };
 
 ArkEchoSettingsView::ArkEchoSettingsView(QWidget *parent)
@@ -59,7 +59,7 @@ void ArkEchoSettingsView::initUi()
 
     // ListWidget Settings initilisieren
     QListWidgetItem* item0 = new QListWidgetItem("Dateipfade anpassen", ui_->lwSettings, SWSETTINGSPAGEINDEX::DIRECTORIES);
-    QListWidgetItem* item1 = new QListWidgetItem("Test", ui_->lwSettings, SWSETTINGSPAGEINDEX::TEST);
+    //QListWidgetItem* item1 = new QListWidgetItem("Test", ui_->lwSettings, SWSETTINGSPAGEINDEX::TEST);
 
     // Set selected Page & Item
     ui_->lwSettings->setItemSelected(item0, true);
