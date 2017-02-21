@@ -46,7 +46,7 @@ ArkEchoPlayerModel::~ArkEchoPlayerModel()
 void ArkEchoPlayerModel::loadMusicSongList()
 {
     musicSongList_->getSongList().clear();
-    musicSongList_->loadSongs(Settings::getMusicDirectoriesList(), getMusicFormatList());
+    musicSongList_->loadSongs(Settings::getMusicDirectoriesList(), Settings::getMusicFormatsList());
 }
 
 void ArkEchoPlayerModel::showConnectQrDialog()
@@ -136,12 +136,6 @@ QString ArkEchoPlayerModel::getWebServerAddress()
 {
     if (!webSocketServer_) return "";
     return webSocketServer_->getWebSocketServerNetworkAdress() + ":" + QString::number(SERVER_PORT);
-}
-
-QStringList ArkEchoPlayerModel::getMusicFormatList()
-{
-    QStringList list = QStringList() << "*.mp3" << "*.m4a";
-    return list;
 }
 
 void ArkEchoPlayerModel::setActualSongInfoAndSend(int playlistPosition)

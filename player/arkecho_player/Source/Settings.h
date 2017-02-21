@@ -19,10 +19,14 @@ class Settings : public QObject
     static void saveSettingsToFile();
 
     static QStringList musicDirectoriesList_;
+    static QStringList musicFormatsList_;
 
 public:
     static QStringList& getMusicDirectoriesList();
     static void setMusicDirectoriesList(QStringList& list);
+
+    static QStringList& getMusicFormatsList();
+    static void setMusicFormatsList(QStringList& list);
 };
 
 #endif // SETTINGS_H

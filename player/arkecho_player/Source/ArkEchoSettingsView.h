@@ -18,6 +18,8 @@ class ArkEchoSettingsView : public QDialog
 
     void setLwDirectories();
     int getLwDirectoriesSelectedItemType();
+    void setLwFormats();
+    int getLwFormatsSelectedItemType();
 
 public:
     ArkEchoSettingsView(QWidget *parent = 0);
@@ -28,6 +30,9 @@ private slots:
     void onPbDirectoryNewClicked();
     void onPbDirectoryEditClicked();
     void onPbDirectoryDeleteClicked();
+    void onPbFormatNewClicked();
+    void onPbFormatEditClicked();
+    void onPbFormatDeleteClicked();
 };
 
 #endif // ARKECHOSETTINGSVIEW_H
