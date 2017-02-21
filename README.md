@@ -18,6 +18,7 @@ Another Feature is the ArkEcho Page, that controls the Player over your Web-Brow
 ArkEcho Player can play the following Audio Formats:
 - .mp3
 - .m4a
+- .wma
 
 ### App, Page and Player are using:
 - Material-Design-Icons [Github] (https://github.com/google/material-design-icons)
