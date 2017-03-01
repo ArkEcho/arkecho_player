@@ -190,6 +190,11 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
     case MessageHandler::MT_REQUEST_SONG_ACTUAL:
         setActualSongInfoAndSend(playlist_->currentIndex());
         break;
+    case MessageHandler::MT_REQUEST_SONGLIST:
+        QString songList;
+        musicSongList_->toJSONString(songList);
+        webSocketServer_->sendMessage(MessageHandler::MT_SEND_SONGLIST, songList);
+        break;
     }
 }
 

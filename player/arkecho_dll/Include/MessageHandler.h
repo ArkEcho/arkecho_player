@@ -21,7 +21,9 @@ public:
         MT_BACKWARD,
         MT_FORWARD,
         MT_REQUEST_SONG_ACTUAL,
-        MT_SEND_SONG_ACTUAL
+        MT_SEND_SONG_ACTUAL,
+        MT_REQUEST_SONGLIST,
+        MT_SEND_SONGLIST
     };
 
     // Setzt die Nachricht und den Typ zum JSON zusammenzimmern
