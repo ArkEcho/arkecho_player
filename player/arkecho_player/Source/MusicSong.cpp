@@ -82,7 +82,7 @@ void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
 {
     if (!mp_) return;
     status_ = status;
-    if (status_ == QMediaPlayer::MediaStatus::LoadedMedia || status_ == QMediaPlayer::MediaStatus::BufferedMedia)
+    if (status_ == QMediaPlayer::MediaStatus::LoadedMedia)// || status_ == QMediaPlayer::MediaStatus::BufferedMedia)
     {
         songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
         songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();

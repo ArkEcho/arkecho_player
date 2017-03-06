@@ -55,8 +55,7 @@ bool MusicSongList::allSongsLoaded()
     while (it.hasNext())
     {
         int actualKey = it.next().key();
-        MusicSong* actualSong
-            = songList_[actualKey];
+        MusicSong* actualSong = songList_[actualKey];
         if (!actualSong) continue;
         if (actualSong->getStatus() == QMediaPlayer::MediaStatus::InvalidMedia)
         {
@@ -68,8 +67,8 @@ bool MusicSongList::allSongsLoaded()
             ++countNotLoaded;
         }
     }
-    if (countNotLoaded == 0) return true;
-    return false;
+    if (countNotLoaded > 0) return false;
+    else return true;
 }
 
 void MusicSongList::loadSongs(QStringList& directories, QStringList& formats)
@@ -82,7 +81,7 @@ void MusicSongList::loadSongs(QStringList& directories, QStringList& formats)
         while (it->hasNext())
         {
             MusicSong* s = new MusicSong(QUrl::fromLocalFile(it->next()));
-            int key = songList_.size() + 1; // Keys beginnen mit 1
+            int key = songList_.size();
             songList_.insert(key,s);
         }
     }
@@ -114,10 +113,11 @@ void MusicSongList::sortSongs()
                 lowestAlbumSongKey = actualKey;
             }
         }
-        int newKey = newSongListSorted.size() + 1;
+        int newKey = newSongListSorted.size();
         newSongListSorted.insert(newKey, songList_[lowestAlbumSongKey]);
         songList_.remove(lowestAlbumSongKey);
     }
+    // Überschreiben der alten Liste mit der sortierten
     songList_ = newSongListSorted;
 }
 
