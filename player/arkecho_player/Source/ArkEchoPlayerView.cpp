@@ -18,11 +18,13 @@ const QString ACTUAL_SONG_INFO_TEXT_DEFAULT = "<Kein Lied gestartet>";
 const QString ACTUAL_SONG_INFO_TEXT_EMPTY = "<Keine Meta-Information>";
 const QString BUTTON_ICON_RESOURCE_PATH = "./Resources/player/";
 const QString MENU_ICON_RESOURCE_PATH = "./Resources/menu/";
-const int ROW_HEIGHT = 20;
+const QSize COVER_ART_ICON_SIZE = QSize(50, 50);
+//const int ROW_HEIGHT = 20;
 
 enum TableTrackListColumns
 {
-    TRACKL_ALBUMTITLE = 0,
+    TRACKL_COVERART = 0,
+    TRACKL_ALBUMTITLE,
     TRACKL_ALBUMNUMBER,
     TRACKL_SONGTITLE,
     TRACKL_SONGINTERPRET,
@@ -102,11 +104,13 @@ void ArkEchoPlayerView::initUi()
     setWebSocketStatusLabel(false);
 
     // TableWidget initialisieren
+    ui_->twTrackList->setIconSize(COVER_ART_ICON_SIZE);
     ui_->twTrackList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui_->twTrackList->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui_->twTrackList->verticalHeader()->setVisible(false);
     ui_->twTrackList->setColumnCount(TRACKL_MAX_COLUMN_COUNT);
-    ui_->twTrackList->setHorizontalHeaderLabels(QString("Album;Nummer;Titel;Interpret;Dauer").split(";"));
+    ui_->twTrackList->setHorizontalHeaderLabels(QString("Cover;Album;Nummer;Titel;Interpret;Dauer").split(";"));
+    ui_->twTrackList->setColumnWidth(TRACKL_COVERART, COVER_ART_ICON_SIZE.width());
     ui_->twTrackList->setColumnWidth(TRACKL_ALBUMTITLE, 200);
     ui_->twTrackList->setColumnWidth(TRACKL_ALBUMNUMBER, 60);
     ui_->twTrackList->setColumnWidth(TRACKL_SONGTITLE, 200);
@@ -200,8 +204,7 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
     ui_->twTrackList->setRowCount(0);
 
     QMap<int,MusicSong*> map = model_->getMusicSongList()->getSongList();
-    int mapSize = map.size();
-    if (mapSize == 0) return;
+    if (map.size() == 0) return;
 
     int row = 0;
     QMapIterator<int, MusicSong*> it(map);
@@ -216,7 +219,7 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
         if (filterText != "")
         {
             QStringList list = filterText.split(QRegExp("\\s")); // Split text by Whitespace
-            QString allTogether = song->getAlbumTitle() + song->getSongTitle() + song->getSongInterpret();
+            QString allTogether = song->getAlbumTitle() + song->getAlbumInterpret() + song->getSongInterpret() + song->getSongTitle();
             QStringListIterator it(list);
             while (it.hasNext())
             {
@@ -230,9 +233,13 @@ void ArkEchoPlayerView::setTWTrackList(QString filterText)
         }
         if (!cont) continue;
         ////////////////////
-
         ui_->twTrackList->setRowCount(row + 1);
-        ui_->twTrackList->setRowHeight(row, ROW_HEIGHT);
+        ui_->twTrackList->setRowHeight(row, COVER_ART_ICON_SIZE.height());
+        QTableWidgetItem *coverArt = new QTableWidgetItem(key);
+        QIcon ic1(QPixmap::fromImage(song->getAlbumCoverArt()));
+        coverArt->setIcon(ic1);
+        coverArt->setSizeHint(COVER_ART_ICON_SIZE);
+        ui_->twTrackList->setItem(row, TRACKL_COVERART, coverArt);
         ui_->twTrackList->setItem(row, TRACKL_ALBUMTITLE, new QTableWidgetItem(song->getAlbumTitle(), key));
         ui_->twTrackList->setItem(row, TRACKL_ALBUMNUMBER, new QTableWidgetItem(QString::number(song->getAlbumSongNumber()), key));
         ui_->twTrackList->setItem(row, TRACKL_SONGTITLE, new QTableWidgetItem(song->getSongTitle(), key));
