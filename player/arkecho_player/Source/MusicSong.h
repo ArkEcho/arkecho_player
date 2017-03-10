@@ -1,18 +1,12 @@
 #ifndef MUSICSONG_H
 #define MUSICSONG_H
 
-#include <QObject>
-#include <QUrl>
-#include <QMediaPlayer>
+#include "MediaFile.h"
 #include <QImage>
 
-class MusicSong : public QObject
+class MusicSong : public MediaFile
 {
     Q_OBJECT
-
-    QUrl url_;
-    QMediaPlayer::MediaStatus status_;
-    QMediaPlayer* mp_;
 
     QString songTitle_;
     QString songInterpret_;
@@ -24,12 +18,11 @@ class MusicSong : public QObject
     QString albumInterpret_;
     QImage albumCoverArt_;
 
+    void mediaLoaded();
+
 public:
     MusicSong(QUrl url, QObject* parent = 0);
     ~MusicSong();
-
-    QUrl getUrl();
-    QMediaPlayer::MediaStatus getStatus();
 
     QString getSongTitle();
     QString getSongInterpret();
@@ -43,9 +36,6 @@ public:
     QImage& getAlbumCoverArt();
 
     static QString convertMillisecondToMinuteSecond(qint64 millisecond);
-
-private slots:
-    void onMediaStatusChanged(const QMediaPlayer::MediaStatus status);
 };
 
 #endif // MUSICSONG_H

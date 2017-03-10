@@ -2,35 +2,30 @@
 
 #include <QMediaMetaData>
 #include <QTime>
-#include <QJsonObject>
-#include <QJsonDocument>
 
 MusicSong::MusicSong(QUrl url, QObject* parent)
-    :url_(url)
-    ,songDuration_(0)
+    :songDuration_(0)
     ,albumSongNumber_(0)
     ,albumSongCount_(0)
+    ,MediaFile(url)
 {
-    mp_ = new QMediaPlayer();
-    mp_->setMedia(url);
-
-    // Ist die Datei geladen wird der Slot ausgelöst und die MetaDaten geladen
-    connect(mp_, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(onMediaStatusChanged(QMediaPlayer::MediaStatus)));
 }
 
 MusicSong::~MusicSong()
 {
-    //delete mp_;
 }
 
-QMediaPlayer::MediaStatus MusicSong::getStatus()
+void MusicSong::mediaLoaded()
 {
-    return status_;
-}
+    songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
+    songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();
+    songDuration_ = mp_->metaData(QMediaMetaData::Duration).value<qint64>();
 
-QUrl MusicSong::getUrl()
-{
-    return url_;
+    albumSongNumber_ = mp_->metaData(QMediaMetaData::TrackNumber).toInt();
+    albumSongCount_ = mp_->metaData(QMediaMetaData::TrackCount).toInt();
+    albumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
+    albumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
+    albumCoverArt_ = mp_->metaData(QMediaMetaData::ThumbnailImage).value<QImage>();
 }
 
 QString MusicSong::getSongTitle()
@@ -76,25 +71,6 @@ QString MusicSong::getAlbumInterpret()
 QImage & MusicSong::getAlbumCoverArt()
 {
     return albumCoverArt_;
-}
-
-void MusicSong::onMediaStatusChanged(const QMediaPlayer::MediaStatus status)
-{
-    if (!mp_) return;
-    status_ = status;
-    if (status_ == QMediaPlayer::MediaStatus::LoadedMedia)// || status_ == QMediaPlayer::MediaStatus::BufferedMedia)
-    {
-        songTitle_ = mp_->metaData(QMediaMetaData::Title).toString();
-        songInterpret_ = mp_->metaData(QMediaMetaData::Author).toString();
-        songDuration_ = mp_->metaData(QMediaMetaData::Duration).value<qint64>();
-
-        albumSongNumber_ = mp_->metaData(QMediaMetaData::TrackNumber).toInt();
-        albumSongCount_ = mp_->metaData(QMediaMetaData::TrackCount).toInt();
-        albumTitle_ = mp_->metaData(QMediaMetaData::AlbumTitle).toString();
-        albumInterpret_ = mp_->metaData(QMediaMetaData::AlbumArtist).toString();
-        albumCoverArt_ = mp_->metaData(QMediaMetaData::ThumbnailImage).value<QImage>();
-    }
-    mp_->deleteLater();
 }
 
 QString MusicSong::convertMillisecondToMinuteSecond(qint64 millisecond)

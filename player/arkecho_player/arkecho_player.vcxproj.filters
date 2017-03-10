@@ -83,6 +83,9 @@
     <CustomBuild Include="Source\Settings.h">
       <Filter>Header Dateien</Filter>
     </CustomBuild>
+    <CustomBuild Include="Source\MediaFile.h">
+      <Filter>Header Dateien</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_ArkEchoPlayerView.h">
@@ -147,12 +150,6 @@
     <ClCompile Include="GeneratedFiles\qrc_style.cpp">
       <Filter>Generierte Dateien</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MusicSong.cpp">
-      <Filter>Generierte Dateien\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MusicSong.cpp">
-      <Filter>Generierte Dateien\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MusicSong.cpp">
       <Filter>Source Dateien</Filter>
     </ClCompile>
@@ -190,6 +187,21 @@
       <Filter>Generierte Dateien\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_Settings.cpp">
+      <Filter>Generierte Dateien\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MediaFile.cpp">
+      <Filter>Source Dateien</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MediaFile.cpp">
+      <Filter>Generierte Dateien\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MediaFile.cpp">
+      <Filter>Generierte Dateien\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MusicSong.cpp">
+      <Filter>Generierte Dateien\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MusicSong.cpp">
       <Filter>Generierte Dateien\Release</Filter>
     </ClCompile>
   </ItemGroup>
