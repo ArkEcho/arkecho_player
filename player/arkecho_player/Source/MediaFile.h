@@ -21,7 +21,7 @@ public:
     ~MediaFile();
 
     QUrl getUrl();
-    QMediaPlayer::MediaStatus getStatus();
+    QMediaPlayer::MediaStatus getMediaStatus();
 
 private slots:
     void onMediaStatusChanged(const QMediaPlayer::MediaStatus status);

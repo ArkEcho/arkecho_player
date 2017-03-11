@@ -20,7 +20,7 @@ QUrl MediaFile::getUrl()
     return url_;
 }
 
-QMediaPlayer::MediaStatus MediaFile::getStatus()
+QMediaPlayer::MediaStatus MediaFile::getMediaStatus()
 {
     return status_;
 }

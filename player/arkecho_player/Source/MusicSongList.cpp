@@ -1,5 +1,4 @@
 #include "MusicSongList.h"
-
 #include <QDirIterator>
 #include <QMapIterator>
 #include <QBuffer>
@@ -57,12 +56,12 @@ bool MusicSongList::allSongsLoaded()
         int actualKey = it.next().key();
         MusicSong* actualSong = songList_[actualKey];
         if (!actualSong) continue;
-        if (actualSong->getStatus() == QMediaPlayer::MediaStatus::InvalidMedia)
+        if (actualSong->getMediaStatus() == QMediaPlayer::MediaStatus::InvalidMedia)
         {
             delete actualSong;
             songList_.remove(actualKey);
         }
-        else if (actualSong->getStatus() != QMediaPlayer::MediaStatus::LoadedMedia)
+        else if (actualSong->getMediaStatus() != QMediaPlayer::MediaStatus::LoadedMedia)
         {
             ++countNotLoaded;
         }

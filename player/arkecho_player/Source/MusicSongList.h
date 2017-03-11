@@ -2,7 +2,6 @@
 #define MUSICSONGLIST_H
 
 #include "MusicSong.h"
-
 #include <QObject>
 #include <QMap>
 #include <QJsonObject>
