@@ -1,12 +1,13 @@
 #ifndef MUSICSONGLIST_H
 #define MUSICSONGLIST_H
 
+#include "arkecho_media_global.h"
 #include "MusicSong.h"
 #include <QObject>
 #include <QMap>
 #include <QJsonObject>
 
-class MusicSongList : public QObject
+class ARKECHO_MEDIA_EXPORT MusicSongList : public QObject
 {
     Q_OBJECT
 

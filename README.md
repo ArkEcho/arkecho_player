@@ -15,11 +15,6 @@ Its Feature is the ArkEcho App, that controls the Player via NetWork. Therefore 
 To Connect the App to the Player, you can scan a Qr-Code in the Player or type the Address manually.
 Another Feature is the ArkEcho Page, that controls the Player over your Web-Browser in the NetWork.
 
-ArkEcho Player can play the following Audio Formats:
-- .mp3
-- .m4a
-- .wma
-
 ### App, Page and Player are using:
 - Material-Design-Icons [Github] (https://github.com/google/material-design-icons)
 

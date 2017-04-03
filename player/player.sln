@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arkecho_player", "arkecho_p
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arkecho_dll", "arkecho_dll\arkecho_dll.vcxproj", "{8A072C89-6A08-42E7-A6A2-EDF8E9C2BC77}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arkecho_media", "arkecho_media\arkecho_media.vcxproj", "{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{8A072C89-6A08-42E7-A6A2-EDF8E9C2BC77}.Release|x64.Build.0 = Release|x64
 		{8A072C89-6A08-42E7-A6A2-EDF8E9C2BC77}.Release|x86.ActiveCfg = Release|Win32
 		{8A072C89-6A08-42E7-A6A2-EDF8E9C2BC77}.Release|x86.Build.0 = Release|Win32
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Debug|x64.ActiveCfg = Debug|x64
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Debug|x64.Build.0 = Debug|x64
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Debug|x86.ActiveCfg = Debug|Win32
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Debug|x86.Build.0 = Debug|Win32
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Release|x64.ActiveCfg = Release|x64
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Release|x64.Build.0 = Release|x64
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Release|x86.ActiveCfg = Release|Win32
+		{7EDA67DD-B70A-41D3-B298-2A2BEBACCBF2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

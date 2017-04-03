@@ -1,11 +1,12 @@
 #ifndef MEDIAFILE_H
 #define MEDIAFILE_H
 
+#include "arkecho_media_global.h"
 #include <QObject>
 #include <QUrl>
 #include <QMediaPlayer>
 
-class MediaFile : public QObject
+class ARKECHO_MEDIA_EXPORT MediaFile : public QObject
 {
     Q_OBJECT
 

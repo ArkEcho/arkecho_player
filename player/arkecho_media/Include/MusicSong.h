@@ -1,10 +1,11 @@
 #ifndef MUSICSONG_H
 #define MUSICSONG_H
 
+#include "arkecho_media_global.h"
 #include "MediaFile.h"
 #include <QImage>
 
-class MusicSong : public MediaFile
+class ARKECHO_MEDIA_EXPORT MusicSong : public MediaFile
 {
     Q_OBJECT
 
