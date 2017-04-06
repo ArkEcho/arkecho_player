@@ -7,7 +7,7 @@
 ### IMPORTANT INFORMATION:
 If some of your Media-Files aren't loaded by the player, you need to install extra Music Codec.
 
-###Description
+### Description
 ArkEcho is a private, non-commercial Project, developed by Stephan Ziesenis, Student of Health-Informatics at Heidelberg University & Heilbronn University.
 
 The ArkEcho Player is a 'normal' Media Player, like VLC or Windows Media Player. Its developed for playing Music-Songs.
