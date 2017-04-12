@@ -36,6 +36,7 @@ public:
 
 private slots:
     void onUpdateView(const int &uve);
+    void onRemoteVolumeValueChanged(const int & value);
     void on_actionManuelle_Verbindung_triggered();
     void on_actionQR_Code_Verbindung_triggered();
     void on_actionEinstellungen_triggered();
