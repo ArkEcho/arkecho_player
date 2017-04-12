@@ -175,7 +175,7 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
 {
     QString msg = message;
     int messageType = MessageHandler::handleReceivedMessage(msg);
-
+    QString answer;
     switch (messageType)
     {
     case MessageHandler::MT_BACKWARD:
@@ -191,9 +191,17 @@ void ArkEchoPlayerModel::onTextMessageReceived(const QString& message)
         setActualSongInfoAndSend(playlist_->currentIndex());
         break;
     case MessageHandler::MT_REQUEST_SONGLIST:
-        QString songList;
-        musicSongList_->toJSONString(songList);
-        webSocketServer_->sendMessage(MessageHandler::MT_SEND_SONGLIST, songList);
+        musicSongList_->toJSONString(answer);
+        webSocketServer_->sendMessage(MessageHandler::MT_SEND_SONGLIST, answer);
+        break;
+    case MessageHandler::MT_SHUFFLE:
+        emit updateView(REMOTE_BUTTON_SHUFFLE);
+        break;
+    case MessageHandler::MT_STOP:
+        emit updateView(REMOTE_BUTTON_STOP);
+        break;
+    case MessageHandler::MT_VOLUME_VALUE:
+        emit remoteVolumeValueChanged(msg.toInt());
         break;
     }
 }
