@@ -16,7 +16,9 @@ enum UpdateViewEnum
     WEBSOCKET_DISCONNECTED,
     REMOTE_BUTTON_BACKWARD,
     REMOTE_BUTTON_FORWARD,
-    REMOTE_BUTTON_PLAY_PAUSE
+    REMOTE_BUTTON_PLAY_PAUSE,
+    REMOTE_BUTTON_SHUFFLE,
+    REMOTE_BUTTON_STOP
 };
 
 struct SongInfoStruct
@@ -62,6 +64,7 @@ public:
 
 signals:
     void updateView(int);
+    void remoteVolumeValueChanged(int);
     void actualSongInfoChanged(SongInfoStruct);
 
 private slots:

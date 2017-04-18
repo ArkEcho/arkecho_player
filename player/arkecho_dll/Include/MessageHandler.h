@@ -23,7 +23,10 @@ public:
         MT_REQUEST_SONG_ACTUAL,
         MT_SEND_SONG_ACTUAL,
         MT_REQUEST_SONGLIST,
-        MT_SEND_SONGLIST
+        MT_SEND_SONGLIST,
+        MT_SHUFFLE,
+        MT_STOP,
+        MT_VOLUME_VALUE
     };
 
     // Setzt die Nachricht und den Typ zum JSON zusammenzimmern
