@@ -1,4 +1,6 @@
-# ArkEcho Player Development
+![Logo](player/arkecho_player/Resources/arkecho_logo/arkecho_logo_whole_dark.png)
+
+# Player
 
 - [Player](https://github.com/stephan-z/arkecho_player)
 - [Page](https://github.com/stephan-z/arkecho_page)
@@ -15,7 +17,7 @@ Its Feature is the ArkEcho App, that controls the Player via NetWork. Therefore 
 To Connect the App to the Player, you can scan a Qr-Code in the Player or type the Address manually.
 Another Feature is the ArkEcho Page, that controls the Player over your Web-Browser in the NetWork.
 
-### ArkEcho-Player is developed with Visual Studio 2015, Qt 5.7.0 in C++
+### ArkEcho Player is developed with Visual Studio 2015, Qt 5.7.0 in C++
 #### The Player is using:
 - [Material-Design-Icons](https://github.com/google/material-design-icons)
 - [Nayuki's Qr-Code Generator](https://github.com/nayuki/QR-Code-generator)
