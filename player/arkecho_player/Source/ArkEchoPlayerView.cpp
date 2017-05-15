@@ -41,6 +41,7 @@ ArkEchoPlayerView::ArkEchoPlayerView(QWidget *parent)
 {
     model_ = new ArkEchoPlayerModel();
     connect(model_, SIGNAL(updateView(int)), this, SLOT(onUpdateView(int)));
+    connect(model_, SIGNAL(remoteVolumeValueChanged(int)), this, SLOT(onRemoteVolumeValueChanged(int)));
     connect(model_, SIGNAL(actualSongInfoChanged(SongInfoStruct)), this, SLOT(onActualSongInfoChanged(SongInfoStruct)));
 
     player_ = new QMediaPlayer();
@@ -305,8 +306,21 @@ void ArkEchoPlayerView::onUpdateView(const int &uve)
     case REMOTE_BUTTON_PLAY_PAUSE:
         onPbPlay_PauseClicked();
         break;
+    case REMOTE_BUTTON_SHUFFLE:
+        onPbShuffleClicked();
+        break;
+    case REMOTE_BUTTON_STOP:
+        onPbStopClicked();
+        break;
     }
     qApp->processEvents();
+}
+
+void ArkEchoPlayerView::onRemoteVolumeValueChanged(const int & value)
+{
+    if (!ui_) return;
+    if (value < 0 || value > 100) return;
+    ui_->sliderVolume->setValue(value);
 }
 
 void ArkEchoPlayerView::on_actionManuelle_Verbindung_triggered()
