@@ -310,6 +310,7 @@
      <string>E&amp;xtras</string>
     </property>
     <addaction name="actionEinstellungen"/>
+    <addaction name="actionBibliothek_aktualisieren"/>
    </widget>
    <addaction name="menuVerbinden"/>
    <addaction name="menuExtras"/>
@@ -328,6 +329,11 @@
   <action name="actionEinstellungen">
    <property name="text">
     <string>&amp;Einstellungen</string>
+   </property>
+  </action>
+  <action name="actionBibliothek_aktualisieren">
+   <property name="text">
+    <string>Bibliothek &amp;aktualisieren</string>
    </property>
   </action>
  </widget>

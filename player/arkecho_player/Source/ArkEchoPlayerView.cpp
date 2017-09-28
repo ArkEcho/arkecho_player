@@ -341,6 +341,10 @@ void ArkEchoPlayerView::on_actionEinstellungen_triggered()
     model_->showSettingsDialog();
 }
 
+void ArkEchoPlayerView::on_actionBibliothek_aktualisieren_triggered()
+{
+}
+
 void ArkEchoPlayerView::onPbBackwardClicked()
 {
     if (!model_) return;
