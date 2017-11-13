@@ -23,59 +23,8 @@ Another Feature is the ArkEcho Page, that controls the Player over your Web-Brow
 - [Nayuki's Qr-Code Generator](https://github.com/nayuki/QR-Code-generator)
 - [QDarkStylesheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 
-### JSON Messages:
-```json
-{
-	"Message": string,
-	"Type": int
-}
-```
-
-### JSON Actual-Song:
-```json
-{
-	"SongTitle": string,	
-	"SongInterpret": string,
-	"SongDuration": int,
-	"AlbumSongNumber": int,
-	"AlbumSongCount": int,
-	"AlbumTitle": string,
-	"AlbumInterpret": string,
-	"CoverArt": string
-}
-```
-
-### JSON Songlist:
-```json
-{
-	"SongList":
-	[
-		{
-			"Key": int,
-			"Song": 
-			{		
-				"SongTitle": string,	
-				"SongInterpret": string,
-				"SongDuration": int,
-				"AlbumSongNumber": int,
-				"AlbumSongCount": int,
-				"AlbumTitle": string,
-				"AlbumInterpret": string
-			}
-		},
-		{
-			"Key": int,
-			"Song": 
-			{		
-				"SongTitle": string,	
-				"SongInterpret": string,
-				"SongDuration": int,
-				"AlbumSongNumber": int,
-				"AlbumSongCount": int,
-				"AlbumTitle": string,
-				"AlbumInterpret": string
-			}
-		}
-	]
-}
-```
+### Logo
+Background:	#31363b
+Font:		Bauhaus 93, NOT Bold
+Size:		96
+Color:		#eff0f1

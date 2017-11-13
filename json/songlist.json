@@ -1,0 +1,31 @@
+{
+	"SongList":
+	[
+		{
+			"Key": int,
+			"Song": 
+			{		
+				"SongTitle": string,	
+				"SongInterpret": string,
+				"SongDuration": int,
+				"AlbumSongNumber": int,
+				"AlbumSongCount": int,
+				"AlbumTitle": string,
+				"AlbumInterpret": string
+			}
+		},
+		{
+			"Key": int,
+			"Song": 
+			{		
+				"SongTitle": string,	
+				"SongInterpret": string,
+				"SongDuration": int,
+				"AlbumSongNumber": int,
+				"AlbumSongCount": int,
+				"AlbumTitle": string,
+				"AlbumInterpret": string
+			}
+		}
+	]
+}

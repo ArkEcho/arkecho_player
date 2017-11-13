@@ -1,0 +1,10 @@
+{
+	"SongTitle": string,	
+	"SongInterpret": string,
+	"SongDuration": int,
+	"AlbumSongNumber": int,
+	"AlbumSongCount": int,
+	"AlbumTitle": string,
+	"AlbumInterpret": string,
+	"CoverArt": string
+}
